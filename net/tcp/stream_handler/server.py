@@ -10,12 +10,13 @@ def senddata():
         print "response:",key,data
         con[key].send(data)
 
+run_flag=true
 class Handler(StreamRequestHandler):
     def handle(self):
         addr=self.request.getpeername()
         con[addr]=self
         print "got connection from",addr
-        while True:
+        while run_flag:
             try:
                 data=self.request.recv(1024)
                 if len(data)==0:
