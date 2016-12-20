@@ -1,4 +1,5 @@
-# Copyright (C) 
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-# Copyright (C) 
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -37,7 +38,7 @@ def fff():
     pass
 
 def www():
-    pass
+    print "www"
 
 if __name__=="__main__":
     print ss
