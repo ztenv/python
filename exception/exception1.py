@@ -17,8 +17,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 # 
 __version__ = '1.0.0.0'
-import traceback
 import os
+import traceback
 
 
 class Base(object):
