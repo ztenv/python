@@ -1,3 +1,12 @@
+# -*- coding:utf8 -*-
+##
+# @file recv.py
+# @brief 启用负载，多个消费者轮询消费消息
+# @author shlian
+# @version 1.0
+# @date 2017-02-10
+
+
 import sys
 import time
 import pika

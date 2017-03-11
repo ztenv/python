@@ -1,3 +1,11 @@
+# -*- coding:utf8 -*-
+##
+# @file recv.py
+# @brief 向队列直接发送消息
+# @author shlian
+# @version 1.0
+# @date 2017-02-10
+
 import sys
 import time
 import pika
