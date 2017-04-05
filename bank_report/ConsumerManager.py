@@ -23,7 +23,7 @@ class ConsumerManager(object):
     def __init__(self,month):
         self._month=str(month)
         self._Consumer_map={}
-        self._fileName=".\\客户名单.xlsx".decode("utf-8")
+        self._fileName=".\\{0}月\\客户名单.xlsx".format(self._month).decode("utf-8")
 
     def _parser_Subback(self,business_line):
         bl=str(business_line)

@@ -28,11 +28,11 @@ class EnterpriseManager(object):
     def __init__(self,month):
         self._month=str(month)
 
-        self._Settlement_file=".\\{0}月结算量.xlsx".format(self._month).decode("utf-8")
-        self._Sum_Settlement_file=".\\1-{0}月结算量.xlsx".format(self._month).decode("utf-8")
-        self._Profit_file=".\\1-{0}月收益.xlsx".format(int(self._month)-1).decode("utf-8")
-        self._Sum_Profit_file=".\\1-{0}月收益.xlsx".format(self._month).decode("utf-8")
-        self._Financial_market_file=".\\{0}月金融市场.xlsx".format(self._month).decode("utf-8")
+        self._Settlement_file=".\\{0}月\\{0}月结算量.xlsx".format(self._month).decode("utf-8")
+        self._Sum_Settlement_file=".\\{0}月\\1-{0}月结算量.xlsx".format(self._month).decode("utf-8")
+        self._Profit_file=".\\{1}月\\1-{0}月收益.xlsx".format(int(self._month)-1,self._month).decode("utf-8")
+        self._Sum_Profit_file=".\\{0}月\\1-{0}月收益.xlsx".format(self._month).decode("utf-8")
+        self._Financial_market_file=".\\{0}月\\{0}月金融市场.xlsx".format(self._month).decode("utf-8")
 
         self._Master_Table_file=".\\{0}月总表.xls".format(self._month).decode("utf-8")
         self._ConsumerManager=ConsumerManager.ConsumerManager(month)
@@ -40,7 +40,7 @@ class EnterpriseManager(object):
 
     def _check_file(self):
         if not os.path.exists(self._Settlement_file):
-            log.fatal("文件:{0} 不存在，请核对.".format(self.Settlement_file))
+            log.fatal("文件:{0} 不存在，请核对.".format(self._Settlement_file))
             return -1
         if not os.path.exists(self._Sum_Settlement_file):
             log.fatal("文件:{0} 不存在，请核对.".format(self._Sum_Settlement_file))
@@ -265,6 +265,6 @@ class EnterpriseManager(object):
 
 if __name__=="__main__":
     print "test ",__name__
-    em=EnterpriseManager(2)
+    em=EnterpriseManager(3)
     em.load()
     em.save()
