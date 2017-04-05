@@ -19,9 +19,9 @@ def callback(ch,methon,properties,body):
 connection=pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel=connection.channel(channel_number=1)
 
-channel.exchange_declare(exchange='direct_exchange',exchange_type='direct')
+channel.exchange_declare(exchange='fanout_exchange',exchange_type='fanout')
 result=channel.queue_declare()
-channel.queue_bind(queue=result.method.queue,exchange='direct_exchange',routing_key='hello',)#只接收routing_key为hello的消息
+channel.queue_bind(queue=result.method.queue,exchange='fanout_exchange')
 
 channel.basic_consume(callback,queue=result.method.queue,no_ack=True)
 channel.start_consuming()

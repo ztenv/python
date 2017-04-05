@@ -1,0 +1,145 @@
+<table cellspacing=0 cellpadding=0 style="color:#ffffff;background:#000000"><tr><td colspan><pre><font color=#ffffff><font color=#af5f00>  1 </font><font color=#0000c0>#!/usr/bin/python</font> 
+<font color=#af5f00>  2 </font><font color=#0000c0># -*- coding: utf-8 -*-</font> 
+<font color=#af5f00>  3 </font><font color=#0000c0># Copyright (C) </font> 
+<font color=#af5f00>  4 </font><font color=#0000c0># </font> 
+<font color=#af5f00>  5 </font><font color=#0000c0># This program is free software; you can redistribute it and/or</font> 
+<font color=#af5f00>  6 </font><font color=#0000c0># modify it under the terms of the GNU General Public License</font> 
+<font color=#af5f00>  7 </font><font color=#0000c0># as published by the Free Software Foundation; either version 2</font> 
+<font color=#af5f00>  8 </font><font color=#0000c0># of the License, or (at your option) any later version.</font> 
+<font color=#af5f00>  9 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 10 </font><font color=#0000c0># This program is distributed in the hope that it will be useful,</font> 
+<font color=#af5f00> 11 </font><font color=#0000c0># but WITHOUT ANY WARRANTY; without even the implied warranty of</font> 
+<font color=#af5f00> 12 </font><font color=#0000c0># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font> 
+<font color=#af5f00> 13 </font><font color=#0000c0># GNU General Public License for more details.</font> 
+<font color=#af5f00> 14 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 15 </font><font color=#0000c0># You should have received a copy of the GNU General Public License</font> 
+<font color=#af5f00> 16 </font><font color=#0000c0># along with this program; if not, write to the Free Software</font> 
+<font color=#af5f00> 17 </font><font color=#0000c0># Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</font> 
+<font color=#af5f00> 18 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 19 </font>
+<font color=#af5f00> 20 </font><font color=#c000c0>import</font> threading 
+<font color=#af5f00> 21 </font><font color=#c000c0>import</font> time 
+<font color=#af5f00> 22 </font>
+<font color=#af5f00> 23 </font><font color=#af5f00>class</font> <font color=#008080>thr</font>(<font color=#008080>object</font>): 
+<font color=#af5f00> 24 </font>    <font color=#af5f00>def</font> <font color=#008080>__init__</font>(self): 
+<font color=#af5f00> 25 </font>        <font color=#af5f00>pass</font> 
+<font color=#af5f00> 26 </font>
+<font color=#af5f00> 27 </font>    <font color=#af5f00>def</font> <font color=#008080>_r1</font>(self,name,): 
+<font color=#af5f00> 28 </font>        <font color=#008080>print</font> <font color=#c00000>"_r1"</font>,name ,<font color=#c00000>" is running"</font> 
+<font color=#af5f00> 29 </font>        <font color=#af5f00>for</font> i <font color=#af5f00>in</font> <font color=#008080>xrange</font>(<font color=#c00000>1</font>,<font color=#c00000>10</font>,<font color=#c00000>1</font>): 
+<font color=#af5f00> 30 </font>            <font color=#008080>print</font> i 
+<font color=#af5f00> 31 </font>            time.sleep(<font color=#c00000>1</font>) 
+<font color=#af5f00> 32 </font>
+<font color=#af5f00> 33 </font>    <font color=#af5f00>def</font> <font color=#008080>_r2</font>(self): 
+<font color=#af5f00> 34 </font>        <font color=#008080>print</font> <font color=#c00000>"_r2 "</font>, <font color=#c00000>" is running"</font> 
+<font color=#af5f00> 35 </font>        <font color=#af5f00>for</font> i <font color=#af5f00>in</font> <font color=#008080>xrange</font>(<font color=#c00000>1</font>,<font color=#c00000>10</font>,<font color=#c00000>1</font>): 
+<font color=#af5f00> 36 </font>            <font color=#008080>print</font> i 
+<font color=#af5f00> 37 </font>            time.sleep(<font color=#c00000>1</font>) 
+<font color=#af5f00> 38 </font>
+<font color=#af5f00> 39 </font>    <font color=#af5f00>def</font> <font color=#008080>start1</font>(self): 
+<font color=#af5f00> 40 </font>        self._t1=threading.Thread(target=self._r1,args=(<font color=#c00000>"t1"</font>,))<font color=#0000c0>#这两个线程将会被并行执行</font> 
+<font color=#af5f00> 41 </font>        self._t1.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 42 </font>        self._t1.start() 
+<font color=#af5f00> 43 </font>        self._t2=threading.Thread(target=self._r1,args=(<font color=#c00000>"t2"</font>,))<font color=#0000c0>#这两个线程将会被并行执行</font> 
+<font color=#af5f00> 44 </font>        self._t2.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 45 </font>        self._t2.start() 
+<font color=#af5f00> 46 </font>
+<font color=#af5f00> 47 </font>
+<font color=#af5f00> 48 </font>    <font color=#af5f00>def</font> <font color=#008080>start2</font>(self): 
+<font color=#af5f00> 49 </font>        self._t11=threading.Thread(target=self._r2())<font color=#0000c0>#这两个线程将会被串行执行</font> 
+<font color=#af5f00> 50 </font>        self._t11.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 51 </font>        self._t11.start() 
+<font color=#af5f00> 52 </font>        self._t12=threading.Thread(target=self._r2())<font color=#0000c0>#这两个线程将会被串行执行</font> 
+<font color=#af5f00> 53 </font>        self._t12.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 54 </font>        self._t12.start() 
+<font color=#af5f00> 55 </font>
+<font color=#af5f00> 56 </font>    <font color=#af5f00>def</font> <font color=#008080>wait</font>(self): 
+<font color=#af5f00> 57 </font>        <font color=#af5f00>try</font>: 
+<font color=#af5f00> 58 </font>            <font color=#af5f00>if</font> self._t1 <font color=#af5f00>and</font> self._t2: 
+<font color=#af5f00> 59 </font>                self._t1.join() 
+<font color=#af5f00> 60 </font>                self._t2.join() 
+<font color=#af5f00> 61 </font>            <font color=#af5f00>if</font> self._t11 <font color=#af5f00>and</font> self._t12: 
+<font color=#af5f00> 62 </font>                self._t11.join() 
+<font color=#af5f00> 63 </font>                self._t12.join() 
+<font color=#af5f00> 64 </font>        <font color=#af5f00>except</font> <font color=#008000>Exception</font> <font color=#af5f00>as</font> err: 
+<font color=#af5f00> 65 </font>            <font color=#008080>print</font> err 
+<font color=#af5f00> 66 </font>
+<font color=#af5f00> 67 </font><font color=#af5f00>if</font> __name__==<font color=#c00000>"__main__"</font>: 
+<font color=#af5f00> 68 </font>    t=thr() 
+<font color=#af5f00> 69 </font>    t.start1() 
+<font color=#af5f00> 70 </font>    t.start2() 
+<font color=#af5f00> 71 </font>    t.wait() </font>
+</pre></td></tr><tr><td><table align=right><tr><td width=20%></td><td width=80%><small><i><font color=#008000>Code syntax highlighting by </font><a style="color:#ffffff;background:#000000" href=http://www.vim.org><u><b>VIM</b></u></a><font color=#008000> captured with </font><a style="color:#ffffff;background:#000000"  href=http://www.vim.org/scripts/script.php?script_id=1552><u><b>ScreenShot</b></u></a><font color=#008000>  script </font></i></small></td></tr></table></td></tr></table>
+<table cellspacing=0 cellpadding=0 style="color:#ffffff;background:#000000"><tr><td colspan><pre><font color=#ffffff><font color=#af5f00>  1 </font><font color=#0000c0>#!/usr/bin/python</font> 
+<font color=#af5f00>  2 </font><font color=#0000c0># -*- coding: utf-8 -*-</font> 
+<font color=#af5f00>  3 </font><font color=#0000c0># Copyright (C) </font> 
+<font color=#af5f00>  4 </font><font color=#0000c0># </font> 
+<font color=#af5f00>  5 </font><font color=#0000c0># This program is free software; you can redistribute it and/or</font> 
+<font color=#af5f00>  6 </font><font color=#0000c0># modify it under the terms of the GNU General Public License</font> 
+<font color=#af5f00>  7 </font><font color=#0000c0># as published by the Free Software Foundation; either version 2</font> 
+<font color=#af5f00>  8 </font><font color=#0000c0># of the License, or (at your option) any later version.</font> 
+<font color=#af5f00>  9 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 10 </font><font color=#0000c0># This program is distributed in the hope that it will be useful,</font> 
+<font color=#af5f00> 11 </font><font color=#0000c0># but WITHOUT ANY WARRANTY; without even the implied warranty of</font> 
+<font color=#af5f00> 12 </font><font color=#0000c0># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font> 
+<font color=#af5f00> 13 </font><font color=#0000c0># GNU General Public License for more details.</font> 
+<font color=#af5f00> 14 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 15 </font><font color=#0000c0># You should have received a copy of the GNU General Public License</font> 
+<font color=#af5f00> 16 </font><font color=#0000c0># along with this program; if not, write to the Free Software</font> 
+<font color=#af5f00> 17 </font><font color=#0000c0># Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</font> 
+<font color=#af5f00> 18 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 19 </font>
+<font color=#af5f00> 20 </font><font color=#c000c0>import</font> threading 
+<font color=#af5f00> 21 </font><font color=#c000c0>import</font> time 
+<font color=#af5f00> 22 </font>
+<font color=#af5f00> 23 </font><font color=#af5f00>class</font> <font color=#008080>thr</font>(<font color=#008080>object</font>): 
+<font color=#af5f00> 24 </font>    <font color=#af5f00>def</font> <font color=#008080>__init__</font>(self): 
+<font color=#af5f00> 25 </font>        <font color=#af5f00>pass</font> 
+<font color=#af5f00> 26 </font>
+<font color=#af5f00> 27 </font>    <font color=#af5f00>def</font> <font color=#008080>_r1</font>(self,name,): 
+<font color=#af5f00> 28 </font>        <font color=#008080>print</font> <font color=#c00000>"_r1"</font>,name ,<font color=#c00000>" is running"</font> 
+<font color=#af5f00> 29 </font>        <font color=#af5f00>for</font> i <font color=#af5f00>in</font> <font color=#008080>xrange</font>(<font color=#c00000>1</font>,<font color=#c00000>10</font>,<font color=#c00000>1</font>): 
+<font color=#af5f00> 30 </font>            <font color=#008080>print</font> i 
+<font color=#af5f00> 31 </font>            time.sleep(<font color=#c00000>1</font>) 
+<font color=#af5f00> 32 </font>
+<font color=#af5f00> 33 </font>    <font color=#af5f00>def</font> <font color=#008080>_r2</font>(self): 
+<font color=#af5f00> 34 </font>        <font color=#008080>print</font> <font color=#c00000>"_r2 "</font>, <font color=#c00000>" is running"</font> 
+<font color=#af5f00> 35 </font>        <font color=#af5f00>for</font> i <font color=#af5f00>in</font> <font color=#008080>xrange</font>(<font color=#c00000>1</font>,<font color=#c00000>10</font>,<font color=#c00000>1</font>): 
+<font color=#af5f00> 36 </font>            <font color=#008080>print</font> i 
+<font color=#af5f00> 37 </font>            time.sleep(<font color=#c00000>1</font>) 
+<font color=#af5f00> 38 </font>
+<font color=#af5f00> 39 </font>    <font color=#af5f00>def</font> <font color=#008080>start1</font>(self): 
+<font color=#af5f00> 40 </font>        self._t1=threading.Thread(target=self._r1,args=(<font color=#c00000>"t1"</font>,))<font color=#0000c0>#这两个线程将会被并行执行</font> 
+<font color=#af5f00> 41 </font>        self._t1.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 42 </font>        self._t1.start() 
+<font color=#af5f00> 43 </font>        self._t2=threading.Thread(target=self._r1,args=(<font color=#c00000>"t2"</font>,))<font color=#0000c0>#这两个线程将会被并行执行</font> 
+<font color=#af5f00> 44 </font>        self._t2.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 45 </font>        self._t2.start() 
+<font color=#af5f00> 46 </font>
+<font color=#af5f00> 47 </font>
+<font color=#af5f00> 48 </font>    <font color=#af5f00>def</font> <font color=#008080>start2</font>(self): 
+<font color=#af5f00> 49 </font>        self._t11=threading.Thread(target=self._r2())<font color=#0000c0>#这两个线程将会被串行执行</font> 
+<font color=#af5f00> 50 </font>        self._t11.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 51 </font>        self._t11.start() 
+<font color=#af5f00> 52 </font>        self._t12=threading.Thread(target=self._r2())<font color=#0000c0>#这两个线程将会被串行执行</font> 
+<font color=#af5f00> 53 </font>        self._t12.setDaemon(<font color=#008080>True</font>) 
+<font color=#af5f00> 54 </font>        self._t12.start() 
+<font color=#af5f00> 55 </font>
+<font color=#af5f00> 56 </font>    <font color=#af5f00>def</font> <font color=#008080>wait</font>(self): 
+<font color=#af5f00> 57 </font>        <font color=#af5f00>try</font>: 
+<font color=#af5f00> 58 </font>            <font color=#af5f00>if</font> self._t1 <font color=#af5f00>and</font> self._t2: 
+<font color=#af5f00> 59 </font>                self._t1.join() 
+<font color=#af5f00> 60 </font>                self._t2.join() 
+<font color=#af5f00> 61 </font>            <font color=#af5f00>if</font> self._t11 <font color=#af5f00>and</font> self._t12: 
+<font color=#af5f00> 62 </font>                self._t11.join() 
+<font color=#af5f00> 63 </font>                self._t12.join() 
+<font color=#af5f00> 64 </font>        <font color=#af5f00>except</font> <font color=#008000>Exception</font> <font color=#af5f00>as</font> err: 
+<font color=#af5f00> 65 </font>            <font color=#008080>print</font> err 
+<font color=#af5f00> 66 </font>
+<font color=#af5f00> 67 </font><font color=#af5f00>if</font> __name__==<font color=#c00000>"__main__"</font>: 
+<font color=#af5f00> 68 </font>    t=thr() 
+<font color=#af5f00> 69 </font>    t.start1() 
+<font color=#af5f00> 70 </font>    t.start2() 
+<font color=#af5f00> 71 </font>    t.wait() </font>
+</pre></td></tr><tr><td><table align=right><tr><td width=20%></td><td width=80%><small><i><font color=#008000>Code syntax highlighting by </font><a style="color:#ffffff;background:#000000" href=http://www.vim.org><u><b>VIM</b></u></a><font color=#008000> captured with </font><a style="color:#ffffff;background:#000000"  href=http://www.vim.org/scripts/script.php?script_id=1552><u><b>ScreenShot</b></u></a><font color=#008000>  script </font></i></small></td></tr></table></td></tr></table>
+

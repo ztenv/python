@@ -1,0 +1,63 @@
+<table cellspacing=0 cellpadding=0 style="color:#ffffff;background:#000000"><tr><td colspan><pre><font color=#ffffff><font color=#af5f00>  1 </font><font color=#0000c0>#!/usr/bin/env python</font> 
+<font color=#af5f00>  2 </font><font color=#0000c0># -*- coding: utf-8 -*-# Copyright (C) </font> 
+<font color=#af5f00>  3 </font><font color=#0000c0># </font> 
+<font color=#af5f00>  4 </font><font color=#0000c0># This program is free software; you can redistribute it and/or</font> 
+<font color=#af5f00>  5 </font><font color=#0000c0># modify it under the terms of the GNU General Public License</font> 
+<font color=#af5f00>  6 </font><font color=#0000c0># as published by the Free Software Foundation; either version 2</font> 
+<font color=#af5f00>  7 </font><font color=#0000c0># of the License, or (at your option) any later version.</font> 
+<font color=#af5f00>  8 </font><font color=#0000c0># </font> 
+<font color=#af5f00>  9 </font><font color=#0000c0># This program is distributed in the hope that it will be useful,</font> 
+<font color=#af5f00> 10 </font><font color=#0000c0># but WITHOUT ANY WARRANTY; without even the implied warranty of</font> 
+<font color=#af5f00> 11 </font><font color=#0000c0># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font> 
+<font color=#af5f00> 12 </font><font color=#0000c0># GNU General Public License for more details.</font> 
+<font color=#af5f00> 13 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 14 </font><font color=#0000c0># You should have received a copy of the GNU General Public License</font> 
+<font color=#af5f00> 15 </font><font color=#0000c0># along with this program; if not, write to the Free Software</font> 
+<font color=#af5f00> 16 </font><font color=#0000c0># Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</font> 
+<font color=#af5f00> 17 </font><font color=#0000c0># </font> 
+<font color=#af5f00> 18 </font>
+<font color=#af5f00> 19 </font><font color=#c000c0>import</font> time 
+<font color=#af5f00> 20 </font><font color=#c000c0>import</font> json 
+<font color=#af5f00> 21 </font><font color=#c000c0>import</font> threading 
+<font color=#af5f00> 22 </font>
+<font color=#af5f00> 23 </font>ss=<font color=#c00000>"abcdefg"</font> 
+<font color=#af5f00> 24 </font><font color=#008080>print</font> ss.capitalize() 
+<font color=#af5f00> 25 </font><font color=#008080>print</font> ss.encode(encoding=<font color=#c00000>'utf-8'</font>) 
+<font color=#af5f00> 26 </font>
+<font color=#af5f00> 27 </font><font color=#008080>map</font>={<font color=#c00000>1</font>:<font color=#c00000>"1"</font>,<font color=#c00000>2</font>:<font color=#c00000>"2"</font>} 
+<font color=#af5f00> 28 </font><font color=#008080>list</font>=[<font color=#c00000>1</font>,<font color=#c00000>2</font>,<font color=#c00000>3</font>,<font color=#c00000>4</font>,<font color=#c00000>5</font>] 
+<font color=#af5f00> 29 </font>tup=(<font color=#c00000>1</font>,<font color=#c00000>2</font>,<font color=#c00000>3</font>,<font color=#c00000>4</font>,<font color=#c00000>5</font>) 
+<font color=#af5f00> 30 </font>
+<font color=#af5f00> 31 </font>var=<font color=#c00000>"{</font><font color=#c000c0>\"</font><font color=#c00000>1</font><font color=#c000c0>\"</font><font color=#c00000>:</font><font color=#c000c0>\"</font><font color=#c00000>2</font><font color=#c000c0>\"</font><font color=#c00000>}"</font> 
+<font color=#af5f00> 32 </font>
+<font color=#af5f00> 33 </font>
+<font color=#af5f00> 34 </font><font color=#af5f00>def</font> <font color=#008080>test</font>(aa,bb,cc,dd): 
+<font color=#af5f00> 35 </font>    <font color=#af5f00>pass</font> 
+<font color=#af5f00> 36 </font>
+<font color=#af5f00> 37 </font><font color=#af5f00>def</font> <font color=#008080>fff</font>(): 
+<font color=#af5f00> 38 </font>    <font color=#af5f00>pass</font> 
+<font color=#af5f00> 39 </font>
+<font color=#af5f00> 40 </font><font color=#af5f00>def</font> <font color=#008080>www</font>(): 
+<font color=#af5f00> 41 </font>    <font color=#008080>print</font> <font color=#c00000>"www"</font> 
+<font color=#af5f00> 42 </font>
+<font color=#af5f00> 43 </font><font color=#af5f00>if</font> __name__==<font color=#c00000>"__main__"</font>: 
+<font color=#af5f00> 44 </font>    <font color=#008080>print</font> ss 
+<font color=#af5f00> 45 </font>    <font color=#008080>print</font> <font color=#008080>map</font> 
+<font color=#af5f00> 46 </font>    <font color=#008080>print</font> <font color=#008080>list</font> 
+<font color=#af5f00> 47 </font>    <font color=#008080>print</font> tup 
+<font color=#af5f00> 48 </font>
+<font color=#af5f00> 49 </font>    <font color=#af5f00>try</font>: 
+<font color=#af5f00> 50 </font>        json.loads(ss, encoding=<font color=#008080>None</font>, cls=<font color=#008080>None</font>, object_hook=<font color=#008080>None</font>,parse_float=<font color=#008080>None</font>, parse_int=<font color=#008080>None</font>, parse_constant=<font color=#008080>None</font>, object_pairs_hook=<font color=#008080>None</font>) 
+<font color=#af5f00> 51 </font>    <font color=#af5f00>except</font> <font color=#008000>Exception</font> <font color=#af5f00>as</font> err: 
+<font color=#af5f00> 52 </font>        <font color=#008080>print</font> err 
+<font color=#af5f00> 53 </font>
+<font color=#af5f00> 54 </font>    <font color=#008080>map</font>[<font color=#c00000>"list"</font>]=<font color=#008080>list</font> 
+<font color=#af5f00> 55 </font>    <font color=#008080>map</font>[<font color=#c00000>"tup"</font>]=tup 
+<font color=#af5f00> 56 </font>    <font color=#008080>print</font> <font color=#c00000>"json.dumps map object:"</font>, json.dumps(<font color=#008080>map</font>) 
+<font color=#af5f00> 57 </font>    time.sleep(<font color=#c00000>0.1</font>) 
+<font color=#af5f00> 58 </font>    <font color=#008080>print</font> json.dumps(var) 
+<font color=#af5f00> 59 </font>    <font color=#008080>print</font> time.localtime() 
+<font color=#af5f00> 60 </font>    <font color=#008080>print</font> <font color=#c00000>"exit"</font> 
+<font color=#af5f00> 61 </font></font>
+</pre></td></tr><tr><td><table align=right><tr><td width=20%></td><td width=80%><small><i><font color=#008000>Code syntax highlighting by </font><a style="color:#ffffff;background:#000000" href=http://www.vim.org><u><b>VIM</b></u></a><font color=#008000> captured with </font><a style="color:#ffffff;background:#000000"  href=http://www.vim.org/scripts/script.php?script_id=1552><u><b>ScreenShot</b></u></a><font color=#008000>  script </font></i></small></td></tr></table></td></tr></table>
+
