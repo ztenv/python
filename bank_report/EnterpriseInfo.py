@@ -28,8 +28,8 @@ class EnterpriseManager(object):
     def __init__(self,month):
         self._month=str(month)
 
-        self._Settlement_file=".\\{0}月\\{0}月结算量.xlsx".format(self._month).decode("utf-8")
-        self._Sum_Settlement_file=".\\{0}月\\1-{0}月结算量.xlsx".format(self._month).decode("utf-8")
+        self._Settlement_file=".\\{0}月\\{0}月结算量表.xlsx".format(self._month).decode("utf-8")
+        self._Sum_Settlement_file=".\\{0}月\\1-{0}月结算量表.xlsx".format(self._month).decode("utf-8")
         self._Profit_file=".\\{1}月\\1-{0}月收益.xlsx".format(int(self._month)-1,self._month).decode("utf-8")
         self._Sum_Profit_file=".\\{0}月\\1-{0}月收益.xlsx".format(self._month).decode("utf-8")
         self._Financial_market_file=".\\{0}月\\{0}月金融市场.xlsx".format(self._month).decode("utf-8")
@@ -209,10 +209,11 @@ class EnterpriseManager(object):
             name=""
             for row in range(4,sheet.nrows):
                 try:
-                    name=sheet.cell(row,4).value
+                    name=sheet.cell(row,2).value #客户名称在第3列
                     value=0.0
-                    for i in range(5,15):
-                        value+=float(sheet.cell(row,i).value)
+                    value+=float(sheet.cell(row,13).value)
+                    #for i in range(5,15)://5月份的收益模板有变动，不用累加求和了，只需要从14列取出加和即可
+                    #    value+=float(sheet.cell(row,i).value)
                     ei=self._Enterprise_map.get(str(name).decode("utf-8"))
                     if ei:
                         ei.Sum_Profit+=value
