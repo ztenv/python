@@ -94,14 +94,15 @@ class EnterpriseManager(object):
                 sheet.write(i,2,item.Consumer.Business_Line.decode("utf-8"))
                 sheet.write(i,3,item.Consumer.Manager.decode("utf-8"))
                 sheet.write(i,4,item.Settlement)
-                sheet.write(i,5,item.Sum_Settlement)
-                sheet.write(i,6,item.Profit)
-                sheet.write(i,7,item.Sum_Profit)
+                sheet.write(i,5,round(item.Sum_Settlement,2))
+                sheet.write(i,6,round(item.Profit,2))
+                sheet.write(i,7,round(item.Sum_Profit,2))
                 sheet.write(i,8,item.Is_valid)
                 i+=1
                 #log.info(item)
         except Exception as ee:
             log.exception(ee)
+            log.error(item.Sum_Settlement)
         finally:
             f.save(self._Master_Table_file)
 
@@ -113,7 +114,7 @@ class EnterpriseManager(object):
             sheet=book.sheet_by_index(0)
             name=""
             value=0.0
-            for row in range(3,sheet.nrows):
+            for row in range(4,sheet.nrows):
                 try:
                     name=sheet.cell(row,1).value
                     value=sheet.cell(row,2).value
@@ -137,7 +138,7 @@ class EnterpriseManager(object):
             sheet=book.sheet_by_index(0)
             name=""
             value=0.0
-            for row in range(3,sheet.nrows):
+            for row in range(4,sheet.nrows):
                 try:
                     name=sheet.cell(row,1).value
                     value=sheet.cell(row,2).value
@@ -209,11 +210,11 @@ class EnterpriseManager(object):
             name=""
             for row in range(4,sheet.nrows):
                 try:
-                    name=sheet.cell(row,2).value #客户名称在第3列
+                    name=sheet.cell(row,4).value
                     value=0.0
-                    value+=float(sheet.cell(row,13).value)
-                    #for i in range(5,15)://5月份的收益模板有变动，不用累加求和了，只需要从14列取出加和即可
-                    #    value+=float(sheet.cell(row,i).value)
+                    #value+=float(sheet.cell(row,13).value)
+                    for i in range(5,15):
+                        value+=float(sheet.cell(row,i).value)
                     ei=self._Enterprise_map.get(str(name).decode("utf-8"))
                     if ei:
                         ei.Sum_Profit+=value
@@ -225,6 +226,7 @@ class EnterpriseManager(object):
                         log.warn("客户名称:{0} 不存在企业信息中".format(name))
                 except Exception as ee:
                     log.exception(ee)
+                    log.error(sheet.cell(row,i).value)
 
         except Exception as ee:
             log.exception(ee)
