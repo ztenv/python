@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--KBSS系统对接crm系统接口配置  zhuliang 2017.06.14 -->
+<!--KBSS系统部署对接crm kcbp可以在账户系统的 XA Resource直接新加载一个XA
+需要kbss2crm.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+<!--字典项dict 需自行调整-->
+
+<!--函数列表-->
+<function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="strSource" type="string"/>
+ </argument>
+</function>
+
+<function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="inputstring" type="string"/>
+  <argv name="start" type="int"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="formattor" type="string"/>
+ </argument>
+</function>
+
+<function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="orgtimestr" type="string"/>
+  <argv name="opdirect" type="string"/>
+  <argv name="type" type="string"/>
+ </argument>
+</function>
+
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+<function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="StrVal" type="string"/>
+  <argv name="Param"  type="string"/>
+  <argv name="ValLen" type="int"/>
+ </argument>
+</function>
+
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+<function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--KBSS版柜台解密函数encrypt.dll -->
+<function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--OTC柜台加密函数KDEncodeCli.dll -->
+<function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--OTC柜台重加密函数KDEncodeCli.dll -->
+<function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="oldkey"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+  <argv name="newkey"  type="string"/>
+ </argument>
+</function>
+
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+<function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval1" type="string"/>
+  <argv name="strval2"  type="string"/>
+  <argv name="flag" type="string"/>
+ </argument>
+</function>
+
+<!--16进制转换10进制 -->
+<function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval" type="string"/>
+ </argument>
+</function>
+
+<!--复数字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+<function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryNames" type="string"/>
+  <argv name="SrcFlag" type="int"/>
+  <argv name="DstFlag" type="int"/>
+ </argument>
+</function>
+
+<!--区间字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+<function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryName" type="string"/>
+ </argument>
+</function>
+
+<!-- 用户类型字典 产品户2转为1-->
+<dict name="USER_TYPE_KBSS">
+    <!-- win版柜台系统  账户系统-->
+    <entry name="0"     value="0"  remark="个人             " />
+    <entry name="1"     value="1"  remark="机构             " />
+    <entry name="2"     value="1"  remark="产品户转为机构    " />
+</dict>
+
+<!-- 查询客户资产信息 -->
+<message src="L7010000" dst="CR101011">
+  <input format="!table">
+    <field src="KCBP_NODE"            dst="g_serverid"         width="8"   default="1"  dict="KCBP_NODE2SERVER_ID"    remark="节点编号"    />
+    <field src="@messagedst"          dst="g_funcid"           width="8"   default=""  remark="LBM服务名称" />
+    <field src="F_OP_USER"            dst="g_operid"           width="16"    default=""    remark="操作用户代码"          />
+    <field src="g_operpwd#-1"         dst="g_operpwd"          width="32"  default="11"  remark="操作员密码"  />
+    <field src="F_CHANNEL"            dst="g_operway"          width="1"   default=""  dict="CHANNEL"    remark="操作渠道"    />
+    <!--field src="F_OP_SITE#-1=substr(F_OP_SITE,2,15)"            dst="g_stationaddr"      width="16"  default=""  remark="操作网点"    /-->
+    <field src="g_checksno#-1"       dst="g_checksno"          width="16"  default="0"  remark="复核流水号"  />
+    <field src="F_SYSTEM"            dst="g_system"             width="64"  default="k" dict="" remark="告诉对接系统是KBSS" />
+    
+    <field src="CUST_CODE"           dst="custid"              width="64"    default=""    remark="客户代码"          />
+  </input>
+  <output format="table">
+    <field src="custid"              dst="CUST_CODE"           width="64"    default=""    remark="客户代码"          />
+    <field src="assettype"           dst="ASSET_TYPE"          width="1"     default=""    remark="资产类型"          />
+    <field src="busitype"            dst="BUSI_TYPE"           width="64"    default=""    remark="业务类型"          />
+    <field src="assetval1"           dst="ASSET_VAL1"          width="64"    default=""    remark="金融资产"          />
+    <field src="assetval2"           dst="ASSET_VAL2"          width="64"    default=""    remark="证券资产"          />
+    <field src="assetval3"           dst="ASSET_VAL3"          width="64"    default=""    remark="其他资产"          />
+  </output>
+</message>
+
+<!-- win版配置模板 -->
+<message src="L0000000" dst="cxf">
+  <input format="!table">
+    <field src="KCBP_NODE"            dst="g_serverid"         width="8"   default="1"  dict="KCBP_NODE2SERVER_ID"    remark="节点编号"    />
+    <field src="@messagedst"          dst="g_funcid"           width="8"   default=""  remark="LBM服务名称" />
+    <field src="F_OP_USER_TEMP#-1=substr(F_SESSION,4,16)"      dst=""           width="16"  default=""  remark="操作员代码"  />
+    <field src="F_OP_USER#-1=HexToDec(F_OP_USER_TEMP)"         dst="g_operid "               width="16"    default=""    remark="操作用户代码"          />
+    <field src="g_operpwd#-1"         dst="g_operpwd"          width="32"  default=""  remark="操作员密码"  />
+    <field src="F_CHANNEL"            dst="g_operway"          width="1"   default=""  dict="CHANNEL"    remark="操作渠道"    />
+    <field src="F_OP_SITE#-1=substr(F_OP_SITE,2,15)"            dst="g_stationaddr"      width="16"  default=""  remark="操作网点"    />
+    <field src="g_checksno#-1"       dst="g_checksno"          width="16"  default="0"  remark="复核流水号"  />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+</kdmid1pc>

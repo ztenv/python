@@ -1,0 +1,1542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+  <dict name="OPEN_TYPE_ID">
+    <entry name="0" value="0" title="开户"/>
+    <entry name="1" value="2" title="销户"/>
+    <entry name="2" value="1" title="修改"/>
+  </dict>
+  <function name="FillZero" path="KDMID1PCFactoryFunction.dll" entrypoint="FillZero">
+    <return name="dst" type="string"/>
+    <argument>
+      <argv name="src" type="string"/>
+      <argv name="len" type="string"/>
+    </argument>
+  </function>
+  <function name="IPString2HexString" path="KDMID1PCFactoryFunction.dll" entrypoint="IPString2HexString">
+    <return name="dst" type="string"/>
+    <argument>
+      <argv name="src" type="string"/>
+    </argument>
+  </function>
+  <function name="MD5Encrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="MD5Encrypt">
+    <return name="dst" type="string"/>
+    <argument>
+      <argv name="src1" type="string"/>
+      <argv name="src2" type="string"/>
+      <argv name="src3" type="string"/>
+      <argv name="src4" type="string"/>
+      <argv name="src5" type="string"/>
+      <argv name="src6" type="string"/>
+      <argv name="src7" type="string"/>
+    </argument>
+  </function>
+  <dict name="DICT_acpt_status" title="密码类型">
+    <entry name="0" value="0" title="成功"/>
+    <entry name="1" value="3" title="失败"/>
+  </dict>
+<!--KBSS系统对接WIN版交易柜台接口配置  lanwf 2010.03.15 -->
+<!--KBSS系统部署win版kcbp 可以在win版kcbp XA Resource直接加载一个XA
+需要kbss2win.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+<!--字典项dict 需自行调整-->
+<!-- 错误代码转换表 -->
+  <dict name="errorcode">
+<!-- win版柜台          KBSS系统 -->
+    <entry name="-12020877" value="100"/>
+    <entry name="-12020877" value="100"/>
+  </dict>
+<!-- KCBP节点编码与win版ServerId的转换 -->
+<!-- KCBP节点编码:是指账户系统SUBSYS_CFG中的KCBP_NODE-->
+  <dict name="KCBP_NODE2SERVER_ID">
+    <entry name="31" value="1"/>
+    <entry name="32" value="2"/>
+    <entry name="33" value="3"/>
+    <entry name="34" value="4"/>
+    <entry name="35" value="5"/>
+    <entry name="36" value="6"/>
+    <entry name="37" value="7"/>
+    <entry name="38" value="8"/>
+    <entry name="39" value="9"/>
+  </dict>
+<!-- 服务部转换营业部,没有服务部不需要配置 -->
+  <dict name="INT_ORG">
+<!-- WIN版 服务部代码  <=>      营业部代码 -->
+    <entry name="0000" value="0000" remark=""/>
+  </dict>
+<!-- 交易板块转换 KBSS<> WIN -->
+  <dict name="STKBD">
+    <entry name="00" value="2" remark="深圳Ａ股"/>
+    <entry name="01" value="H" remark="深圳Ｂ股"/>
+    <entry name="10" value="1" remark="上海Ａ股"/>
+    <entry name="11" value="D" remark="上海Ｂ股"/>
+    <entry name="20" value="9" remark="股转Ａ股"/>
+    <entry name="21" value="A" remark="股转Ｂ股"/>
+  </dict>
+<!-- 交易板块转换 win<> KBSS -->
+  <dict name="STKBD1">
+    <entry name="2" value="00" remark="深圳Ａ股"/>
+    <entry name="H" value="01" remark="深圳Ｂ股"/>
+    <entry name="1" value="10" remark="上海Ａ股"/>
+    <entry name="D" value="11" remark="上海Ｂ股"/>
+    <entry name="9" value="20" remark="股转Ａ股"/>
+    <entry name="A" value="21" remark="股转Ｂ股"/>
+    <entry name="0" value="" remark=""/>
+    <entry name="F1" value="" remark=""/>
+    <entry name="F2" value="" remark=""/>
+    <entry name="F3" value="" remark=""/>
+    <entry name="F3" value="" remark=""/>
+  </dict>
+<!--股东帐户外部分类转换    KBSS<>WIN  -->
+  <dict name="TRDACCT_EXCLS">
+    <entry name="0" value="0" remark="个人帐户"/>
+    <entry name="1" value="4" remark="机构帐户"/>
+    <entry name="4" value="1" remark="基金帐户"/>
+  </dict>
+<!--股东帐户外部分类转换    KBSS<>WIN  -->
+  <dict name="TRDACCT_EXCLS1">
+    <entry name="0" value="0" remark="个人帐户"/>
+    <entry name="1" value="4" remark="基金帐户"/>
+    <entry name="2" value="" remark=""/>
+    <entry name="3" value="" remark=""/>
+    <entry name="4" value="1" remark="机构帐户"/>
+    <entry name="6" value="" remark=""/>
+  </dict>
+<!--首选联系电话转换    KBSS<>WIN  -->
+  <dict name="LINKTEL_ORDER">
+    <entry name="1" value="3" remark="手机"/>
+    <entry name="2" value="1" remark="家庭电话"/>
+    <entry name="3" value="2" remark="工作电话"/>
+    <entry name="4" value="1" remark="小灵通"/>
+  </dict>
+<!-- 交易市场转换 WIN<> KBSS -->
+  <dict name="MARKET">
+    <entry name="0" value="0" remark="深圳Ａ股"/>
+    <entry name="2" value="0" remark="深圳Ｂ股"/>
+    <entry name="6" value="2" remark="股转Ａ股"/>
+    <entry name="7" value="2" remark="股转Ｂ股"/>
+    <entry name="1" value="1" remark="上海Ａ股"/>
+    <entry name="3" value="1" remark="上海Ｂ股"/>
+    <entry name="5" value="1" remark="港股"/>
+  </dict>
+<!-- 操作员状态设置转换 -->
+  <dict name="OP_STATUS">
+    <entry name="01" value="131007" remark="冻结柜员"/>
+    <entry name="10" value="131008" remark="解冻柜员"/>
+    <entry name="09" value="131009" remark="注销柜员"/>
+    <entry name="02" value="131007" remark="冻结柜员"/>
+    <entry name="20" value="131008" remark="解冻柜员"/>
+    <entry name="30" value="131026" remark="密码解锁"/>
+  </dict>
+<!-- 证券业务（复数） -->
+  <dict name="STK_BIZES">
+    <entry name="100" value="0B" remark="证券买入"/>
+    <entry name="101" value="0S" remark="证券卖出"/>
+    <entry name="103" value="7B" remark="新股申购"/>
+    <entry name="104" value="7H" remark="新股增发"/>
+    <entry name="106" value="4B" remark="配股"/>
+    <entry name="107" value="ES" remark="要约收购"/>
+    <entry name="108" value="FS" remark="解除要约"/>
+    <entry name="110" value="9M" remark="质押入库"/>
+    <entry name="111" value="9N" remark="质押出库"/>
+    <entry name="115" value="9M" remark="质押入库且冻结"/>
+    <entry name="116" value="9N" remark="质押出库且解冻"/>
+    <entry name="140" value="" remark="国债分销"/>
+    <entry name="145" value="CD" remark="债券兑付"/>
+    <entry name="146" value="ZC" remark="债券兑息"/>
+    <entry name="150" value="9B" remark="回购融资"/>
+    <entry name="151" value="9D" remark="回购融券"/>
+    <entry name="152" value="6S" remark="转债申购"/>
+    <entry name="153" value="6T" remark="转债配债"/>
+    <entry name="160" value="5S" remark="转债转股"/>
+    <entry name="161" value="6S" remark="转债回售"/>
+    <entry name="162" value="9E" remark="买断回购融资"/>
+    <entry name="163" value="9G" remark="买断回购融券"/>
+    <entry name="164" value="" remark="质押回购融资"/>
+    <entry name="165" value="" remark="质押回购融券"/>
+    <entry name="170" value="7M" remark="基金申购"/>
+    <entry name="180" value="7K" remark="ETF现金认购"/>
+    <entry name="181" value="7K" remark="ETF申购"/>
+    <entry name="182" value="7L" remark="ETF赎回"/>
+    <entry name="190" value="" remark="开发式基金认购"/>
+    <entry name="191" value="" remark="开发式基金跨市场转托"/>
+    <entry name="192" value="" remark="开发式基金分红方式设定"/>
+    <entry name="193" value="" remark="开发式基金转换"/>
+    <entry name="194" value="" remark="开放式基金申购"/>
+    <entry name="195" value="" remark="开放式基金赎回"/>
+    <entry name="200" value="" remark="权证创设"/>
+    <entry name="201" value="" remark="权证注销"/>
+    <entry name="202" value="" remark="证券给付型认购权证行权"/>
+    <entry name="203" value="" remark="证券给付型认沽权证行权"/>
+    <entry name="204" value="" remark="现金结算型认购权证行权"/>
+    <entry name="205" value="" remark="现金结算型认沽权证行权"/>
+    <entry name="300" value="Z0" remark="指定交易"/>
+    <entry name="301" value="Z1" remark="撤消指定"/>
+    <entry name="302" value="Z2" remark="回购指定"/>
+    <entry name="303" value="Z3" remark="回购撤消"/>
+    <entry name="330" value="28" remark="证券转托管出"/>
+    <entry name="340" value="" remark="密码服务"/>
+    <entry name="345" value="" remark="议案投票"/>
+    <entry name="500" value="" remark="新股登记"/>
+    <entry name="501" value="" remark="股份托管"/>
+    <entry name="502" value="" remark="合并证券账户"/>
+    <entry name="503" value="" remark="更换证券账户"/>
+    <entry name="504" value="" remark="红股到帐"/>
+    <entry name="505" value="" remark="股息派发"/>
+    <entry name="506" value="" remark="退款退息明细"/>
+    <entry name="507" value="" remark="配股到帐"/>
+    <entry name="508" value="3S" remark="证券转托管入"/>
+    <entry name="600" value="" remark="司法冻结"/>
+    <entry name="601" value="" remark="司法冻结解冻"/>
+    <entry name="602" value="" remark="司法冻结续冻"/>
+    <entry name="603" value="" remark="司法冻结轮候"/>
+    <entry name="604" value="" remark="司法冻结轮候解除"/>
+    <entry name="610" value="" remark="证券冻结"/>
+    <entry name="611" value="" remark="证券解冻"/>
+    <entry name="612" value="" remark="证券过户"/>
+    <entry name="@" value="@" remark=""/>
+  </dict>
+<!-- 基金账户状态设置 -->
+  <dict name="OFACCT_STATUS">
+    <entry name="1" value="240103" remark="冻结"/>
+    <entry name="0" value="240104" remark="解冻"/>
+  </dict>
+<!-- 基金账户类型转换 -->
+  <dict name="OFACCT_TYPE">
+    <entry name="0" value="1" remark="个人"/>
+    <entry name="1" value="0" remark="机构"/>
+  </dict>
+<!-- 代理资金权限设置 -->
+  <dict name="agentfundbizset">
+    <entry name="0" value="300101" remark="代理关系建立"/>
+    <entry name="1" value="300103" remark="代理关系修改"/>
+    <entry name="2" value="300102" remark="代理关系取消"/>
+  </dict>
+<!-- 基金账户状态设置 -->
+  <dict name="INPUT_TYPE">
+    <entry name="C" value="120117" remark="校验客户密码"/>
+    <entry name="F" value="120224" remark="校验资金密码"/>
+  </dict>
+<!-- 资金账户类别 KBSS<> WIN-->
+  <dict name="CUACCT_CLS">
+    <entry name="0" value="0" remark=""/>
+  </dict>
+<!-- 资金账户级别 KBSS<> WIN-->
+  <dict name="CUACCT_LVL">
+    <entry name="0" value="0" remark=""/>
+  </dict>
+<!-- 资产帐户币种分户销户 -->
+<!-- 资产帐户销户 -->
+  <dict name="cuacctclose">
+    <entry name="0" value="120239" remark="币种销户"/>
+    <entry name="1" value="120232" remark="资产帐户销户"/>
+  </dict>
+<!-- 资金账户级别 KBSS<> WIN-->
+  <dict name="CUACCT_GRP">
+    <entry name="0" value="0" remark=""/>
+  </dict>
+<!-- 客户分组 KBSS<> WIN-->
+  <dict name="CUST_GRP">
+    <entry name="*" value="0" remark=""/>
+  </dict>
+<!-- 交易板块转币种 -->
+  <dict name="STKBD2CURRENCY">
+    <entry name="00" value="0" remark=""/>
+    <entry name="10" value="0" remark=""/>
+    <entry name="01" value="1" remark=""/>
+    <entry name="11" value="2" remark=""/>
+    <entry name="20" value="0" remark=""/>
+    <entry name="21" value="2" remark=""/>
+  </dict>
+<!-- 证券类别 -->
+  <dict name="STK_CLSES">
+    <entry name="A" value="0" remark="股票"/>
+    <entry name="B" value="4" remark="基金"/>
+    <entry name="C" value="5" remark="投资基金"/>
+    <entry name="D" value="E" remark="ETF基金"/>
+    <entry name="E" value="L" remark="LOF基金"/>
+    <entry name="G" value="Q" remark="权证"/>
+    <entry name="H" value="1" remark="国债"/>
+    <entry name="I" value="A" remark="实物国债"/>
+    <entry name="J" value="C" remark="企业债券"/>
+    <entry name="K" value="B" remark="实物企债"/>
+    <entry name="L" value="8" remark="转换债券"/>
+    <entry name="O" value="3" remark="国债回购"/>
+    <entry name="P" value="6" remark="企债回购"/>
+    <entry name="Q" value="D" remark="买断回购"/>
+    <entry name="R" value="G" remark="质押回购"/>
+    <entry name="S" value="H" remark="企债质押"/>
+    <entry name="T" value="M" remark="标准券"/>
+    <entry name="V" value="J" remark="股票(三板美)"/>
+    <entry name="W" value="" remark="指数统计"/>
+    <entry name="X" value="" remark="议案投票"/>
+    <entry name="Y" value="Z" remark="指定交易"/>
+    <entry name="Z" value="" remark="密码服务"/>
+    <entry name="@" value="@" remark=""/>
+  </dict>
+<!-- 证券类别(柜台到账户) -->
+  <dict name="STK_CLS">
+    <entry name="0" value="A" remark="股票"/>
+    <entry name="4" value="B" remark="基金"/>
+    <entry name="5" value="C" remark="投资基金"/>
+    <entry name="E" value="D" remark="ETF基金"/>
+    <entry name="L" value="E" remark="LOF基金"/>
+    <entry name="Q" value="G" remark="权证"/>
+    <entry name="1" value="H" remark="国债"/>
+    <entry name="A" value="I" remark="实物国债"/>
+    <entry name="C" value="J" remark="企业债券"/>
+    <entry name="B" value="K" remark="实物企债"/>
+    <entry name="8" value="L" remark="转换债券"/>
+    <entry name="3" value="O" remark="国债回购"/>
+    <entry name="6" value="P" remark="企债回购"/>
+    <entry name="D" value="Q" remark="买断回购"/>
+    <entry name="G" value="R" remark="质押回购"/>
+    <entry name="H" value="S" remark="企债质押"/>
+    <entry name="M" value="T" remark="标准券"/>
+    <entry name="J" value="V" remark="股票(三板美)"/>
+    <entry name="Z" value="Y" remark="指定交易"/>
+    <entry name="" value="X" remark="议案投票"/>
+    <entry name="@" value="@" remark=""/>
+  </dict>
+<!-- 代理业务操作类型转换 -->
+  <dict name="AGENTBIZ_OPERATION_TYPE">
+    <entry name="0" value="A" remark="增加    "/>
+    <entry name="1" value="U" remark="修改    "/>
+    <entry name="2" value="D" remark="删除    "/>
+  </dict>
+<!-- 银证开户 -->
+  <dict name="cubsbopen">
+    <entry name="016" value="160101" remark="转账开户"/>
+    <entry name="017" value="160101" remark="转账开户"/>
+    <entry name="116" value="168929" remark="一步签约"/>
+    <entry name="117" value="168971" remark="指定银行"/>
+  </dict>
+<!-- 存管销户 -->
+  <dict name="cubsbclose">
+    <entry name="0" value="160102" remark="转账销户"/>
+    <entry name="1" value="168921" remark="存管销户"/>
+  </dict>
+<!-- 银证账户设置 -->
+  <dict name="cubsbmdf">
+    <entry name="0" value="168930" remark="转账帐户修改"/>
+    <entry name="1" value="168930" remark="存管帐户修改"/>
+  </dict>
+<!-- 签约状态 -->
+  <dict name="CONTRACT_STATUS">
+    <entry name="0" value="0" remark="签约"/>
+    <entry name="9" value="1" remark="待签约"/>
+    <entry name="*" value="9" remark="销户"/>
+    <entry name="6" value="1" remark="待签约"/>
+  </dict>
+  <dict name="SEX">
+<!-- 金证代码        WIN版代码 -->
+    <entry name="0" value="1" remark="男"/>
+    <entry name="1" value="2" remark="女"/>
+    <entry name="2" value="" remark="其他"/>
+    <entry name="" value="" remark="其他"/>
+  </dict>
+<!-- 银证查询币种转换 -->
+  <dict name="CUBSB_CURRENCY">
+    <entry name="0" value="0" remark=""/>
+    <entry name="1" value="1" remark=""/>
+    <entry name="2" value="2" remark=""/>
+    <entry name="@" value="" remark=""/>
+  </dict>
+<!-- 客户重要资料修改功能转换  -->
+  <dict name="MDF_USER_IMP_INFO">
+    <entry name="1" value="120108" remark="客户修改"/>
+    <entry name="2" value="131004" remark="操作员修改"/>
+    <entry name="3" value="120108" remark=""/>
+    <entry name="4" value="120108" remark=""/>
+  </dict>
+<!-- 客户基本资料修改功能转换  -->
+  <dict name="MDF_USER_GEN_INFO">
+    <entry name="1" value="120107" remark="资产账户销户"/>
+    <entry name="2" value="131004" remark="资产账户币种销户"/>
+    <entry name="3" value="120107" remark="资产账户币种销户"/>
+    <entry name="4" value="120107" remark="资产账户币种销户"/>
+  </dict>
+<!-- 证件类型 -->
+  <dict name="ID_TYPE">
+<!-- 金证代码        win版代码 -->
+    <entry name="00" value="0" remark="身份证号             "/>
+    <entry name="01" value="1" remark="护照号码             "/>
+    <entry name="02" value="3" remark="军官证               "/>
+    <entry name="03" value="7" remark="士兵证               "/>
+    <entry name="04" value="9" remark="回乡证               "/>
+    <entry name="05" value="8" remark="户口本               "/>
+    <entry name="06" value="B" remark="外国护照             "/>
+    <entry name="07" value="5" remark="解放军文职干部       "/>
+    <entry name="08" value="G" remark="临时身份证           "/>
+    <entry name="09" value="4" remark="其它证件             "/>
+    <entry name="0A" value="A" remark="其他有效旅行证       "/>
+    <entry name="0b" value="L" remark="香港居民通行证       "/>
+    <entry name="0c" value="M" remark="澳门居民通行证       "/>
+    <entry name="0d" value="N" remark="台湾居民通行证       "/>
+    <entry name="0e" value="O" remark="外国人永久居留证     "/>
+    <entry name="10" value="2" remark="工商营业执照         "/>
+    <entry name="11" value="G" remark="社团法人注册登记证书 "/>
+    <entry name="12" value="G" remark="机关法人成立批文     "/>
+    <entry name="13" value="G" remark="事业法人成立批文     "/>
+    <entry name="14" value="G" remark="境外有效商业登记证明 "/>
+    <entry name="15" value="G" remark="武警                 "/>
+    <entry name="16" value="G" remark="军队                 "/>
+    <entry name="17" value="G" remark="基金会               "/>
+    <entry name="18" value="G" remark="技术监督局号码       "/>
+    <entry name="19" value="G" remark="其它证书             "/>
+    <entry name="1A" value="E" remark="组织机构代码证       "/>
+    <entry name="1B" value="G" remark="税务登记证           "/>
+  </dict>
+<!-- 基金证件类型 -->
+  <dict name="OF_ID_TYPE">
+<!-- 金证代码        win版代码 -->
+    <entry name="00" value="0" remark="身份证号             "/>
+    <entry name="01" value="1" remark="护照号码             "/>
+    <entry name="02" value="2" remark="军官证               "/>
+    <entry name="03" value="3" remark="士兵证               "/>
+    <entry name="04" value="4" remark="回乡证               "/>
+    <entry name="05" value="5" remark="户口本               "/>
+    <entry name="06" value="6" remark="外国护照             "/>
+    <entry name="07" value="7" remark="解放军文职干部       "/>
+    <entry name="08" value="9" remark="临时身份证             "/>
+    <entry name="09" value="J" remark="其它证件             "/>
+    <entry name="0b" value="4" remark="香港居民通行证       "/>
+    <entry name="0c" value="4" remark="澳门居民通行证       "/>
+    <entry name="0d" value="a" remark="台湾居民通行证       "/>
+    <entry name="0e" value="9" remark="外国人永久居留证     "/>
+    <entry name="10" value="B" remark="工商营业执照         "/>
+    <entry name="11" value="G" remark="社团法人注册登记证书 "/>
+    <entry name="12" value="G" remark="机关法人成立批文     "/>
+    <entry name="13" value="G" remark="事业法人成立批文     "/>
+    <entry name="14" value="G" remark="境外有效商业登记证明 "/>
+    <entry name="15" value="G" remark="武警                 "/>
+    <entry name="16" value="F" remark="军队                 "/>
+    <entry name="17" value="I" remark="基金会               "/>
+    <entry name="18" value="G" remark="技术监督局号码       "/>
+    <entry name="19" value="G" remark="其它证书             "/>
+    <entry name="1A" value="A" remark="组织机构代码证       "/>
+    <entry name="1B" value="G" remark="税务登记证           "/>
+  </dict>
+<!-- 基金自动开户操作类型转换 -->
+  <dict name="AUTOOPENOF_OPERATION_TYPE">
+    <entry name="0" value="A" remark="增加    "/>
+    <entry name="1" value="U" remark="修改    "/>
+    <entry name="2" value="D" remark="删除    "/>
+  </dict>
+<!-- 指定交易状态 -->
+  <dict name="TREG_STATUS">
+    <entry name="0" value="0" remark="未指定；"/>
+    <entry name="1" value="2" remark="首日指定；"/>
+    <entry name="2" value="1" remark="已指"/>
+  </dict>
+<!-- 指定交易状态转证券代码 -->
+  <dict name="TREG_STATUS_STKCODE">
+    <entry name="0" value="799998" remark="未指定；"/>
+    <entry name="1" value="799999" remark="首日指定；"/>
+    <entry name="2" value="799999" remark="已指"/>
+  </dict>
+<!-- 指定交易状态转买卖标志 -->
+  <dict name="TREG_STATUS_BSFLAG">
+    <entry name="0" value="0V" remark="未指定；"/>
+    <entry name="1" value="0U" remark="首日指定；"/>
+    <entry name="2" value="0U" remark="已指"/>
+  </dict>
+<!-- 回购指定交易状态 -->
+  <dict name="BREG_STATUS">
+    <entry name="0" value="0" remark="未指定；"/>
+    <entry name="2" value="1" remark="已指"/>
+    <entry name="1" value="1" remark="首日指定；"/>
+  </dict>
+<!-- 密码操作类型 -->
+  <dict name="AUTH_OP_TYPE">
+    <entry name="0" value="2" remark="增加"/>
+    <entry name="1" value="0" remark="修改"/>
+    <entry name="3" value="1" remark="重置"/>
+  </dict>
+<!-- 密码使用范围 -->
+  <dict name="AUTH_USE_SCOPE">
+    <entry name="10" value="1" remark="客户密码"/>
+    <entry name="11" value="2" remark="资金密码"/>
+    <entry name="20" value="3" remark="操作密码"/>
+  </dict>
+<!-- 国家代码转换 -->
+  <dict name="CITIZENSHIP">
+    <entry name="CHN" value="0" remark="中国"/>
+    <entry name="USA" value="1" remark="美国"/>
+    <entry name="HKG" value="2" remark="香港"/>
+    <entry name="CTN" value="3" remark="台湾"/>
+    <entry name="AUS" value="4" remark="澳大利亚"/>
+    <entry name="CAN" value="5" remark="加拿大"/>
+    <entry name="DEU" value="6" remark="德国"/>
+    <entry name="FRA" value="7" remark="法国"/>
+    <entry name="GBR" value="8" remark="英国"/>
+    <entry name="ITA" value="9" remark="意大利"/>
+    <entry name="JPN" value="A" remark="日本"/>
+    <entry name="KOR" value="B" remark="韩国"/>
+    <entry name="MAC" value="C" remark="澳门"/>
+    <entry name="NZL" value="D" remark="新西兰"/>
+    <entry name="RUS" value="E" remark="俄罗斯"/>
+    <entry name="MYS" value="F" remark="马来西亚"/>
+    <entry name="PRK" value="G" remark="朝鲜"/>
+    <entry name="AFG" value="H" remark="阿富汉"/>
+    <entry name="VNM" value="I" remark="越南"/>
+    <entry name="SGP" value="J" remark="新加坡"/>
+    <entry name="ALB" value="K" remark="阿尔巴尼亚"/>
+    <entry name="THA" value="L" remark="泰国"/>
+    <entry name="ARG" value="M" remark="阿根廷"/>
+    <entry name="IND" value="N" remark="印度"/>
+    <entry name="MDV" value="O" remark="马尔代夫"/>
+    <entry name="MMR" value="P" remark="缅甸"/>
+    <entry name="MNG" value="Q" remark="蒙古"/>
+    <entry name="PHL" value="R" remark="菲律宾"/>
+  </dict>
+<!-- 职业类型 -->
+  <dict name="OCCU_TYPE">
+    <entry name="01" value="1" remark="文教科卫专业人员"/>
+    <entry name="02" value="2" remark="党政机关工作人员"/>
+    <entry name="03" value="3" remark="企事业单位干部"/>
+    <entry name="04" value="4" remark="行政企事业单位工人"/>
+    <entry name="05" value="5" remark="农民"/>
+    <entry name="06" value="6" remark="个体工商户"/>
+    <entry name="07" value="7" remark="无业"/>
+    <entry name="08" value="8" remark="军人"/>
+    <entry name="09" value="4" remark="学生"/>
+    <entry name="10" value="5" remark="证券从业人员"/>
+    <entry name="99" value="Z" remark="其他"/>
+    <entry name="" value="Z" remark="其他"/>
+  </dict>
+<!-- 行业类型 -->
+  <dict name="INDUS_TYPE">
+    <entry name="01" value="2" remark="综合类证券公司"/>
+    <entry name="02" value="2" remark="经纪类证券公司"/>
+    <entry name="03" value="2" remark="银行"/>
+    <entry name="04" value="2" remark="信托投资公司"/>
+    <entry name="05" value="2" remark="封闭式证券投资基金"/>
+    <entry name="06" value="2" remark="开放式证券投资基金"/>
+    <entry name="07" value="2" remark="其他证券投资基金"/>
+    <entry name="08" value="2" remark="基金管理公司"/>
+    <entry name="09" value="2" remark="社保基金"/>
+    <entry name="10" value="2" remark="保险公司"/>
+    <entry name="99" value="2" remark="其他"/>
+    <entry name="" value="2" remark="其他"/>
+  </dict>
+<!-- 资产账户转换 -->
+  <dict name="CUACCT_CODE">
+    <entry name="0" value="-1" remark="资金账户默认值"/>
+  </dict>
+<!-- 客户代理人状态转换 -->
+  <dict name="USER_STATUS">
+    <entry name="9" value="*" remark="销户      "/>
+    <entry name="0" value="0" remark="正常      "/>
+    <entry name="1" value="1" remark="冻结      "/>
+    <entry name="2" value="2" remark="挂失      "/>
+    <entry name="3" value="3" remark="密码锁定  "/>
+    <entry name="A" value="5" remark="系统锁定  "/>
+    <entry name="A" value="6" remark="待银行确认"/>
+    <entry name="A" value="9" remark="待存管签约"/>
+  </dict>
+<!-- 资产账户状态转换 -->
+  <dict name="FUND_STATUS">
+    <entry name="9" value="*" remark="销户      "/>
+    <entry name="0" value="0" remark="正常      "/>
+    <entry name="1" value="1" remark="冻结      "/>
+    <entry name="2" value="2" remark="挂失      "/>
+    <entry name="3" value="3" remark="密码锁定  "/>
+    <entry name="A" value="5" remark="系统锁定  "/>
+    <entry name="A" value="6" remark="待银行确认"/>
+    <entry name="A" value="9" remark="待存管签约"/>
+  </dict>
+<!-- 代理协议转换 -->
+  <dict name="CUST_AGMT_TYPE">
+    <entry name="0" value="1" remark="代理新股申购    "/>
+    <entry name="1" value="1" remark="代理新股配售    "/>
+    <entry name="2" value="1" remark="代理配股缴款    "/>
+    <entry name="5" value="Y" remark="客户报价转让协议"/>
+    <entry name="6" value="1" remark="客户账户合并协议"/>
+    <entry name="7" value="1" remark="委托理财协议    "/>
+    <entry name="9" value="A" remark="权证交易协议    "/>
+    <entry name="A" value="X" remark="创业板协议      "/>
+    <entry name="B" value="8" remark="资金帐号密码联动      "/>
+    <entry name="C" value="B" remark="邮寄对帐      "/>
+    <entry name="D" value="D" remark="开通债券交易      "/>
+    <entry name="E" value="J" remark="市价委托    "/>
+    <entry name="F" value="P" remark="密码联动      "/>
+    <entry name="G" value="V" remark="开通质押回购      "/>
+    <entry name="H" value="W" remark="外围开放式基金帐号开户 "/>
+    <entry name="I" value="Z" remark="开通三板代办股份转让    "/>
+    <entry name="J" value="a" remark="允许零股卖出   "/>
+    <entry name="K" value="F" remark="开通服务佣金   "/>
+    <entry name="L" value="G" remark="开通报价回购   "/>
+<!-- add by yangt 统一账户报价回购 bjhg -->
+    <entry name="M" value="K" remark="开通跨境跨市场ETF"/>
+    <entry name="N" value="b" remark="开通协议大宗交易"/>
+    <entry name="z" value="" remark="单客户多银行   "/>
+    <entry name="O" value="V" remark="债券专业投资者协议"/>
+    <entry name="S" value="e" remark="中小企业私募债券协议"/>
+    <entry name="Y" value="H" remark="开通约定购回   "/>
+    <entry name="b" value="3" remark="客户退市协议   "/>
+    <entry name="e" value="4" remark="风险警示协议   "/>
+    <entry name="j" value="c" remark="开通挂牌公司股票公开转让协议   "/>
+    <entry name="k" value="h" remark="开通债券质押融券权限   "/>
+    <entry name="m" value="6" remark="股票质押回购融入交易协议   "/>
+    <entry name="n" value="5" remark="股票质押回购融出交易协议   "/>
+    <entry name="r" value="7" remark="资管计划转让协议   "/>
+    <entry name="s" value="k" remark="黄金ETFF交易协议   "/>
+    <entry name="f" value="9" remark="自主行权协议   "/>
+    <entry name="u" value="I" remark="国债预发行交易协议   "/>
+    <entry name="d" value="d" remark="7 X 24小时三方存管转入   "/>
+    <entry name="h" value="i" remark="7 X 24小时三方存管转出   "/>
+    <entry name="g" value="m" remark="上证LOF交易业务权限  "/>
+    <entry name="P" value="o" remark="优先股转让交易权限  "/>
+    <entry name="i" value="n" remark="挂牌公司股票交易协议  "/>
+    <entry name="y" value="N" remark="两网退市股票交易协议  "/>
+    <entry name="l" value="q" remark="港股通协议  "/>
+  </dict>
+<!-- 代理协议操作类型转换 -->
+  <dict name="AGMT_OPERATION_TYPE">
+    <entry name="0" value="A" remark="增加    "/>
+    <entry name="1" value="A" remark="修改    "/>
+    <entry name="2" value="D" remark="删除    "/>
+  </dict>
+<!-- 代理协议函数转换 -->
+  <dict name="custagmtoper">
+<!-- 新增-->
+    <entry name="00" value="30120211" remark="代理新股申购    "/>
+    <entry name="01" value="30120211" remark="代理新股配售    "/>
+    <entry name="02" value="30120211" remark="代理配股缴款    "/>
+    <entry name="05" value="30120211" remark="客户报价转让协议"/>
+    <entry name="06" value="30120211" remark="客户账户合并协议"/>
+    <entry name="07" value="30120211" remark="委托理财协议    "/>
+    <entry name="09" value="30120211" remark="权证交易协议    "/>
+    <entry name="0A" value="120249" remark="创业板协议      "/>
+    <entry name="0B" value="30120211" remark="资金帐号密码联动      "/>
+    <entry name="0C" value="30120211" remark="邮寄对帐      "/>
+    <entry name="0D" value="30120211" remark="开通债券交易      "/>
+    <entry name="0I" value="120058" remark="开通三板代办股份转让    "/>
+    <entry name="0E" value="30120211" remark="市价委托    "/>
+    <entry name="0F" value="30120211" remark="密码联动      "/>
+    <entry name="0G" value="30120211" remark="开通质押回购      "/>
+    <entry name="0H" value="30120211" remark="外围开放式基金帐号开户 "/>
+    <entry name="0J" value="30120211" remark="允许零股卖出   "/>
+    <entry name="0K" value="30120211" remark="开通服务佣金   "/>
+    <entry name="0L" value="120058" remark="开通报价回购   "/>
+    <entry name="0S" value="30120211" remark="中小企业私募债券协议"/>
+    <entry name="0M" value="30120211" remark="开通跨境跨市场ETF"/>
+    <entry name="0N" value="30120211" remark="开通协议大宗交易"/>
+    <entry name="0z" value="30120211" remark="单客户多银行"/>
+    <entry name="0O" value="120055" remark="债券专业投资者资格审核"/>
+    <entry name="0V" value="120055" remark="质押回购"/>
+    <entry name="0Y" value="120058" remark="开通约定购回"/>
+    <entry name="0b" value="120058" remark="客户退市协议"/>
+    <entry name="0e" value="120058" remark="风险警示协议"/>
+    <entry name="0j" value="120058" remark="开通挂牌公司股票公开转让协议"/>
+    <entry name="0k" value="120058" remark="开通债券质押融券权限"/>
+    <entry name="0m" value="120058" remark="股票质押回购融入交易协议"/>
+    <entry name="0n" value="120058" remark="股票质押回购融出交易协议"/>
+    <entry name="0r" value="120058" remark="资管计划转让协议"/>
+    <entry name="0s" value="120058" remark="黄金ETFF交易协议"/>
+    <entry name="0f" value="120058" remark="自主行权协议"/>
+    <entry name="0u" value="120058" remark="国债预发行交易协议"/>
+    <entry name="0d" value="30120211" remark="7 X 24小时三方存管转入    "/>
+    <entry name="0h" value="30120211" remark="7 X 24小时三方存管转出    "/>
+    <entry name="0g" value="120058" remark="上证LOF交易业务权限"/>
+    <entry name="0P" value="120058" remark="优先股转让交易权限"/>
+    <entry name="0i" value="120058" remark="挂牌公司股票交易协议"/>
+    <entry name="0y" value="120058" remark="两网退市股票交易协议"/>
+    <entry name="0l" value="120058" remark="港股通协议"/>
+<!-- 修改-->
+    <entry name="10" value="30120211" remark="代理新股申购    "/>
+    <entry name="11" value="30120211" remark="代理新股配售    "/>
+    <entry name="12" value="30120211" remark="代理配股缴款    "/>
+    <entry name="15" value="30120211" remark="客户报价转让协议"/>
+    <entry name="16" value="30120211" remark="客户账户合并协议"/>
+    <entry name="17" value="30120211" remark="委托理财协议    "/>
+    <entry name="19" value="30120211" remark="权证交易协议    "/>
+    <entry name="1A" value="120243" remark="创业板协议      "/>
+    <entry name="1B" value="30120211" remark="资金帐号密码联动      "/>
+    <entry name="1C" value="30120211" remark="邮寄对帐      "/>
+    <entry name="1D" value="30120211" remark="开通债券交易      "/>
+    <entry name="1I" value="120058" remark="开通三板代办股份转让    "/>
+    <entry name="1E" value="30120211" remark="市价委托    "/>
+    <entry name="1F" value="30120211" remark="密码联动      "/>
+    <entry name="1G" value="30120211" remark="开通质押回购      "/>
+    <entry name="1H" value="30120211" remark="外围开放式基金帐号开户 "/>
+    <entry name="1J" value="30120211" remark="允许零股卖出   "/>
+    <entry name="1K" value="30120211" remark="开通服务佣金   "/>
+    <entry name="1L" value="120058" remark="开通报价回购   "/>
+    <entry name="1S" value="30120211" remark="中小企业私募债券协议"/>
+    <entry name="1M" value="30120211" remark="开通跨境跨市场ETF"/>
+    <entry name="1N" value="30120211" remark="开通协议大宗交易"/>
+    <entry name="1z" value="30120211" remark="单客户多银行"/>
+    <entry name="1O" value="120055" remark="债券专业投资者资格开通"/>
+    <entry name="1V" value="120055" remark="质押回购"/>
+    <entry name="1Y" value="120058" remark="开通约定购回"/>
+    <entry name="1b" value="120058" remark="客户退市协议"/>
+    <entry name="1e" value="120058" remark="风险警示协议"/>
+    <entry name="1j" value="120058" remark="挂牌公司股票公开转让协议"/>
+    <entry name="1k" value="120058" remark="债券质押融券权限"/>
+    <entry name="1m" value="120058" remark="股票质押回购融入交易协议"/>
+    <entry name="1n" value="120058" remark="股票质押回购融出交易协议"/>
+    <entry name="1r" value="120058" remark="资管计划转让协议"/>
+    <entry name="1s" value="120058" remark="黄金ETFF交易协议"/>
+    <entry name="1f" value="120058" remark="自主行权协议"/>
+    <entry name="1u" value="120058" remark="国债预发行交易协议"/>
+    <entry name="1d" value="30120211" remark="7 X 24小时三方存管转入    "/>
+    <entry name="1h" value="30120211" remark="7 X 24小时三方存管转出    "/>
+    <entry name="1g" value="120058" remark="上证LOF交易业务权限"/>
+    <entry name="1P" value="120058" remark="优先股转让交易权限"/>
+    <entry name="1i" value="120058" remark="挂牌公司股票交易协议"/>
+    <entry name="1y" value="120058" remark="两网退市股票交易协议"/>
+    <entry name="1l" value="120058" remark="港股通协议"/>
+<!-- 取消-->
+    <entry name="20" value="30120211" remark="代理新股申购    "/>
+    <entry name="21" value="30120211" remark="代理新股配售    "/>
+    <entry name="22" value="30120211" remark="代理配股缴款    "/>
+    <entry name="25" value="30120211" remark="客户报价转让协议"/>
+    <entry name="26" value="30120211" remark="客户账户合并协议"/>
+    <entry name="27" value="30120211" remark="委托理财协议    "/>
+    <entry name="29" value="30120211" remark="权证交易协议    "/>
+    <entry name="2A" value="120246" remark="创业板协议      "/>
+    <entry name="2B" value="30120211" remark="资金帐号密码联动      "/>
+    <entry name="2C" value="30120211" remark="邮寄对帐      "/>
+    <entry name="2D" value="30120211" remark="开通债券交易      "/>
+    <entry name="2I" value="120058" remark="开通三板代办股份转让    "/>
+    <entry name="2E" value="30120211" remark="市价委托    "/>
+    <entry name="2F" value="30120211" remark="密码联动      "/>
+    <entry name="2G" value="30120211" remark="开通质押回购      "/>
+    <entry name="2H" value="30120211" remark="外围开放式基金帐号开户 "/>
+    <entry name="2J" value="30120211" remark="允许零股卖出   "/>
+    <entry name="2K" value="30120211" remark="开通服务佣金   "/>
+    <entry name="2L" value="120058" remark="开通报价回购   "/>
+    <entry name="2S" value="30120211" remark="中小企业私募债券协议"/>
+    <entry name="2M" value="30120211" remark="开通跨境跨市场ETF"/>
+    <entry name="2N" value="30120211" remark="开通协议大宗交易"/>
+    <entry name="2z" value="30120211" remark="单客户多银行"/>
+    <entry name="2O" value="120055" remark="债券专业投资者资格审核"/>
+    <entry name="2V" value="120055" remark="质押回购"/>
+    <entry name="2Y" value="120058" remark="开通约定购回"/>
+    <entry name="2b" value="120058" remark="客户退市协议"/>
+    <entry name="2e" value="120058" remark="风险警示协议"/>
+    <entry name="2j" value="120058" remark="挂牌公司股票公开转让协议"/>
+    <entry name="2k" value="120058" remark="债券质押融券权限"/>
+    <entry name="2m" value="120058" remark="股票质押回购融入交易协议"/>
+    <entry name="2n" value="120058" remark="股票质押回购融出交易协议"/>
+    <entry name="2r" value="120058" remark="资管计划转让协议"/>
+    <entry name="2s" value="120058" remark="黄金ETFF交易协议"/>
+    <entry name="2f" value="120058" remark="自主行权协议"/>
+    <entry name="2u" value="120058" remark="国债预发行交易协议"/>
+    <entry name="2d" value="30120211" remark="7 X 24小时三方存管转入    "/>
+    <entry name="2h" value="30120211" remark="7 X 24小时三方存管转出    "/>
+    <entry name="2g" value="120058" remark="上证LOF交易业务权限"/>
+    <entry name="2P" value="120058" remark="优先股转让交易权限"/>
+    <entry name="2i" value="120058" remark="挂牌公司股票交易协议"/>
+    <entry name="2y" value="120058" remark="两网退市股票交易协议"/>
+    <entry name="2l" value="120058" remark="港股通协议"/>
+<!-- 修改报送状态-->
+    <entry name="3A" value="121002" remark="修改创业板回报信息"/>
+  </dict>
+<!--  开通方式   -->
+  <dict name="OPEN_TYPE_WIN">
+    <entry name="A" value="0" remark="T+0"/>
+    <entry name="0" value="0" remark="T+0"/>
+    <entry name="2" value="2" remark="T+2"/>
+    <entry name="5" value="5" remark="T+5"/>
+  </dict>
+<!--  申报状态 报送状态   0 —— 未报，1 ——已报，9——报送失败    -->
+  <dict name="DEAL_RESULT1">
+    <entry name="0" value="0" remark="待报"/>
+    <entry name="1" value="2" remark="申报成功"/>
+    <entry name="9" value="3" remark="申报失败"/>
+  </dict>
+<!-- 申报结果 报送状态    0 —— 未报，1 ——已报，9——报送失败 -->
+  <dict name="DEAL_RESULT2">
+    <entry name="1" value="00" remark="数据申报成功"/>
+    <entry name="9" value="06" remark="其它错误"/>
+  </dict>
+<!-- 代理协议函数转换 -->
+  <dict name="DEAL_RESULT">
+    <entry name="0" value=" " remark=""/>
+    <entry name="1" value=" " remark=""/>
+    <entry name="2" value="00" remark="数据申报成功"/>
+    <entry name="3" value=" " remark=""/>
+  </dict>
+<!-- 风险揭示书类型转换 -->
+  <dict name="RISK_BOOK_TYPE">
+    <entry name="0" value="0" remark=""/>
+    <entry name="2" value="2" remark=""/>
+    <entry name="5" value="5" remark=""/>
+    <entry name="00" value="0" remark=""/>
+    <entry name="20" value="2" remark=""/>
+    <entry name="50" value="5" remark=""/>
+    <entry name="01" value="A" remark=""/>
+    <entry name="21" value="2" remark=""/>
+    <entry name="51" value="5" remark=""/>
+  </dict>
+<!-- 交易账户状态转换 -->
+  <dict name="TRDACCT_STATUS">
+    <entry name="0" value="0" remark="正常"/>
+    <entry name="1" value="2" remark="挂失"/>
+    <entry name="2" value="1" remark="冻结"/>
+    <entry name="9" value="3" remark="注销"/>
+  </dict>
+<!-- 交易账户状态转换 -->
+  <dict name="TRDACCT_STATUS1">
+    <entry name="0" value="0" remark="正常"/>
+    <entry name="1" value="2" remark="挂失"/>
+    <entry name="2" value="1" remark="冻结"/>
+    <entry name="3" value="9" remark="注销"/>
+  </dict>
+<!-- 学历转换 -->
+  <dict name="EDUCATION">
+    <entry name="0" value="1" remark="博士"/>
+    <entry name="1" value="2" remark="硕士"/>
+    <entry name="2" value="3" remark="本科"/>
+    <entry name="3" value="4" remark="大专"/>
+    <entry name="4" value="5" remark="中专"/>
+    <entry name="5" value="6" remark="高中"/>
+    <entry name="6" value="7" remark="初中以下"/>
+    <entry name="Z" value="0" remark="其他"/>
+  </dict>
+<!-- 风险测评编码转换 -->
+  <dict name="SURVEY_CLS2RISK_KIND">
+    <entry name="0" value="2" remark="创业板风险测评"/>
+    <entry name="1" value="1" remark="基金风险控制个人客户问卷"/>
+    <entry name="2" value="1" remark="基金风险控制机构客户问卷"/>
+  </dict>
+<!-- 风险测评编码转换 -->
+  <dict name="RISK_KIND2SURVEY_CLS">
+    <entry name="1" value="1" remark="创业板风险测评"/>
+    <entry name="2" value="0" remark="基金风险控制个人客户问卷"/>
+  </dict>
+<!-- 测评级别转换 -->
+  <dict name="RATING_LVL">
+    <entry name="0" value="0" remark="XX型"/>
+  </dict>
+<!-- 操作渠道(针对个别券商操作渠道需要进行转义) -->
+  <dict name="CHANNEL">
+    <entry name="0" value="0" remark="柜台"/>
+  </dict>
+<!-- 风险评测操作类型转换 -->
+  <dict name="SURVEY_OPERATION_TYPE">
+    <entry name="0" value="A" remark="D表示删除记录,有记录的情况先删此字段D再增加A"/>
+    <entry name="1" value="D" remark="D表示删除记录,有记录的情况先删此字段D再增加A"/>
+    <entry name="2" value="D" remark="D表示删除记录,有记录的情况先删此字段D再增加A"/>
+  </dict>
+  <dict name="FUNC_TO_RIGHTFLAG">
+    <entry name="350101010" value="" remark="资产账户开户-校验权限"/>
+    <entry name="350101020" value="" remark="资产账户币种开户-校验权限"/>
+    <entry name="350101030" value="" remark="资产账户销户-校验权限"/>
+    <entry name="353000010" value="k" remark="一站式开户-不校验权限(跨营业部)"/>
+    <entry name="353000050" value="" remark="一站式销户-校验权限"/>
+    <entry name="353000070" value="" remark="基金账户加挂户-校验权限"/>
+    <entry name="353000071" value="" remark="资产银证加挂户-校验权限"/>
+    <entry name="353000072" value="" remark="股东账户加挂户-校验权限"/>
+    <entry name="353000100" value="k" remark="客户迁移-不校验权限"/>
+    <entry name="200100127" value="k" remark="休眠客户激活"/>
+    <entry name="353000015" value="k" remark="新一站式开户-不校验密码"/>
+  </dict>
+<!-- 证书字典转换 -->
+  <dict name="CERTIFICATE_TYPE">
+    <entry name="0" value="0" remark=""/>
+  </dict>
+<!-- 用户类型(集中交易 ==> 账户系统) -->
+  <dict name="USER_TYPE_W2K">
+<!-- win版柜台系统  账户系统-->
+    <entry name="0" value="0" remark="身份证号             "/>
+    <entry name="1" value="0" remark="护照号码             "/>
+    <entry name="2" value="1" remark="工商营业执照         "/>
+    <entry name="3" value="0" remark="军官证               "/>
+    <entry name="4" value="0" remark="其他               "/>
+    <entry name="5" value="0" remark="解放军文职干部       "/>
+    <entry name="6" value="0" remark="解放军文职干部       "/>
+    <entry name="7" value="0" remark="士兵证               "/>
+    <entry name="8" value="0" remark="户口本               "/>
+    <entry name="9" value="0" remark="回乡证               "/>
+    <entry name="A" value="0" remark="台湾通行证及其他有效旅行证 "/>
+    <entry name="B" value="0" remark="外国护照             "/>
+    <entry name="C" value="0" remark="武警文职干部证       "/>
+    <entry name="D" value="0" remark="武警文职干部证       "/>
+    <entry name="E" value="1" remark="组织机构代码证       "/>
+    <entry name="F" value="0" remark="其他                 "/>
+    <entry name="H" value="0" remark="临时身份证           "/>
+    <entry name="G" value="0" remark="其它证件             "/>
+    <entry name="L" value="0" remark="香港居民通行证       "/>
+    <entry name="M" value="0" remark="澳门居民通行证       "/>
+    <entry name="N" value="0" remark="台湾居民通行证       "/>
+    <entry name="O" value="0" remark="外国人永久居留证     "/>
+  </dict>
+<!-- 证件类型(恒生交易系统 ==> 账户系统) -->
+  <dict name="ID_TYPE_HS2K">
+<!-- win版柜台系统  账户系统-->
+    <entry name="0" value="00" remark="身份证                    "/>
+    <entry name="1" value="06" remark="外国护照                  "/>
+    <entry name="2" value="10" remark="营业执照                  "/>
+    <entry name="3" value="02" remark="军官证                    "/>
+    <entry name="4" value="0f" remark="社会保障号                "/>
+    <entry name="C" value="0g" remark="解放军文职干部证          "/>
+    <entry name="D" value="0h" remark="警官证                    "/>
+    <entry name="E" value="03" remark="解放军士兵证              "/>
+    <entry name="F" value="05" remark="户口簿                    "/>
+    <entry name="G" value="0b" remark="港澳居民来往内地通行证    "/>
+    <entry name="H" value="0d" remark="台湾居民来往大陆通行证    "/>
+    <entry name="I" value="0e" remark="外国人永久居留证          "/>
+    <entry name="J" value="01" remark="本国护照                  "/>
+    <entry name="K" value="15" remark="武警文职干部证            "/>
+    <entry name="L" value="15" remark="武警士兵证                "/>
+    <entry name="M" value="11" remark="社会团体                  "/>
+    <entry name="N" value="08" remark="临时身份证                "/>
+    <entry name="P" value="1A" remark="全国组织机构代码          "/>
+    <entry name="Q" value="09" remark="海外客户编号              "/>
+    <entry name="R" value="09" remark="境外身份证                "/>
+    <entry name="S" value="09" remark="港澳台居民身份证          "/>
+    <entry name="T" value="13" remark="事业法人登记证书          "/>
+    <entry name="X" value="1C" remark="其他有效证件              "/>
+  </dict>
+<!-- 三方存管(恒生交易系统 ==> 账户系统) -->
+  <dict name="EXT_ORG_HS2K">
+<!-- 恒生交易系统   账户系统-->
+    <entry name="6" value="8803" remark="存管建行"/>
+    <entry name="8803" value="8803" remark="存管建行"/>
+    <entry name="7" value="8801" remark="存管工行"/>
+    <entry name="8801" value="8801" remark="存管工行"/>
+    <entry name="8" value="8807" remark="存管兴业"/>
+    <entry name="8807" value="8807" remark="存管兴业"/>
+    <entry name="9" value="8803" remark="存管建行 "/>
+    <entry name="8803" value="8803" remark="存管建行 "/>
+    <entry name="A" value="8804" remark=" 存管交行 "/>
+    <entry name="8804" value="8804" remark=" 存管交行 "/>
+    <entry name="B" value="8805" remark=" 存管招行"/>
+    <entry name="8805" value="8805" remark=" 存管招行"/>
+    <entry name="C" value="8802" remark=" 存管农行  "/>
+    <entry name="8802" value="8802" remark=" 存管农行  "/>
+    <entry name="D" value="8806" remark=" 存管中行 "/>
+    <entry name="8806" value="8806" remark=" 存管中行 "/>
+    <entry name="E" value="8808" remark=" 存管中信 "/>
+    <entry name="8808" value="8808" remark=" 存管中信 "/>
+    <entry name="F" value="8809" remark="存管浦发"/>
+    <entry name="8809" value="8809" remark="存管浦发"/>
+    <entry name="G" value="8810" remark="存管光大 "/>
+    <entry name="8810" value="8810" remark="存管光大 "/>
+    <entry name="H" value="8811" remark=" 存管深发"/>
+    <entry name="8811" value="8811" remark=" 存管深发"/>
+    <entry name="I" value="8812" remark="存管广发"/>
+    <entry name="8812" value="8812" remark="存管广发"/>
+    <entry name="J" value="8813" remark="存管北京"/>
+    <entry name="8813" value="8813" remark="存管北京"/>
+    <entry name="K" value="8814" remark=" 存管华夏"/>
+    <entry name="8814" value="8814" remark=" 存管华夏"/>
+    <entry name="L" value="8815" remark="存管民生 "/>
+    <entry name="8815" value="8815" remark="存管民生 "/>
+  </dict>
+<!-- 客户代理人状态(集中交易 ==> 账户系统) -->
+  <dict name="USER_STATUS_W2K">
+    <entry name="*" value="9" remark="销户      "/>
+    <entry name="0" value="0" remark="正常      "/>
+    <entry name="1" value="1" remark="冻结      "/>
+    <entry name="2" value="2" remark="挂失      "/>
+    <entry name="3" value="3" remark="密码锁定  "/>
+  </dict>
+<!-- 基金账户状态(集中交易 ==> 账户系统) -->
+  <dict name="OFTRACCT_STATUS_W2K">
+    <entry name="*" value="9" remark="销户      "/>
+  </dict>
+<!-- 职业类型 柜台转账户 -->
+  <dict name="OCCU_TYPE_ACT">
+    <entry name="1" value="02" remark="政府部门"/>
+    <entry name="2" value="01" remark="教科文卫"/>
+    <entry name="3" value="05" remark="农林牧渔业"/>
+    <entry name="4" value="04" remark="行政企事业单位工人"/>
+  </dict>
+<!--证书类型,柜台转账户-->
+  <dict name="CERTIFICATE_TYPE_ACT">
+    <entry name="0" value="0" remark=""/>
+    <entry name="1" value="1" remark=""/>
+    <entry name="2" value="2" remark=""/>
+  </dict>
+<!--行业类型,柜台转账户-->
+  <dict name="TRADE_TYPE_ACT">
+    <entry name="0" value="0" remark=""/>
+    <entry name="1" value="1" remark=""/>
+    <entry name="2" value="2" remark=""/>
+  </dict>
+  <dict name="SEX_ACT">
+<!-- 金证代码        WIN版代码 -->
+    <entry name="1" value="0" remark="男"/>
+    <entry name="2" value="1" remark="女"/>
+    <entry name="" value="2" remark="其他"/>
+  </dict>
+<!-- 证件类型 柜台转账户-->
+  <dict name="ID_TYPE_ACT">
+<!-- 金证代码        win版代码 -->
+    <entry name="0" value="00" remark="身份证号             "/>
+    <entry name="1" value="01" remark="护照号码             "/>
+    <entry name="2" value="10" remark="工商营业执照         "/>
+    <entry name="3" value="02" remark="军官证               "/>
+    <entry name="4" value="09" remark="其它证件             "/>
+    <entry name="5" value="07" remark="解放军文职干部       "/>
+    <entry name="6" value="0a" remark="警官证               "/>
+    <entry name="7" value="03" remark="士兵证               "/>
+    <entry name="8" value="05" remark="户口本               "/>
+    <entry name="9" value="04" remark="回乡证               "/>
+    <entry name="A" value="04" remark="回乡证               "/>
+    <entry name="B" value="06" remark="外国护照             "/>
+    <entry name="C" value="0A" remark="武警文职干部         "/>
+    <entry name="D" value="15" remark="武警                 "/>
+    <entry name="E" value="1A" remark="组织机构代码证       "/>
+    <entry name="F" value="14" remark="海外客户编号         "/>
+    <entry name="H" value="08" remark="临时身份证           "/>
+    <entry name="G" value="09" remark="其它证件             "/>
+  </dict>
+<!-- 国家代码转换 柜台转账户-->
+  <dict name="CITIZENSHIP_HS2K">
+    <entry name="ADR" value="CHN" remark="安道尔"/>
+    <entry name="AIA" value="AIA" remark="安圭拉"/>
+    <entry name="AUS" value="AUS" remark="澳大利亚"/>
+    <entry name="BAH" value="BAH" remark="巴哈林"/>
+    <entry name="BVI" value="CHN" remark="英属维京群岛"/>
+    <entry name="CAF" value="CAF" remark="中非共和国"/>
+    <entry name="CHN" value="CHN" remark="中国"/>
+    <entry name="CNI" value="CNI" remark="海峡群岛"/>
+    <entry name="CTN" value="CTN" remark="中国台湾"/>
+    <entry name="ETH" value="ETH" remark="埃塞俄比亚"/>
+    <entry name="GUS" value="GUS" remark="格恩西"/>
+    <entry name="HKG" value="HKG" remark="中国香港"/>
+    <entry name="INE" value="INE" remark="尼维斯岛"/>
+    <entry name="IOM" value="IOM" remark="马恩岛"/>
+    <entry name="ISR" value="ISR" remark="以色列"/>
+    <entry name="JSY" value="JSY" remark="泽西"/>
+    <entry name="LBY" value="LBY" remark="利比亚"/>
+    <entry name="MAC" value="MAC" remark="中国澳门"/>
+    <entry name="MAN" value="MAN" remark="曼岛"/>
+    <entry name="NIU" value="NIU" remark="纽埃"/>
+    <entry name="NLA" value="NLA" remark="荷兰属地"/>
+    <entry name="USA" value="USA" remark="美国"/>
+  </dict>
+<!-- 学历转换 柜台到账户 -->
+  <dict name="EDUCATION_ACT">
+    <entry name="1" value="0" remark="博士"/>
+    <entry name="2" value="1" remark="硕士"/>
+    <entry name="3" value="2" remark="本科"/>
+    <entry name="4" value="3" remark="大专"/>
+    <entry name="5" value="4" remark="中专"/>
+    <entry name="6" value="5" remark="高中"/>
+    <entry name="7" value="6" remark="初中以下"/>
+    <entry name="0" value="Z" remark="其他"/>
+  </dict>
+<!-- 企业所有制 柜台转账户-->
+  <dict name="CORP_TYPE_ACT">
+    <entry name="0" value="04" remark="民营  非国有企业非上市公    "/>
+    <entry name="1" value="01" remark="国有  国有企业非上市公司  "/>
+  </dict>
+<!--首选联系电话转换    WIN<>KBSS  -->
+  <dict name="LINKTEL_ORDER_ACT">
+    <entry name="1" value="2" remark="家庭电话"/>
+    <entry name="2" value="3" remark="工作电话"/>
+    <entry name="3" value="1" remark="手机"/>
+    <entry name="4" value="3" remark="传真 工作电话"/>
+    <entry name="5" value="3" remark="EMAIL 工作电话"/>
+    <entry name="6" value="3" remark="信件  工作电话"/>
+  </dict>
+<!-- 企业所有制 -->
+  <dict name="CORP_TYPE">
+    <entry name="01" value="1" remark="国有企业上市公司    "/>
+    <entry name="02" value="1" remark="国有企业非上市公司  "/>
+    <entry name="03" value="0" remark="非国有企业上市公司  "/>
+    <entry name="04" value="0" remark="非国有企业非上市公司"/>
+    <entry name="10" value="0" remark="境外基金            "/>
+    <entry name="11" value="0" remark="境外证券公司        "/>
+    <entry name="12" value="0" remark="境外代理人          "/>
+    <entry name="13" value="0" remark="境外一般机构        "/>
+    <entry name="21" value="0" remark="普通合伙            "/>
+    <entry name="22" value="0" remark="特殊普通合伙        "/>
+    <entry name="23" value="0" remark="有限合伙            "/>
+    <entry name="24" value="0" remark="非法人创投企业      "/>
+    <entry name="99" value="0" remark="其他                "/>
+    <entry name="" value="0" remark="其他                "/>
+  </dict>
+<!-- 单客户多银行协议转换-->
+  <dict name="CUST_AGMT_TYPE2EXT_PROP">
+    <entry name="0z" value="12,21" remark="增加单客户多银行协议"/>
+    <entry name="1z" value="12,21" remark="修改单客户多银行协议"/>
+    <entry name="2z" value="" remark="删除单客户多银行协议"/>
+    <entry name="0O" value="0" remark="增加债券专业投资者协议"/>
+    <entry name="2O" value="2" remark="删除债券专业投资者协议"/>
+    <entry name="0L" value="0" remark="增加报价回购协议"/>
+    <entry name="2L" value="2" remark="删除报价回购协议"/>
+    <entry name="0Y" value="0" remark="增加约定购回协议"/>
+    <entry name="2Y" value="2" remark="删除约定购回协议"/>
+    <entry name="0b" value="0" remark="增加客户退市协议"/>
+    <entry name="2b" value="2" remark="删除客户退市协议"/>
+    <entry name="0e" value="0" remark="增加风险警示协议"/>
+    <entry name="2e" value="2" remark="删除风险警示协议"/>
+    <entry name="0j" value="0" remark="增加挂牌公司股票公开转让协议"/>
+    <entry name="2j" value="2" remark="删除挂牌公司股票公开转让协议"/>
+    <entry name="0k" value="0" remark="增加债券质押融券权限"/>
+    <entry name="2k" value="2" remark="删除债券质押融券权限"/>
+    <entry name="0m" value="0" remark="增加股票质押回购融入交易协议"/>
+    <entry name="2m" value="2" remark="删除股票质押回购融入交易协议"/>
+    <entry name="0n" value="0" remark="增加股票质押回购融出交易协议"/>
+    <entry name="2n" value="2" remark="删除股票质押回购融出交易协议"/>
+    <entry name="0r" value="0" remark="增加资管计划转让协议"/>
+    <entry name="2r" value="2" remark="删除资管计划转让协议"/>
+    <entry name="0s" value="0" remark="增加黄金ETFF交易协议"/>
+    <entry name="2s" value="2" remark="删除黄金ETFF交易协议"/>
+    <entry name="0f" value="0" remark="增加自主行权协议"/>
+    <entry name="2f" value="2" remark="删除自主行权协议"/>
+    <entry name="0I" value="0" remark="增加三板代办股份转让协议"/>
+    <entry name="2I" value="2" remark="删除三板代办股份转让协议"/>
+    <entry name="0u" value="0" remark="增加国债预发行交易协议"/>
+    <entry name="2u" value="2" remark="删除国债预发行交易协议"/>
+    <entry name="0g" value="0" remark="增加上证LOF交易业务权限"/>
+    <entry name="2g" value="2" remark="删除上证LOF交易业务权限"/>
+    <entry name="0P" value="0" remark="增加优先股转让交易权限"/>
+    <entry name="2P" value="2" remark="删除优先股转让交易权限"/>
+    <entry name="0i" value="0" remark="挂牌公司股票交易协议"/>
+    <entry name="2i" value="2" remark="挂牌公司股票交易协议"/>
+    <entry name="0y" value="0" remark="两网退市股票交易协议"/>
+    <entry name="2y" value="2" remark="两网退市股票交易协议"/>
+    <entry name="0l" value="0" remark="增加沪港通协议"/>
+    <entry name="2l" value="2" remark="删除沪港通协议"/>
+  </dict>
+<!-- 职业信息 行业 KBSS->柜台-->
+  <dict name="TRADE_OCC">
+    <entry name="0" value="2" remark="能源"/>
+    <entry name="1" value="2" remark="原材料"/>
+    <entry name="2" value="2" remark="初级产品工业"/>
+    <entry name="3" value="2" remark="投资品工业"/>
+    <entry name="4" value="2" remark="耐用消费品制造"/>
+    <entry name="5" value="2" remark="医疗卫生"/>
+    <entry name="6" value="2" remark="经常性消费品工业"/>
+    <entry name="7" value="2" remark="贸易和零售"/>
+    <entry name="8" value="2" remark="社会服务业"/>
+    <entry name="9" value="2" remark="交通运输和仓储业"/>
+    <entry name="A" value="2" remark="金融业"/>
+    <entry name="B" value="2" remark="房地产"/>
+    <entry name="C" value="0" remark="信息技术业"/>
+    <entry name="D" value="2" remark="公用事业"/>
+    <entry name="E" value="2" remark="娱乐服务业"/>
+    <entry name="F" value="2" remark="典当与拍卖业"/>
+    <entry name="G" value="2" remark="废品收购业"/>
+    <entry name="H" value="2" remark="慈善团体或非盈利组织"/>
+    <entry name="I" value="2" remark="自由职业"/>
+  </dict>
+<!--函数列表-->
+  <function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+    <return name="strDestination" type="string"/>
+    <argument>
+      <argv name="strDestination" type="string"/>
+      <argv name="length" type="int"/>
+    </argument>
+  </function>
+  <function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+    <return name="strDestination" type="string"/>
+    <argument>
+      <argv name="strDestination" type="string"/>
+      <argv name="strSource" type="string"/>
+    </argument>
+  </function>
+  <function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="inputstring" type="string"/>
+      <argv name="start" type="int"/>
+      <argv name="length" type="int"/>
+    </argument>
+  </function>
+  <function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="formattor" type="string"/>
+    </argument>
+  </function>
+  <function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="begin" type="string"/>
+      <argv name="end" type="string"/>
+      <argv name="ts" type="string"/>
+    </argument>
+  </function>
+  <function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="begin" type="string"/>
+      <argv name="end" type="string"/>
+      <argv name="ts" type="string"/>
+    </argument>
+  </function>
+  <function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="orgtimestr" type="string"/>
+      <argv name="opdirect" type="string"/>
+      <argv name="type" type="string"/>
+    </argument>
+  </function>
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+  <function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="StrVal" type="string"/>
+      <argv name="Param" type="string"/>
+      <argv name="ValLen" type="int"/>
+    </argument>
+  </function>
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+  <function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="dllpath" type="string"/>
+      <argv name="key" type="string"/>
+      <argv name="pwdtext" type="string"/>
+    </argument>
+  </function>
+<!--KBSS版柜台解密函数encrypt.dll -->
+  <function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="dllpath" type="string"/>
+      <argv name="key" type="string"/>
+      <argv name="pwdtext" type="string"/>
+    </argument>
+  </function>
+<!--WIN版柜台加密函数KDEncodeCli.dll -->
+  <function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="dllpath" type="string"/>
+      <argv name="key" type="string"/>
+      <argv name="pwdtext" type="string"/>
+    </argument>
+  </function>
+<!--WIN版柜台重加密函数KDEncodeCli.dll -->
+  <function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="dllpath" type="string"/>
+      <argv name="oldkey" type="string"/>
+      <argv name="pwdtext" type="string"/>
+      <argv name="newkey" type="string"/>
+    </argument>
+  </function>
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+  <function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="strval1" type="string"/>
+      <argv name="strval2" type="string"/>
+      <argv name="flag" type="string"/>
+    </argument>
+  </function>
+<!--16进制转换10进制 -->
+  <function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="strval" type="string"/>
+    </argument>
+  </function>
+<!--复数字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+  <function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="RuleFile" type="string"/>
+      <argv name="DictName" type="string"/>
+      <argv name="EntryNames" type="string"/>
+      <argv name="SrcFlag" type="int"/>
+      <argv name="DstFlag" type="int"/>
+    </argument>
+  </function>
+<!--区间字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+  <function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+    <return name="outputstring" type="string"/>
+    <argument>
+      <argv name="RuleFile" type="string"/>
+      <argv name="DictName" type="string"/>
+      <argv name="EntryName" type="string"/>
+    </argument>
+  </function>
+<!--ID_TYPE-->
+  <dict name="ID_TYPE">
+    <entry name="0" value="00" remark="身份证"/>
+    <entry name="1" value="01" remark="护照号码"/>
+    <entry name="2" value="10" remark="营业执照"/>
+    <entry name="3" value="02" remark="军官证"/>
+    <entry name="4" value="0f" remark="社会保障号"/>
+    <entry name="C" value="09" remark="解放军文职干部证"/>
+    <entry name="D" value="09" remark="警官证"/>
+    <entry name="E" value="03" remark="解放军士兵证"/>
+    <entry name="F" value="05" remark="户口薄"/>
+    <entry name="G" value="04" remark="港澳回乡通行证"/>
+    <entry name="H" value="09" remark="台湾通行证及其他有效旅行证"/>
+    <entry name="J" value="09" remark="本国护照"/>
+    <entry name="K" value="09" remark="武警文职干部证"/>
+    <entry name="L" value="09" remark="武警士兵证"/>
+    <entry name="M" value="09" remark="社会团体"/>
+    <entry name="N" value="09" remark="临时身份证"/>
+    <entry name="P" value="1A" remark="全国组织机构代码"/>
+    <entry name="Q" value="09" remark="海外客户编号"/>
+    <entry name="R" value="09" remark="境外身份证"/>
+    <entry name="S" value="09" remark="港澳台居民身份证"/>
+    <entry name="X" value="09" remark="其他有效证件"/>
+  </dict>
+  <dict name="CURRENCY">
+    <entry name="0" value="0" remark="XX型"/>
+    <entry name="2" value="1" remark="XX型"/>
+    <entry name="1" value="2" remark="XX型"/>
+  </dict>
+  <dict name="CUST_STATUS">
+    <entry name="0" value="0" remark="正常"/>
+    <entry name="1" value="1" remark="冻结"/>
+    <entry name="3" value="9" remark="销户"/>
+  </dict>
+  <dict name="CUACCT_CLS">
+    <entry name="0" value="0" remark="普通"/>
+    <entry name="1" value="1" remark="信用"/>
+  </dict>
+  <dict name="MAIN_FLAG">
+    <entry name="0" value="0" remark="普通"/>
+    <entry name="1" value="1" remark="信用"/>
+  </dict>
+  <dict name="CUACCT_ATTR">
+    <entry name="0" value="0" remark="普通客户"/>
+    <entry name="7" value="1" remark="信用账户"/>
+  </dict>
+<!--KBSS账户-客户信息查询-->
+  <message src="L7190095" dst="L7190095" title="客户信息查询" securitycode="24292997">
+    <input format="!table">
+<!--公共入参-->
+      <field src="F_OP_BRANCH" dst="F_OP_BRANCH" type="int"/>
+      <field src="F_CHANNEL" dst="F_CHANNEL" type="char" dict="DICT_CHANNEL" default="8"/>
+      <field src="F_OP_SITE" dst="F_OP_SITE" type="char"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int"/>
+      <field src="USER_CODE" dst="USER_CODE" type="char"/>
+      <field src="CUACCT" dst="CUACCT" type="char"/>
+      <field src="password" dst="password" type="char"/>
+      <field src="password_type" dst="password_type" type="char" default="2"/>
+      <field src="token" dst="token" type="char"/>
+<!--普通入参-->
+    </input>
+    <output format="table">
+      <field src="INT_ORG" dst="INT_ORG" type="int" title="分支机构"/>
+      <field src="CUST_NAME" dst="CUST_NAME" width="14" type="char" title="用户姓名"/>
+      <field src="CUST_STATUS" dst="CUST_STATUS" width="1" type="char" title="客户状态(期货暂不支持)"/>
+      <field src="FUND_CARD" dst="FUND_CARD" width="32" type="char" title="资金卡号"/>
+      <field src="ID_TYPE" dst="ID_TYPE" width="64" type="char" dict="ID_TYPE_HS2K" title="证件类别"/>
+      <field src="ID_CODE" dst="ID_CODE" width="32" type="char" title="证件号码"/>
+      <field src="ID_ADDR" dst="ID_ADDR" width="120" type="char" title="联系地址"/>
+      <field src="MOBILE_TEL" dst="MOBILE_TEL" width="32" type="char" title="手机号码"/>
+      <field src="FAX" dst="FAX" width="32" type="char" title="传真电话"/>
+      <field src="ZIP_CODE" dst="ZIP_CODE" width="6" type="char" title="邮政编码"/>
+      <field src="EMAIL" dst="EMAIL" width="64" type="char" title="电子信箱"/>
+      <field src="TEL" dst="TEL" width="32" type="char" title="联系电话"/>
+      <field src="OPEN_DATE" dst="OPEN_DATE" type="int" title="开户日期"/>
+      <field src="NATIONALITY" dst="NATIONALITY" width="3" type="char" dict="CITIZENSHIP_HS2K" title="国籍"/>
+      <field src="ADDRESS" dst="ADDRESS" width="120" type="char" title="联系地址"/>
+      <field src="RISK_FACTOR" dst="RISK_FACTOR" width="64" type="char" title="风险因素"/>
+      <field src="CRITERION" dst="CRITERION" width="64" type="char" title="开户规范信息"/>
+      <field src="USER_FNAME" dst="USER_FNAME" width="64" type="char" title="账户全称"/>
+      <field src="OFFICE_TEL" dst="OFFICE_TEL" width="32" type="char" title="固定电话"/>
+      <field src="CUST_CODE" dst="CUST_CODE" width="18" type="char" title="账户全称"/>
+      <field src="CUACCT_CODE" dst="CUACCT_CODE" width="18" type="char" title="资产账户"/>
+      <field src="SEX" dst="SEX" width="1" type="char" title="性别"/>
+      <field src="ID_BEG_DATE" dst="ID_BEG_DATE" type="int" title="证件开始日期"/>
+      <field src="ID_EXP_DATE" dst="ID_EXP_DATE" type="int" title="证件有效日期"/>
+      <field src="CUST_GRP" dst="CUST_GRP" type="int" title="客户分组"/>
+      <field src="RATING_LVL" dst="RATING_LVL" type="int" title="风险测评等级"/>
+      <field src="RATING_DATE" dst="RATING_DATE" type="int" title="风险测评日期"/>
+      <field src="SURVEY_SCORE" dst="SURVEY_SCORE" width="32" type="char" title="测评分数"/>
+    </output>
+  </message>
+  <message src="L7833204" dst="L7833204" title="查询恒生交易系统客户总资产" securitycode="bbb57946">
+    <input format="!table">
+<!--公共入参-->
+      <field src="F_OP_ORG=FillZero(F_OP_ORG,'4')" dst="op_branch_no" type="int" title="操作分支机构"/>
+      <field src="F_OP_USER=FillZero(F_OP_USER,'4')" dst="operator_no" type="char" title="操作员编号"/>
+      <field src="F_OP_ROLE" dst="user_type" type="char" title="用户类别"/>
+      <field src="F_CHANNEL" dst="op_entrust_way" type="char" default="4" title="操作委托方式"/>
+      <field src="op_password" dst="op_password" type="char" default="1qaz2wsx" title="操作员密码"/>
+      <field src="F_OP_SITE" dst="op_station" type="char" title="站点地址"/>
+<!--业务入参-->
+ 			<field src="INT_ORG" dst="INT_ORG" type="int"/>
+      <field src="CUST_CODE" dst="CUST_CODE" type="char"/>
+      <field src="CUACCT_CODE" dst="CUACCT_CODE" type="CHAR" title="资产账户"/>
+      <field src="CURRENCY" dst="CURRENCY" type="char" title="币种类别"/>
+    </input>
+    <output format="table">
+      <field src="@input.CUST_CODE" dst="CUST_CODE" title="客户代码"/>
+      <field src="@input.CUACCT_CODE" dst="CUACCT_CODE" title="资产账户"/>
+      <field src="current_balance" dst="FUND_BAL" title="资金余额"/>
+      <field src="enable_balance" dst="FUND_AVL" title="资金可用"/>
+      <field src="asset_balance" dst="FUND_ASSERTAVL" title="资产总值(不含基金市值)"/>
+      <field src="fund_balance" dst="FUND_CASHAVL" title="资金(资产总值-证券市值)"/>
+      <field src="money_type" dst="CURRENCY" title="货币代码"/>
+    </output>
+  </message>
+<!--KBSS账户-资产账户信息查询-->
+  <message src="L7190094" dst="L7190094" title="资产账户信息查询" securitycode="b6f9a652">
+    <input format="!table">
+<!--公共入参-->
+      <field src="F_OP_BRANCH" dst="F_OP_BRANCH" type="int"/>
+      <field src="F_CHANNEL" dst="F_CHANNEL" type="char" dict="DICT_CHANNEL" default="0"/>
+      <field src="F_OP_SITE" dst="F_OP_SITE" type="char"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int"/>
+      <field src="USER_CODE" dst="USER_CODE" type="char"/>
+      <field src="CUACCT" dst="CUACCT" type="char" default=" "/>
+      <field src="password" dst="password" type="char"/>
+      <field src="password_type" dst="password_type" type="char" default="2"/>
+      <field src="token" dst="token" type="char"/>
+<!--普通入参-->
+    </input>
+    <output format="table">
+      <field src="INT_ORG" dst="INT_ORG" type="int" remark="客户开户营业部"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int" remark="分支机构"/>
+      <field src="CUST_CODE" dst="CUST_CODE" type="CHAR" remark="客户编号"/>
+      <field src="CUACCT_CODE" dst="CUACCT_CODE" type="CHAR" remark="资金账户"/>
+      <field src="CUACCT_CLS" dst="CUACCT_CLS" dict="CUACCT_CLS" dtype="CHAR" remark="资产账号类别"/>
+      <field src="MAIN_FLAG" dst="MAIN_FLAG" dict="MAIN_FLAG" type="CHAR" remark="主账标志"/>
+      <field src="PRODUCT_FLAG" dst="PRODUCT_FLAG" type="CHAR" remark="产品标志"/>
+      <field src="CUACCT_ATTR" dst="CUACCT_ATTR" type="CHAR" remark="资产属性"/>
+    </output>
+  </message>
+<!--KBSS账户-银行账户信息查询-->
+  <message src="L7190096" dst="L7190096" title="银行账户信息查询" securitycode="849bbc90">
+    <input format="!table">
+<!--公共入参-->
+      <field src="F_OP_BRANCH" dst="F_OP_BRANCH" type="int"/>
+      <field src="F_CHANNEL" dst="F_CHANNEL" type="char" dict="DICT_CHANNEL" default="8"/>
+      <field src="F_OP_SITE" dst="F_OP_SITE" type="char"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int"/>
+      <field src="USER_CODE" dst="USER_CODE" type="char"/>
+      <field src="CUACCT" dst="CUACCT" type="char"/>
+      <field src="password" dst="password" type="char"/>
+      <field src="password_type" dst="password_type" type="char" default="2"/>
+      <field src="token" dst="token" type="char"/>
+      <field src="CURRENCY" dst="CURRENCY" type="char"/>
+      <field src="BANK_ACCT" dst="BANK_ACCT" type="char"/>
+<!--普通入参-->
+    </input>
+    <output format="table">
+      <field src="CURRENCY" dst="CURRENCY" type="CHAR" dict="CURRENCY" title="币种类型"/>
+      <field src="EXT_ORG" dst="EXT_ORG" type="char" dict="EXT_ORG_HS2K" title="银行代码"/>
+      <field src="BANK_NAME" dst="BANK_NAME" type="CHAR" title="银行名称"/>
+      <field src="BDMF_ACCT" dst="BDMF_ACCT" type="CHAR" title="银行账户"/>
+      <field src="CUACCT" dst="CUACCT" type="CHAR" title="资金账户"/>
+      <field src="BKACCT_STATUS" dst="BKACCT_STATUS" type="CHAR" title="银行账户状态"/>
+      <field src="BKACCT_RIGHTS" dst="BKACCT_RIGHTS" type="CHAR" title="银行账户权限"/>
+    </output>
+  </message>
+<!--KBSS账户-测评答题记录查询-->
+  <message src="L7190097" dst="L7190097" title="测评答题记录查询" securitycode="5186f42c">
+    <input format="!table">
+<!--公共入参-->
+      <field src="F_OP_BRANCH" dst="F_OP_BRANCH" type="int"/>
+      <field src="F_CHANNEL" dst="F_CHANNEL" type="char" dict="DICT_CHANNEL" default="8"/>
+      <field src="F_OP_SITE" dst="F_OP_SITE" type="char"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int"/>
+      <field src="USER_CODE" dst="USER_CODE" type="char"/>
+      <field src="password" dst="password" type="char"/>
+      <field src="password_type" dst="password_type" type="char" default="2"/>
+      <field src="token" dst="user_token" type="char"/>
+      <field src="SURVEY_TYPE" dst="SURVEY_TYPE" type="char" default="1"/>
+<!--普通入参-->
+    </input>
+    <output format="table">
+      <field src="RATING_DATE" dst="RATING_DATE" type="int" title="发生日期"/>
+      <field src="SURVEY_SN" dst="SURVEY_SN" type="int" title="试题编码"/>
+      <field src="SURVEY_ANS" dst="SURVEY_ANS" type="CHAR" title="试题答案"/>
+      <field src="SURVEY_SCORE" dst="SURVEY_SCORE" type="CHAR" title="试题得分"/>
+    </output>
+  </message>
+<!--KBSS账户-证券股东信息查询-->
+  <message src="L7190195" dst="L7190195" title="证券股东信息查询" securitycode="669ca751">
+    <input format="!table">
+<!--公共入参-->
+      <field src="F_OP_BRANCH" dst="F_OP_BRANCH" type="int"/>
+      <field src="F_CHANNEL" dst="F_CHANNEL" type="char" dict="DICT_CHANNEL" default="4"/>
+      <field src="F_OP_SITE" dst="F_OP_SITE" type="char"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int"/>
+      <field src="USER_CODE" dst="USER_CODE" type="char"/>
+      <field src="CUACCT" dst="CUACCT" type="char"/>
+      <field src="password" dst="password" type="char"/>
+      <field src="password_type" dst="password_type" type="char" default="2"/>
+      <field src="token" dst="user_token" type="char"/>
+<!--普通入参-->
+      <field src="exchange_type" dst="exchange_type" type="char" default=" "/>
+      <field src="query_direction" dst="query_direction" type="char" default="0"/>
+      <field src="position_str" dst="position_str" type="char" default=" "/>
+      <field src="request_num" dst="request_num" type="int" default="50"/>
+    </input>
+    <output format="table">
+      <field src="position_str" dst="position_str" type="char" title="定位串"/>
+      <field src="STKBD" dst="STKBD" type="char" dict="STKBD1" title="交易类别"/>
+      <field src="TRDACCT" dst="TRDACCT" type="char" title="证券账号"/>
+      <field src="MAIN_FLAG" dst="MAIN_FLAG" type="char" title="主账标志"/>
+      <field src="TRDACCT_EXCLS" dst="TRDACCT_EXCLS" type="char" dict="TRDACCT_EXCLS1" title="账户类别"/>
+      <field src="TRDACCT_STATUS" dst="TRDACCT_STATUS" type="char" dict="TRDACCT_STATUS1" title="股东状态"/>
+      <field src="holder_rights" dst="holder_rights" type="char" title="股东权限"/>
+      <field src="register" dst="register" type="char" title="指定标志"/>
+      <field src="STKPBU" dst="STKPBU" type="char" title="席位编号"/>
+    </output>
+  </message>
+<!--KBSS账户-电子协议查询 -->
+  <message src="L7190196" dst="L7190196" title="电子协议查询" securitycode="d7c50c00">
+    <input format="!table">
+<!--公共入参-->
+      <field src="F_OP_BRANCH" dst="F_OP_BRANCH" type="int"/>
+      <field src="F_CHANNEL" dst="F_CHANNEL" type="char" dict="DICT_CHANNEL" default="8"/>
+      <field src="F_OP_SITE" dst="F_OP_SITE" type="char"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int"/>
+      <field src="CUST_CODE" dst="CUST_CODE" type="char"/>
+      <field src="password" dst="password" type="char"/>
+      <field src="password_type" dst="password_type" type="char" default="2"/>
+      <field src="token" dst="user_token" type="char"/>
+      <field src="CUACCT" dst="CUACCT" type="char"/>
+      <field src="AGMT_CODE" dst="AGMT_CODE" type="char"/>
+      <field src="SDC_ACCOUNT" dst="SDC_ACCOUNT" type="char"/>
+      <field src="AGREE_MODEL_NO" dst="AGREE_MODEL_NO" type="char"/>
+      <field src="ACCT_EXCH_TYPE" dst="ACCT_EXCH_TYPE" type="char"/>
+      <field src="CUST_AGMT_TYPE" dst="CUST_AGMT_TYPE" type="char"/>
+      <field src="BEGIN_DATE" dst="BEGIN_DATE" type="int"/>
+      <field src="END_DATE" dst="END_DATE" type="int"/>
+      <field src="POSITION_STR" dst="POSITION_STR" type="char"/>
+      <field src="REQUEST_NUM" dst="REQUEST_NUM" type="char"/>
+      <field src="EN_BRANCH_NO" dst="EN_BRANCH_NO" type="char"/>
+<!--普通入参-->
+    </input>
+    <output format="table">
+      <field src="INIT_DATE" dst="INIT_DATE" type="int" title="交易日期"/>
+      <field src="AGMT_CODE" dst="AGMT_CODE" type="CHAR" title="协议编号"/>
+      <field src="INT_ORG" dst="INT_ORG" type="int" title="分支机构"/>
+      <field src="CUST_CODE" dst="CUST_CODE" type="CHAR" title="客户编号"/>
+      <field src="CUACCT_CODE" dst="CUACCT_CODE" type="CHAR" title="资产账户"/>
+      <field src="SDC_ACCOUNT" dst="SDC_ACCOUNT" type="CHAR" title="权益账号"/>
+      <field src="AGREE_MODEL_NO" dst="AGREE_MODEL_NO" type="CHAR" title="模版编号"/>
+      <field src="ACCT_EXCH_TYPE" dst="ACCT_EXCH_TYPE" type="CHAR" title="账户交易类别"/>
+      <field src="PRODTA_NO" dst="PRODTA_NO" type="CHAR" title="产品TA编号"/>
+      <field src="PROD_CODE" dst="PROD_CODE" type="CHAR" title="产品代码"/>
+      <field src="CUST_AGMT_TYPE" dst="CUST_AGMT_TYPE" type="CHAR" title="协议类型"/>
+      <field src="SIGN_DATE" dst="SIGN_DATE" type="int" title="签约日期"/>
+      <field src="TRDACCT" dst="TRDACCT" type="CHAR" title="交易账号"/>
+      <field src="SIGN_STATUS" dst="SIGN_STATUS" type="CHAR" title="签约状态"/>
+      <field src="AGENCY_NO" dst="AGENCY_NO" type="CHAR" title="销售商代码"/>
+      <field src="CSFC_BEGIN_DATE" dst="CSFC_BEGIN_DATE" type="int" title="合同起始日期"/>
+      <field src="CSFC_END_DATE" dst="CSFC_END_DATE" type="int" title="合同结束日期"/>
+      <field src="SUB_RISK_FLAG" dst="SUB_RISK_FLAG" type="CHAR" title="是否签署风险揭示书"/>
+      <field src="RISK_LEVEL" dst="RISK_LEVEL" type="int" title="风险级别"/>
+      <field src="POSITION_STR" dst="POSITION_STR" type="CHAR" title="定位串"/>
+      <field src="DATE_CLEAR" dst="DATE_CLEAR" type="CHAR" title="清算日期"/>
+      <field src="CLEAR_FLAG" dst="CLEAR_FLAG" type="CHAR" title="清算标志"/>
+      <field src="REMARK" dst="REMARK" type="CHAR" title="备注"/>
+      <field src="CERT_TYPE" dst="CERT_TYPE" type="CHAR" title="证书类型"/>
+      <field src="CERT_SIGN" dst="CERT_SIGN" type="CHAR" title="签约姓名"/>
+      <field src="CERT_ORIGINAL" dst="CERT_ORIGINAL" type="CHAR" title="签名原文"/>
+    </output>
+  </message>
+</kdmid1pc>

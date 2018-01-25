@@ -1,0 +1,1213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--KBSS系统对接消费支付系统接口配置  zhuliang 2014.02.26 -->
+<!--KBSS系统部署对接pay kcbp可以在支付系统的pay XA Resource直接加载一个XA
+需要kbss2pay.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+<!--字典项dict 需自行调整-->
+
+<dict name="KCBP_NODE2SERVER_ID">
+  <entry name="31"   value="301"/>
+  <entry name="32"   value="302"/>
+  <entry name="33"   value="303"/>
+  <entry name="34"   value="304"/>
+  <entry name="35"   value="305"/>
+  <entry name="36"   value="306"/>
+  <entry name="37"   value="307"/>
+  <entry name="38"   value="308"/>
+  <entry name="39"   value="309"/>
+</dict>
+<!-- 支付机构 -->
+<dict name="PY_ORG_CODE">
+  <entry name="UNIONPAY"   value="5"   remark="银联支付" />
+  <entry name="SACPAY"     value="6"   remark="中证金通" />
+</dict>
+
+<!-- 支付机构 -->
+<dict name="PAY_ORG_CODE">
+  <entry name="5"   value="UNIONPAY"   remark="银联支付" />
+  <entry name="6"   value="SACPAY"     remark="中证金通" />
+</dict>
+
+<!--函数列表-->
+<function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="strSource" type="string"/>
+ </argument>
+</function>
+
+<function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="inputstring" type="string"/>
+  <argv name="start" type="int"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="formattor" type="string"/>
+ </argument>
+</function>
+
+<function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="orgtimestr" type="string"/>
+  <argv name="opdirect" type="string"/>
+  <argv name="type" type="string"/>
+ </argument>
+</function>
+
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+<function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="StrVal" type="string"/>
+  <argv name="Param"  type="string"/>
+  <argv name="ValLen" type="int"/>
+ </argument>
+</function>
+
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+<function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--KBSS版柜台解密函数encrypt.dll -->
+<function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--OTC柜台加密函数KDEncodeCli.dll -->
+<function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--OTC柜台重加密函数KDEncodeCli.dll -->
+<function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="oldkey"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+  <argv name="newkey"  type="string"/>
+ </argument>
+</function>
+
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+<function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval1" type="string"/>
+  <argv name="strval2"  type="string"/>
+  <argv name="flag" type="string"/>
+ </argument>
+</function>
+
+<!--16进制转换10进制 -->
+<function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval" type="string"/>
+ </argument>
+</function>
+
+<!--复数字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+<function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryNames" type="string"/>
+  <argv name="SrcFlag" type="int"/>
+  <argv name="DstFlag" type="int"/>
+ </argument>
+</function>
+
+<!--区间字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+<function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryName" type="string"/>
+ </argument>
+</function>
+
+<!-- 开通支付功能 -->
+<message src="L6030001" dst="L2400001">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户名称"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CURRENCY"                 dst="CURRENCY"              width="1"     default=""    remark="货币"              />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="64"    default=""  dict="PY_ORG_CODE"  remark="支付机构内码"      />
+    <field src="PY_ACC"                   dst="PY_ACC"                width="19"    default=""    remark="支付账户"          />
+    <field src="ACC_STATUS"               dst="ACC_STATUS"            width="1"     default="0"   remark="支付账户状态"      />
+    <field src="OPEN_DATE"                dst="OPEN_DATE"             width="64"    default=""    remark="开户日期"          />
+    <field src="PY_MOBILE_TEL"            dst="PY_MOBILE_TEL"         width="32"    default=""    remark="支付手机"          />
+    <field src="PY_EMAIL"                 dst="PY_EMAIL"              width="32"    default=""    remark="支付邮箱"          />
+    <field src="PY_ADDRESS"               dst="PY_ADDRESS"            width="256"   default=""    remark="支付地址"          />
+    <field src="PY_CHANNELS"              dst="PY_CHANNELS"           width="256"   default=""    remark="开通渠道"          />
+    <field src="INHERIT_KGOB"             dst="INHERIT_KGOB"          width="64"    default="0"    remark="继承柜台信息"      />
+    <field src="CUACCT_FUND_PWD"          dst="CUACCT_FUND_PWD"       width="256"   default=""    remark="资金密码"          />
+    <field src="CUACCT_ATTR"              dst="CUACCT_ATTR"           width="1"     default=""    remark="资产账户属性"          />
+    <field src="SUBSYS"                   dst="SUBSYS"                width="8"     default=""    remark="子系统"          />
+    <field src="SUBSYS_SN"                dst="SUBSYS_SN"             width="8"    default=""   dict="KCBP_NODE2SERVER_ID"   remark="账户系统中对各系统编号节点"/>
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户转账转入权限开通 -->
+<message src="L6030002" dst="L2400050">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />		
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户名称"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="ZZ_OPEN_DATE"             dst="ZZ_OPEN_DATE"          width="32"    default=""    remark="转账权限开通日期"  />
+    <field src="ZZ_OPEN_FLAG"             dst="ZZ_OPEN_FLAG"          width="1"     default=""    remark="转账权限开通标记"  />
+    <field src="OP_CODE"                  dst="OP_CODE"               width="32"    default=""    remark="操作员代码"        />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户转账转入权限关闭 -->
+<message src="L6030003" dst="L2400051">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />		
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户名称"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="ZZ_OPEN_DATE"             dst="ZZ_OPEN_DATE"          width="32"    default=""    remark="转账权限开通日期"  />
+    <field src="ZZ_OPEN_FLAG"             dst="ZZ_OPEN_FLAG"          width="1"     default=""    remark="转账权限开通标记"  />
+    <field src="OP_CODE"                  dst="OP_CODE"               width="32"    default=""    remark="操作员代码"        />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 支付联合开户 -->
+<message src="L6030004" dst="L2400038">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户名称"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CURRENCY"                 dst="CURRENCY"              width="1"     default=""    remark="货币"              />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="64"    default=""    dict="PY_ORG_CODE"  remark="支付机构内码"      />
+    <field src="ACC_STATUS"               dst="ACC_STATUS"            width="1"     default="0"   remark="支付账户状态"      />
+    <field src="OPEN_DATE"                dst="OPEN_DATE"             width="64"    default=""    remark="开户日期"          />
+    <field src="PY_MOBILE_TEL"            dst="PY_MOBILE_TEL"         width="32"    default=""    remark="支付手机"          />
+    <field src="PY_EMAIL"                 dst="PY_EMAIL"              width="32"    default=""    remark="支付邮箱"          />
+    <field src="PY_ADDRESS"               dst="PY_ADDRESS"            width="256"   default=""    remark="支付地址"          />
+    <field src="PY_CHANNELS"              dst="PY_CHANNELS"           width="256"   default=""    remark="开通渠道"          />
+    <field src="INHERIT_KGOB"             dst="INHERIT_KGOB"          width="64"    default="0"   remark="继承柜台信息"      />
+    <field src="CUACCT_FUND_PWD"          dst="CUACCT_FUND_PWD"       width="256"   default=""    remark="资金密码"          />
+    <field src="CONSUME_PWD"              dst="CONSUME_PWD"           width="256"   default=""    remark="支付密码"          />
+    <field src="CUACCT_ATTR"              dst="CUACCT_ATTR"           width="1"     default=""    remark="资产账户属性"          />
+    <field src="SUBSYS"                   dst="SUBSYS"                width="8"     default=""    remark="子系统"          />
+    <field src="SUBSYS_SN"                dst="SUBSYS_SN"             width="8"    default=""   dict="KCBP_NODE2SERVER_ID"   remark="账户系统中对各系统编号节点"/>
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户消费密码设置 -->
+<message src="L6030005" dst="L2400008">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+				
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CONSUME_PWD"              dst="CONSUME_PWD"           width="256"   default=""    remark="支付密码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="OP_DATE"                  dst="OP_DATE"               width="32"    default=""    remark="操作日期"          />
+    <field src="OP_CODE"                  dst="OP_CODE"               width="32"    default=""    remark="操作员代码"        />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户消费密码修改 -->
+<message src="L6030006" dst="L2400009">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+				
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="OLD_CONSUME_PWD"          dst="OLD_CONSUME_PWD"       width="256"   default=""    remark="原消费密码（支付密文）"              />
+    <field src="NEW_CONSUME_PWD"          dst="NEW_CONSUME_PWD"       width="256"   default=""    remark="新消费密码（支付密文）"              />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="OP_DATE"                  dst="OP_DATE"               width="32"    default=""    remark="操作日期"              />
+    <field src="OP_CODE"                  dst="OP_CODE"               width="32"    default=""    remark="操作员代码"          />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户消费密码重置 -->
+<message src="L6030007" dst="L2400010">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+				
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CONSUME_PWD"              dst="CONSUME_PWD"           width="256"   default=""    remark="资金密码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="OP_CODE"                  dst="OP_CODE"               width="32"    default=""    remark="操作员代码"        />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="48"    default=""    remark="证件号码"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户姓名"          />
+    <field src="PY_MOBILE_TEL"            dst="TEL"                   width="32"    default=""    remark="联系电话"        />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户消费密码挂失 -->
+<message src="L6030008" dst="L2400011">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+	
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="OP_DATE"                  dst="OP_DATE"               width="32"    default=""    remark="操作日期"          />
+    <field src="OP_CODE"                  dst="OP_CODE"               width="32"    default=""    remark="操作员代码"        />
+    <field src="CHANNEL"                  dst="CHANNEL"               width="1"     default=""    remark="操作渠道"          />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户消费密码验证 -->
+<message src="L6030009" dst="L2400012">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />			
+
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CONSUME_PWD"              dst="CONSUME_PWD"           width="256"   default=""    remark="资金密码"          />
+    <field src=""                         dst="PASS_WAY"              width="1"     default="1"   remark="登录方式"          />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="PY_ACC"                   dst="PY_ACC"                width="19"    default=""    remark="支付账户"          />
+    <field src="PY_MOBILE_TEL"            dst="PY_MOBILE_TEL"         width="32"    default=""    remark="支付手机"          />
+    <field src="PY_EMAIL"                 dst="PY_EMAIL"              width="32"    default=""    remark="支付邮箱"          />
+  </output>
+</message>
+
+<!-- 消费支付渠道管理 -->
+<message src="L6030010" dst="L2400013">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+				
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CONSUME_PWD"              dst="CONSUME_PWD"           width="256"   default=""    remark="资金密码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CHANNEL"                  dst="CHANNEL"               width="32"    default=""    remark="开通渠道"          />
+    <field src="DEAL_FLAG"                dst="DEAL_FLAG"             width="32"    default=""    remark="处理类型"          />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户支付功能暂停 -->
+<message src="L6030011" dst="L2400002">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+				
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户名称"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="64"    default=""  dict="PY_ORG_CODE"  remark="支付机构内码"      />
+    <field src="PY_ACC"                   dst="PY_ACC"                width="32"    default=""    remark="支付账户"          />
+    <field src=""                         dst="ACC_STATUS"            width="1"     default="1"   remark="支付账户状态"      />
+    <field src="CUACCT_FUND_PWD"          dst="CUACCT_FUND_PWD"       width="256"   default=""    remark="资金密码"          />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户支付功能重新启用 -->
+<message src="L6030012" dst="L2400003">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+				
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户名称"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="64"    default=""  dict="PY_ORG_CODE"  remark="支付机构内码"      />
+    <field src="PY_ACC"                   dst="PY_ACC"                width="32"    default=""    remark="支付账户"          />
+    <field src=""                         dst="ACC_STATUS"            width="1"     default="0"   remark="支付账户状态"      />
+    <field src="CUACCT_FUND_PWD"          dst="CUACCT_FUND_PWD"       width="256"   default=""    remark="资金密码"          />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户支付专用联系信息修改 -->
+<message src="L6030013" dst="L2400005">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+
+    <field src="OP_CODE"                  dst="OP_CODE"               width="64"    default=""    remark="操作员代码"        />	
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="PY_MOBILE_TEL"            dst="PY_MOBILE_TEL"         width="32"    default=""    remark="支付手机"          />
+    <field src="PY_EMAIL"                 dst="PY_EMAIL"              width="32"    default=""    remark="支付邮箱"          />
+    <field src="PY_ADDRESS"               dst="PY_ADDRESS"            width="256"   default=""    remark="支付地址"          />
+    <field src="INHERIT_KGOB"             dst="INHERIT_KGOB"          width="64"    default="0"   remark="继承柜台信息"      />
+    <field src="CUACCT_FUND_PWD"          dst="CUACCT_FUND_PWD"       width="256"   default=""    remark="资金密码"          />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 支付系统基础信息查询 -->
+<message src="L6030014" dst="L2460010">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="64"    default=""  dict="PAY_ORG_CODE"  remark="支付机构内码"      />
+    <field src="PY_ACC"                   dst="PY_ACC"                width="19"    default=""    remark="支付账户"          />
+    <field src="ACC_STATUS"               dst="ACC_STATUS"            width="1"     default="0"   remark="支付账户状态"      />
+    <field src="OPEN_DATE"                dst="OPEN_DATE"             width="64"    default=""    remark="开户日期"          />
+    <field src="PY_MOBILE_TEL"            dst="PY_MOBILE_TEL"         width="32"    default=""    remark="支付手机"          />
+    <field src="PY_EMAIL"                 dst="PY_EMAIL"              width="32"    default=""    remark="支付邮箱"          />
+    <field src="PY_ADDRESS"               dst="PY_ADDRESS"            width="256"   default=""    remark="支付地址"          />
+    <field src="PY_CHANNELS"              dst="PY_CHANNELS"           width="256"   default=""    remark="开通渠道"          />
+    <field src="INHERIT_KGOB"             dst="INHERIT_KGOB"          width="64"    default="0"    remark="继承柜台信息"     />
+  </output>
+</message>
+
+<!-- 客户支付功能关闭 -->
+<message src="L6030016" dst="L2400028">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />				
+				
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="64"    default=""    dict="PY_ORG_CODE"  remark="支付机构内码"      />
+    <field src="CUACCT_FUND_PWD"          dst="CUACCT_FUND_PWD"       width="256"   default=""    remark="资金密码"          />
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户消费可用余额查询 -->
+<message src="L6030017" dst="L2460015">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="机构代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CURRENCY"                 dst="CURRENCY"              width="1"     default=""    remark="货币代码"          />
+    <field src="CHANNEL"                  dst="CHANNEL"               width="1"     default=""    remark="操作渠道"          />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="64"    default=""    remark="内部机构"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CURRENCY"                 dst="CURRENCY"              width="1"     default=""    remark="货币代码"          />
+    <field src="CHANNEL"                  dst="CHANNEL"               width="1"     default=""    remark="操作渠道"          />
+    <field src="FUND_CONSUME"             dst="FUND_CONSUME"          width="19"    default=""    remark="当日已消费金额"    />
+    <field src="FUND_AVL"                 dst="FUND_AVL"              width="19"    default=""    remark="当日可消费金额"    />
+  </output>
+</message>
+<!-- CUACCT_ATTR 资产账户属性 -->
+<dict name="CUACCT_ATTR">
+  <!-- kbss <=> fms -->
+  <entry name="0"   value="0" remark="普通账户"/>
+  <entry name="1"   value="1" remark="信用账户"/>
+  <entry name="2"   value="4" remark="OTC支付账户"/>
+  <entry name="3"   value="3" remark="个股期权账户"/>
+</dict>
+
+<!-- OP_TYPE 操作方式 -->
+<dict name="OP_TYPE">
+  <!-- kbss <=> fms -->
+  <entry name="0"   value="1" remark="新增"/>
+  <entry name="1"   value="2" remark="修改"/>
+</dict>
+
+<!-- 理财账户支付系统开户 -->
+<message src="L6032000" dst="L2400304">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CUACCT_ATTR"              dst="CUACCT_ATTR"           width="1"     default=""    dict="CUACCT_ATTR"    remark="资产账户属性"      />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="客户姓名"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="16"    default=""    remark="机构代码"          />  
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />  
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="TEL"                      dst="TEL"                   width="32"    default=""    remark="电话号码"          />
+    <field src="PAY_ACCT"                 dst="PY_ACC"                width="32"    default=""    remark="支付账号"          />    
+    <field src="PAY_ORG_CODE"             dst="PY_ORG_CODE"           width="64"    default=""    dict="PY_ORG_CODE"    remark="支付机构"          />
+    <field src="BANK_CODE"                dst="BANK_ID"               width="16"    default=""    remark="银行代码"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="1"     default=""    remark="银行账户类别"      />
+    <field src="SUBSYS"                   dst="SUBSYS"                width="16"    default=""    remark="对接子系统"        />
+    <field src="OP_TYPE"                  dst="OP_TYPE"               width="1"     default=""    remark="操作类型"          />
+    <field src=""                         dst="PARTICIPANT"           width="16"    default="KDACCT"    remark="参与方编码"  />
+    <field src="SUBSYS_SN"                dst="SUBSYS_SN"             width="8"     default=""    dict="KCBP_NODE2SERVER_ID"  remark="账户系统中对各系统编号节点"  />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+  </output>
+</message>
+
+<!-- 客户理财支付系统销户 -->
+<message src="L6032001" dst="L2400305">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />  
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src=""                         dst="PARTICIPANT"           width="16"    default="KDACCT"    remark="参与方编码"  />   
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+  </output>
+</message>
+
+<!-- 客户理财支付系统短信申请 -->
+<message src="L6032002" dst="L2400301">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="BANK_CODE"                dst="BANK_ID"               width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="2"     default=""    remark="银行账号类型"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />  
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="姓名"              />  
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="TEL"                      dst="TEL"                   width="32"    default=""    remark="电话号码"          />  
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="32"    default=""  dict="PY_ORG_CODE"   remark="支付机构编码"      />
+    <field src=""                         dst="TRD_BIZ_ID"            width="2"     default="23"  remark="交易业务标识"      />
+    <field src=""                         dst="PARTICIPANT"           width="8"     default="KDACCT"    remark="参与方编码"  />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"    default=""    remark="流水号"            />
+    <field src="OCCUR_DATE"               dst="OCCUR_DATE"            width="64"    default=""    remark="发生日期"          />
+    <field src="OCCUR_TIME"               dst="OCCUR_TIME"            width="6"     default=""    remark="发生时间"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"    default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"      />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+  </output>
+</message>
+
+<!-- 客户理财支付系统签约申请 -->
+<message src="L6032003" dst="L2400302">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="RLTO_SERIAL_NO"           dst="RLTO_SERIAL_NO"        width="64"    default=""    remark="关联流水号"        />
+    <field src="VERFY_CODE"               dst="VERFY_CODE"            width="32"    default=""    remark="短信验证码 "       />
+    <field src="BANK_CODE"                dst="BANK_ID"               width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="2"     default=""    remark="银行账号类型"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />  
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="姓名"              />  
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="TEL"                      dst="TEL"                   width="32"    default=""    remark="电话号码"          />  
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="32"    default="" dict="PY_ORG_CODE"   remark="支付机构编码"      />
+    <field src=""                         dst="PARTICIPANT"           width="8"     default="KDACCT"    remark="参与方编码"  />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"    default=""    remark="流水号"            />
+    <field src="OCCUR_DATE"               dst="OCCUR_DATE"            width="64"    default=""    remark="发生日期"          />
+    <field src="OCCUR_TIME"               dst="OCCUR_TIME"            width="6"     default=""    remark="发生时间"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"    default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"      />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+  </output>
+</message>
+
+<!-- 客户理财支付系统解约申请 -->
+<message src="L6032004" dst="L2400303">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="32"    default="" dict="PY_ORG_CODE"   remark="支付机构编码"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />    
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="32"    default=""    remark="资产账户"          />     
+    <field src=""                         dst="PARTICIPANT"           width="8"     default="KDACCT"    remark="参与方编码"  />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"    default=""    remark="流水号"            />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"    default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"      />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+  </output>
+</message>
+
+<!-- 客户理财支付系统交易流水查询 -->
+<message src="L6032005" dst="L2460301">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="BEGIN_DATE"               dst="BEGIN_DATE"            width="32"    default=""    remark="发生日期(起)"      />
+    <field src="END_DATE"                 dst="END_DATE"              width="32"    default=""    remark="发生日期(止)"      />    
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"    default=""    remark="流水号"            />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"    default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />  
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />  
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />      
+    <field src="TRD_BIZ_IDS"              dst="TRD_BIZ_IDS"           width="128"   default=""    remark="交易业务类型（复数）" />
+    <field src="TRD_BIZ_STATUSS"          dst="TRD_BIZ_STATUSS"       width="32"    default=""    remark="交易业务状态（复数）" />
+    <field src="PAGE_RECNUM"              dst="PAGE_RECNUM"           width="32"    default="0"    remark="分页起始记录号"    />
+    <field src="PAGE_RECCNT"              dst="PAGE_RECCNT"           width="32"    default="100"    remark="分页记录数量"      />    
+    <field src=""                         dst="PARTICIPANT"           width="8"     default="KDACCT"    remark="参与方编码"  />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"    default=""    remark="流水号"            />
+    <field src="TRD_DATE"                 dst="TRD_DATE"              width="32"    default=""    remark="交易日期"          />
+    <field src="INT_SERIAL_NO"            dst="INT_SERIAL_NO"         width="64"    default=""    remark="申请流水号"        />
+    <field src="OCCUR_DATE"               dst="OCCUR_DATE"            width="32"    default=""    remark="发生日期"          />
+    <field src="OCCUR_TIME"               dst="OCCUR_TIME"            width="32"    default=""    remark="发生时间"          />
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资产账户"          />
+    <field src="CURRENCY"                 dst="CURRENCY"              width="2"     default=""    remark="货币代码"          />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="16"    default=""    remark="内部机构"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"    default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"      />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="16"     default=""    remark="银行编码"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="2"     default=""    remark="银行账号类型"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账户"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="姓名"              />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="TEL"                      dst="TEL"                   width="32"    default=""    remark="电话号码"          />
+    <field src="PY_ACC"                   dst="PY_ACCT"               width="64"    default=""    remark="支付账户"          />
+    <field src="PY_ORG_SETT_DATE"         dst="PY_ORG_SETT_DATE"      width="32"    default=""    remark="支付机构清算日期"  />
+    <field src="TRANS_AMT"                dst="TRANS_AMT"             width="64"    default=""    remark="交易金额"          />
+    <field src="TRANS_FEE"                dst="TRANS_FEE"             width="64"    default=""    remark="交易费用"          />
+    <field src="TRD_BIZ_ID"               dst="TRD_BIZ_ID"            width="2"     default=""    remark="交易业务标识"      />
+    <field src="TRD_BIZ_STATUS"           dst="TRD_BIZ_STATUS"        width="1"     default=""    remark="交易业务状态"      />
+    <field src="EXT_MSG_CODE"             dst="EXT_MSG_CODE"          width="16"    default=""    remark="支付机构信息代码"  />
+    <field src="EXT_MSG_TEXT"             dst="EXT_MSG_TEXT"          width="256"   default=""    remark="支付机构信息内容"  />
+    <field src="EXT_SERIAL_NO"            dst="EXT_SERIAL_NO"         width="32"    default=""    remark="支付机构流水序号"  />
+    <field src="EXT_ANS_STIME"            dst="EXT_ANS_STIME"         width="32"    default=""    remark="支付机构应答时间"  />
+    <field src="REC_NUM"                  dst="REC_NUM"               width="32"    default=""    remark="查询记录号"        />
+    <field src="REMARK"                   dst="REMARK"                width="128"   default=""    remark="备注信息"          />
+  </output>
+</message>
+
+<!-- 第三方支付网银签约申请 -->
+<message src="L6032012" dst="L2400300">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="BANK_CODE"                dst="BANK_ID"               width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="2"     default=""    remark="银行账号类型"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="姓名"              />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="TEL"                      dst="TEL"                   width="32"    default=""    remark="电话号码"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="32"    default=""  dict="PY_ORG_CODE"  remark="支付机构编码"      />
+    <field src=""                         dst="PARTICIPANT"           width="8"     default="KDACCT"    remark="参与方编码"      />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="4"     default=""    remark="机构代码"           />
+    <field src="DEVICE"                   dst="DEVICE"                width="32"    default="PC"  remark="终端类型"          />
+    <field src="FRONT_CALLBACK_URL"       dst="FRONT_CALLBACK_URL"    width="512"   default=""    remark="页面回调地址"      />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"    default=""    remark="流水号"            />
+    <field src="OCCUR_DATE"               dst="OCCUR_DATE"            width="64"    default=""    remark="发生日期"          />
+    <field src="OCCUR_TIME"               dst="OCCUR_TIME"            width="6"     default=""    remark="发生时间"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"    default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"      />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+    <field src="BANK_FRONT_URL"           dst="SEC_LISTEN_URL"        width="32"    default=""    remark="URL地址"           />
+    <field src="SEND_PACKAGE"             dst="SEND_PACKAGE"          width="2048"  default=""    remark="发送报文数据包"           />
+  </output>
+</message>
+
+<!-- 第三方支付解约检查 -->
+<message src="L6032013" dst="L2400306">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="32"    default=""   dict="PY_ORG_CODE" remark="支付机构编码"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资金账户"          />
+    <field src=""                         dst="PARTICIPANT"           width="8"     default="KDACCT"    remark="参与方编码"      />
+  </input>
+  <output format="table">
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资金账户"            />
+    <field src="RELEASE_CHECK"            dst="RELEASE_CHECK"         width="1"     default=""    remark="是否可以解约"          />
+  </output>
+</message>
+
+<!-- 实名认证 -->
+<message src="L6032014" dst="L2400307">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="BANK_CODE"                dst="BANK_ID"               width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="2"     default=""    remark="银行账号类型"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"    default=""    remark="姓名"              />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="TEL"                      dst="TEL"                   width="32"    default=""    remark="电话号码"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="32"    default=""  dict="PY_ORG_CODE"  remark="支付机构编码"      />
+    <field src=""                         dst="PARTICIPANT"           width="8"     default="KDACCT"    remark="参与方编码"      />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="4"     default=""    remark="机构代码"           />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"    default=""    remark="流水号"            />
+    <field src="OCCUR_DATE"               dst="OCCUR_DATE"            width="64"    default=""    remark="发生日期"          />
+    <field src="OCCUR_TIME"               dst="OCCUR_TIME"            width="6"     default=""    remark="发生时间"          />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"    default="" dict="PAY_ORG_CODE"   remark="支付机构编码"      />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+  </output>
+</message>
+
+<!-- 客户签约信息查询 -->
+<message src="L6032015" dst="L2460050">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资金账户"          />
+  </input>
+  <output format="table">
+    <field src="CUAT_CODE"                dst="CUAT_CODE"             width="64"    default=""    remark="客户代码"       />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"    default=""    remark="资金账户"       />
+    <field src="CURRENCY"                 dst="CURRENCY"              width="1"     default=""    remark="货币代码"                 />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="32"    default=""    remark="内部机构"                 />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"    default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"      />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="14"    default=""    remark="银行编码"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="2"     default=""    remark="银行账号类型"      />
+    <field src="HLD_NAME"                 dst="HLD_NAME"              width="80"    default=""    remark="持卡人姓名"      />
+    <field src="CER_TYPE"                 dst="ID_TYPE"               width="2"     default=""    remark="证件类型"          />
+    <field src="CER_NUM"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"          />
+    <field src="CHANNELS"                 dst="CHANNELS"              width="128"   default=""    remark="操作方式"          />
+    <field src="BRC_ID"                   dst="BRC_ID"                width="16"    default=""    remark="分支机构"          />
+    <field src="OPEN_DATE"                dst="OPEN_DATE"             width="64"    default=""    remark="开户日期"          />
+    <field src="CLOSE_DATE"               dst="CLOSE_DATE"            width="64"    default=""    remark="解约日期"          />
+    <field src="ACCT_SAVE_UPLMT"          dst="ACCT_SAVE_UPLMT"       width="64"    default=""    remark="账户全日转入上限"          />
+    <field src="ACCT_SAVED_AMT"           dst="ACCT_SAVED_AMT"        width="64"    default=""    remark="账户全日已转入额"          />
+    <field src="CONTRACT_STATUS"          dst="CONTRACT_STATUS"       width="1"     default=""    remark="签约状态"            />
+    <field src="BNK_NAME"                 dst="BNK_NAME"              width="32"    default=""    remark="银行名称"            />
+    <field src="BNKACCT_TYPE_NAME"        dst="BNKACCT_TYPE_NAME"     width="32"    default=""    remark="银行卡类型名称"            />
+  </output>
+</message>
+
+<!-- 客户交易流水查询 -->
+<message src="L6032016" dst="L2460303">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="BEGIN_DATE"              dst="BEGIN_DATE"           width="32"    default=""    remark="发生日期(起)"          />
+    <field src="END_DATE"                dst="END_DATE"             width="32"    default=""    remark="发生日期(止)"          />
+    <field src="APP_DATE"                dst="APP_DATE"             width="32"    default=""    remark="申请日期"          />
+    <field src="APP_SNO"                 dst="APP_SNO"              width="32"    default=""    remark="申请编号"          />
+    <field src="SERIAL_NO"               dst="SERIAL_NO"            width="64"    default=""    remark="流水号"          />
+    <field src="CUST_CODE"               dst="CUST_CODE"            width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"             dst="CUACCT_CODE"          width="64"    default=""    remark="资产账号"          />
+    <field src="BANK_ACCT"               dst="BANK_ACCT"            width="32"    default=""    remark="银行账号"          />
+    <field src="TRD_BIZ_IDS"             dst="TRD_BIZ_IDS"          width="128"   default=""    remark="交易业务类型（复数）"          />
+    <field src="TRD_BIZ_STATUSS"         dst="TRD_BIZ_STATUSS"      width="16"    default=""    remark="交易业务状态（复数）"          />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"                dst="SERIAL_NO"             width="64"      default=""    remark="流水号"       />
+    <field src="APP_DATE"                 dst="APP_DATE"              width="32"      default=""    remark="申请日期"       />
+    <field src="APP_SNO"                  dst="APP_SNO"               width="32"      default=""    remark="申请编号"                 />
+    <field src="OCCUR_DATE"               dst="OCCUR_DATE"            width="32"      default=""    remark="发生日期"                 />
+    <field src="OCCUR_TIME"               dst="OCCUR_TIME"            width="32"      default=""    remark="发生时间"      />
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"      default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"              dst="CUACCT_CODE"           width="64"      default=""    remark="资金账户"          />
+    <field src="CURRENCY"                 dst="CURRENCY"              width="1"       default=""    remark="货币代码"      />
+    <field src="INT_ORG"                  dst="INT_ORG"               width="16"      default=""    remark="内部机构"      />
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"           width="16"      default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"          />
+    <field src="BANK_ID"                  dst="BANK_CODE"             width="16"      default=""    remark="银行编码"          />
+    <field src="BANK_ACCT_TYPE"           dst="BANK_ACCT_TYPE"        width="2"       default=""    remark="银行账号类型"          />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"      default=""    remark="银行账户"          />
+    <field src="CUST_NAME"                dst="CUST_NAME"             width="32"      default=""    remark="姓名"          />
+    <field src="ID_TYPE"                  dst="ID_TYPE"               width="2"       default=""    remark="证件类型"          />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"      default=""    remark="证件号码"          />
+    <field src="TEL"                      dst="TEL"                   width="32"      default=""    remark="电话号码"          />
+    <field src="PY_ACC"                   dst="PY_ACC"                width="64"      default=""    remark="支付帐户"            />
+    <field src="PY_ORG_SETT_DATE"         dst="PY_ORG_SETT_DATE"      width="32"      default=""    remark="支付机构清算日期"            />
+    <field src="TRANS_AMT"                dst="TRANS_AMT"             width="128"     default=""    remark="交易金额"            />
+    <field src="TRANS_FEE"                dst="TRANS_FEE"             width="128"     default=""    remark="交易费用"          />
+    <field src="TRD_BIZ_ID"               dst="TRD_BIZ_ID"            width="2"       default=""    remark="交易业务标识"          />
+    <field src="TRD_BIZ_STATUS"           dst="TRD_BIZ_STATUS"        width="1"       default=""    remark="交易业务状态"          />
+    <field src="EXT_MSG_CODE"             dst="EXT_MSG_CODE"          width="16"      default=""    remark="支付机构信息代码"          />
+    <field src="EXT_MSG_TEXT"             dst="EXT_MSG_TEXT"          width="256"     default=""    remark="支付机构信息内容"          />
+    <field src="EXT_SERIAL_NO"            dst="EXT_SERIAL_NO"         width="32"      default=""    remark="支付机构流水序号"          />
+    <field src="EXT_ANS_STIME"            dst="EXT_ANS_STIME"         width="32"      default=""    remark="支付机构应答时间"            />
+    <field src="BANK_FRONT_URL"           dst="BANK_FRONT_URL"        width="256"     default=""    remark="银行URL地址"            />
+    <field src="REMARK"                   dst="REMARK"                width="128"     default=""    remark="备注信息"      />
+</output>
+</message>
+
+<!-- 检查消费支付密码是否设置 -->
+<message src="L6032017" dst="L2400039">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="CUST_CODE"               dst="CUST_CODE"            width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"             dst="CUACCT_CODE"          width="64"    default=""    remark="资产账号"          />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"      default=""    remark="流水号"       />
+    <field src="IS_SET_PWD"               dst="IS_SET_PWD"            width="1"       default=""    remark="是否已设置"       />
+</output>
+</message>
+
+<!-- 网银签约结果回调  -->
+<message src="L6032018" dst="L2400059">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />  
+
+    <field src="OCCUR_DATE"           dst="OCCUR_DATE"            width="64"    default=""    remark="发生日期"          />
+    <field src="SERIAL_NO"            dst="SERIAL_NO_EX"          width="64"    default=""    remark="流水号"          />
+    <field src="TRD_BIZ_STATUS"       dst="TRD_BIZ_STATUS"        width="1"     default=""    remark="交易业务状态"          />
+    <field src="EXT_SERIAL_NO"        dst="EXT_SERIAL_NO"         width="32"    default=""    remark="外部流水号"          />
+    <field src="EXT_MSG_CODE"         dst="EXT_MSG_CODE"          width="32"    default=""    remark="外部信息代码"          />
+    <field src="EXT_MSG_TEXT"         dst="EXT_MSG_TEXT"          width="256"   default=""    remark="外部信息内容"          />
+    <field src="PY_ORG_CODE"          dst="PY_ORG_CODE"           width="32"    default="" dict="PY_ORG_CODE"   remark="支付机构编码"          />
+    <field src="DATE_SETTLMT"         dst="DATE_SETTLMT"          width="64"    default=""    remark="清算日期"          />
+    <field src="PY_ACC"               dst="PY_ACC"                width="60"    default=""    remark="支付帐户"          />
+    <field src="RECV_PACKAGE"         dst="RECV_PACKAGE"          width="2048"  default=""    remark="接收报文数据包"          />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="64"      default=""    remark="流水号"       />
+    <field src="OCCUR_DATE"           dst="OCCUR_DATE"            width="64"      default=""    remark="发生日期"       />
+    <field src="OCCUR_TIME"           dst="OCCUR_TIME"            width="64"      default=""    remark="发生时间"       />
+    <field src="PY_ORG_CODE"          dst="PY_ORG_CODE"           width="32"      default=""  dict="PAY_ORG_CODE"  remark="支付机构编码"       />
+    <field src="PY_ACC"               dst="PY_ACC"                width="60"      default=""    remark="支付帐户"          />
+    <field src="TRD_BIZ_STATUS"       dst="TRD_BIZ_STATUS"        width="1"       default=""    remark="交易业务状态"          />
+  </output>
+</message>
+
+<!-- 客户状态变更 -->
+<message src="L6032019" dst="L2400030">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_SRC"                 dst="F_OP_SRC"              width="32"    default=""    remark="操作用户来源"      />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="CUST_CODE"               dst="CUST_CODE"            width="64"    default=""    remark="客户代码"          />
+    <field src="CUACCT_CODE"             dst="CUACCT_CODE"          width="64"    default=""    remark="资产账号"          />
+    <field src="ACC_STATUS"              dst="ACC_STATUS"           width="1"     default=""    remark="账户状态"          />
+    <field src="INT_ORG"                 dst="INT_ORG"              width="64"    default=""    remark="机构代码 "         />
+    <field src="UPD_LEVEL"               dst="UPD_LEVEL"            width="1"     default=""    remark="状态更新级别"      />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"                dst="CUST_CODE"             width="64"      default=""    remark="客户代码"       />
+</output>
+</message>
+
+<!-- 根据支付机构银行编码查询 -->
+<message src="L6032007" dst="L2460053">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="PY_ORG_CODE"              dst="PY_ORG_CODE"            width="32"    default=""  dict="PY_ORG_CODE"  remark="支付机构"      />
+    <field src="BANK_ID"                  dst="BANK_ID"              width="11"    default=""    remark="银行编码"      />    
+  </input>
+  <output format="table">
+    <field src="PY_ORG_CODE"             dst="PY_ORG_CODE"             width="64"    default=""  dict="PAY_ORG_CODE"  remark="支付机构"            />
+    <field src="BANK_ID"                 dst="BANK_ID"              width="11"    default=""    remark="银行编码"          />
+    <field src="BANK_NAME"               dst="BANK_NAME"         width="128"    default=""    remark="银行名称"        />
+  </output>
+</message>
+
+<!-- 支付签约协议号查询 -->
+<message src="L6032008" dst="L2460302">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />	
+
+    <field src="ID_TYPE"              		dst="ID_TYPE"               width="2"    default=""    remark="证件类型"      />
+    <field src="ID_CODE"                  dst="ID_CODE"               width="32"    default=""    remark="证件号码"      />
+    <field src="BANK_ACCT"                dst="BANK_ACCT"             width="32"    default=""    remark="银行账号"      /> 
+    <field src="BIZ_TYPE"                 dst="BIZ_TYPE"              width="2"    default=""    remark="业务类型"      /> 
+    <field src="PY_ORG_CODES"             dst="PY_ORG_CODES"          width="128"    default=""  dict="PY_ORG_CODE"  remark="支付机构编码(复数)"      />    
+  </input>
+	<output format="table">
+		<field src="OCCUR_DATE"         dst="OCCUR_DATE"       width="64"    default=""    remark="发生日期"            />
+		<field src="CUST_CODE"          dst="CUST_CODE"        width="64"    default=""    remark="客户代码"            />
+    <field src="CUACCT_CODE"        dst="CUACCT_CODE"     width="64"    default=""    remark="资产账户"            />
+    <field src="CURRENCY"           dst="CURRENCY"           width="64"    default=""    remark="货币代码"            />
+    <field src="INT_ORG"            dst="INT_ORG"          width="32"    default=""    remark="内部机构"            />
+    <field src="PY_ORG_CODE"        dst="PY_ORG_CODE"      width="64"    default="" dict="PAY_ORG_CODE"   remark="支付机构编码"        />
+    <field src="BANK_ID"            dst="BANK_ID"          width="32"    default=""    remark="银行编码"            />
+    <field src="BANK_ACCT"          dst="BANK_ACCT"        width="32"    default=""    remark="银行账号"            />
+    <field src="BANK_ACCT_TYPE"     dst="BANK_ACCT_TYPE"   width="32"    default=""    remark="银行账号类型"            />
+    <field src="CUST_NAME"          dst="CUST_NAME"         width="64"    default=""    remark="客户姓名"            />
+    <field src="ID_TYPE"            dst="ID_TYPE"          width="32"    default=""    remark="证件类型"            />
+    <field src="ID_CODE"            dst="ID_CODE"        width="32"    default=""    remark="证件号码"            />
+    <field src="TEL"                dst="TEL"        width="32"    default=""    remark="电话号码"            />
+    <field src="CONTRACT_STATUS"    dst="CONTRACT_STATUS"        width="32"    default=""    remark="签约状态"            />
+    <field src="PY_ACC"             dst="PY_ACC"           width="60"    default=""    remark="支付账号"            />
+  </output>
+</message>
+
+
+<!-- win版配置模板 -->
+<message src="L0000000" dst="000000">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="F_OP_SITE"            dst="F_OP_SITE"             width="32"    default=""        remark="操作站点"          />
+    <field src="F_OP_SRC"             dst="F_OP_SRC"              width="32"    default="9"       remark="操作用户来源"      />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src="F_SESSION"            dst="F_SESSION"             width="256"    default=""       remark="会话凭证"          />
+    <field src="F_FUNCTION"           dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src="F_RUNTIME"            dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+</kdmid1pc>

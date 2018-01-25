@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--KBSS系统对接资金管理系统接口配置  tianxiaojian 2015.05.19 -->
+<!--KBSS系统部署对接fms kcbp可以在资金管理系统的fms XA Resource直接加载一个XA
+需要kbss2fms.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+<!--字典项dict 需自行调整-->
+
+<!--函数列表-->
+<function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="strSource" type="string"/>
+ </argument>
+</function>
+
+<function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="inputstring" type="string"/>
+  <argv name="start" type="int"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="formattor" type="string"/>
+ </argument>
+</function>
+
+<function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="orgtimestr" type="string"/>
+  <argv name="opdirect" type="string"/>
+  <argv name="type" type="string"/>
+ </argument>
+</function>
+
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+<function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="StrVal" type="string"/>
+  <argv name="Param"  type="string"/>
+  <argv name="ValLen" type="int"/>
+ </argument>
+</function>
+
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+<function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--KBSS版柜台解密函数encrypt.dll -->
+<function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--WIN版柜台加密函数KDEncodeCli.dll -->
+<function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--WIN版柜台重加密函数KDEncodeCli.dll -->
+<function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="oldkey"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+  <argv name="newkey"  type="string"/>
+ </argument>
+</function>
+
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+<function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval1" type="string"/>
+  <argv name="strval2"  type="string"/>
+  <argv name="flag" type="string"/>
+ </argument>
+</function>
+
+<!--16进制转换10进制 -->
+<function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval" type="string"/>
+ </argument>
+</function>
+
+<!--复数字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+<function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryNames" type="string"/>
+  <argv name="SrcFlag" type="int"/>
+  <argv name="DstFlag" type="int"/>
+ </argument>
+</function>
+
+<!--区间字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+<function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryName" type="string"/>
+ </argument>
+</function>
+
+<!-- 交易板块转换 KBSS<> WIN -->
+<dict name="FILE_FMT">
+  <entry name="0"   value="00"  remark="BMP" />
+  <entry name="1"   value="01"  remark="JPG" />
+  <entry name="2"   value="02"  remark="GIF" />
+  <entry name="3"   value="03"  remark="TIF" />
+  <entry name="4"   value="04"  remark="MP4" />
+  <entry name="5"   value="05"  remark="PDF" />
+</dict>
+
+<!-- 影像上传 -->
+<message src="L3100505" dst="yxxt">
+  <input format="!table">
+    <field src="F_OP_USER"          dst="OP_CODE"               width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"          dst="OP_ROLE"               width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"          dst="OP_SITE"               width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"           dst="OP_BRANCH"             width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"          dst="OP_WAY"                width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"          dst="USER_TICKET_INFO"      width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"         dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"          dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+    <field src=""                   dst="MSG_ID"                width="256"   default="Y1000609"    remark="服务器号"   />
+    <field src=""                   dst="service"               width="32"    default="Y1000609"    remark="服务器号"   />
+    <field src=""                   dst="SERVER_ID"             width="32"    default="Y1000609"    remark="服务器号"   />
+ 
+    <field src="FILE_FMT"           dst="FILE_FMT"         width="32"      default=""   dict="FILE_FMT"    remark="影像格式"  />
+    <field src="FILE_CLS"           dst="FILE_CLS"         width="32"      default=""       remark="影像类型"/>
+    <field src="FILE_SIZE"          dst="FILE_SIZE"        width="32"      default=""       remark="影像文件大小"/> 
+    <field src="FILE_DESC"          dst="SYS_CUST_NO"      width="64"      default=""       remark="系统客户唯一标示"/>     
+    <field src="SUBSYS"             dst="SYS_NO"           width="32"      default=""       remark="子系统编号"/>     
+    <field src="CHANNEL"            dst="CHANNEL"          width="1"       default=""       remark="操作渠道"/>     
+    <field src="IMG_DATA"           dst="FILE_DATA"        width="209715200"      default=""    remark="影像数据"/>  
+    <field src="FILE_WIDTH"         dst="FILE_WIDTH"       width="32"      default=""       remark="影像宽度"  />
+    <field src="FILE_HEIGHT"        dst="FILE_HEIGHT"      width="32"      default=""       remark="影像高度"/>
+    <field src="BITMAP_BITS"        dst="BITMAP_BITS"      width="32"      default=""       remark="位图深度"/>
+    <field src="BITMAP_XDPI"        dst="BITMAP_XDPI"      width="32"      default=""       remark="位图水平分辨率"/>
+    <field src="BITMAP_YDPI"        dst="BITMAP_YDPI"      width="32"      default=""       remark="位图垂直分辨率"/>
+    <field src="BITMAP_TYPE"        dst="BITMAP_TYPE"      width="32"      default=""       remark="位图类型"/>
+    <field src="FILE_UPLOAD"        dst="FILE_UPLOAD"      width="256"     default="0"      remark="是否实时上传 0：实时 1：后续FTP上传"/>
+  </input>
+  <output format="table">
+     <field src="FILE_SN"           dst="FILE_ID"          width="40"       default=""    remark="影像编号"                 />
+  </output>
+</message>
+
+</kdmid1pc>

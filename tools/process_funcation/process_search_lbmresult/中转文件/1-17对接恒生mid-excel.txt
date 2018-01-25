@@ -1,0 +1,10 @@
+sys=,biz=L7190095,mid=L7190095,acct=99190095,demo=
+sys=,biz=L7190095,mid=L7190095,acct=L1190095,demo=恒生系统客户信息查询
+sys=,biz=L7833204,mid=L7833204,acct=L1190246,demo=对接恒生交易系统查询客户总资产
+sys=,biz=L7190094,mid=L7190094,acct=99190094,demo=
+sys=,biz=L7190094,mid=L7190094,acct=L1190094,demo=恒生系统资产信息查询
+sys=,biz=L7190096,mid=L7190096,acct=99190096,demo=
+sys=,biz=L7190096,mid=L7190096,acct=L1190096,demo=恒生系统存管签约信息查询
+sys=,biz=L7190097,mid=L7190097,acct=L1190097,demo=恒生系统测评答题信息查询
+sys=,biz=L7190195,mid=L7190195,acct=L1190195,demo=恒生系统证券股东信息同步
+sys=,biz=L7190196,mid=L7190196,acct=L1190196,demo=恒生系统客户协议同步(暂时只实现创业板协议的迁移)

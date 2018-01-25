@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--KBSS系统对接期货IB系统接口配置 -->
+<!--KBSS系统部署对接FUTURE kcbp可以在kcbp XA Resource直接加载一个XA
+需要kbss2bkps.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+<!--字典项dict 需自行调整-->
+
+<!-- 期货IB基本资料操作类型转换 -->
+<dict name="IB_BASIC_OPER_TYPE">
+  <entry name="0"   value="3"  remark="新增" />
+  <entry name="1"   value="4"  remark="修改" />
+  <entry name="2"   value="5"  remark="删除" />
+</dict>
+
+<!-- 期货IB附加人操作类型转换 -->
+<dict name="IB_EXTER_OPER_TYPE">
+  <entry name="0"   value="1"  remark="新增" />
+  <entry name="1"   value="2"  remark="修改" />
+  <entry name="2"   value="3"  remark="删除" />
+</dict>
+
+<!-- 期货IB性别转换 -->
+<dict name="IB_SEX">
+  <entry name="0"   value="1"  remark="男" />
+  <entry name="1"   value="2"  remark="女" />
+
+</dict>
+
+<!--函数列表-->
+<function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="strSource" type="string"/>
+ </argument>
+</function>
+
+<function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="inputstring" type="string"/>
+  <argv name="start" type="int"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="formattor" type="string"/>
+ </argument>
+</function>
+
+<function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="orgtimestr" type="string"/>
+  <argv name="opdirect" type="string"/>
+  <argv name="type" type="string"/>
+ </argument>
+</function>
+
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+<function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="StrVal" type="string"/>
+  <argv name="Param"  type="string"/>
+  <argv name="ValLen" type="int"/>
+ </argument>
+</function>
+
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+<function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--KBSS版柜台解密函数encrypt.dll -->
+<function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--BKPS柜台加密函数KDEncodeCli.dll -->
+<function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--BKPS柜台重加密函数KDEncodeCli.dll -->
+<function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="oldkey"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+  <argv name="newkey"  type="string"/>
+ </argument>
+</function>
+
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+<function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval1" type="string"/>
+  <argv name="strval2"  type="string"/>
+  <argv name="flag" type="string"/>
+ </argument>
+</function>
+
+<!--16进制转换10进制 -->
+<function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval" type="string"/>
+ </argument>
+</function>
+
+<!--复数字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+<function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryNames" type="string"/>
+  <argv name="SrcFlag" type="int"/>
+  <argv name="DstFlag" type="int"/>
+ </argument>
+</function>
+
+<!--区间字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+<function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryName" type="string"/>
+ </argument>
+</function>
+
+<!-- 期货IB客户基本信息设置 -->
+<message src="L6014900" dst="865002">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="F_OP_SITE"           dst="F_OP_SITE"             width="32"    default=""        remark="操作站点"          />
+    <field src="F_OP_SRC"            dst="F_OP_SRC"              width="32"    default=""        remark="操作用户来源"      />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src="F_SESSION"           dst="F_SESSION"             width="256"   default=""        remark="会话凭证"          />
+    <field src="F_FUNCTION"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src="F_RUNTIME"           dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    <field src="F_OP_ORG"            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+	
+    <field src="SCUST_NO"            dst="SCUST_NO"              width="10"    default=""        remark="登入操作员"          />
+    <field src=""                    dst="SSTATUS2"              width="1"     default="1"       remark="开户方式"    />
+    <field src="OPER_TYPE"           dst="SPOST_CODE"            width="1"     default=""     dict="IB_BASIC_OPER_TYPE"   		remark="操作标志"     />
+    <field src="CUACCT_CODE"         dst="SHOLDER_AC_NO"         width="16"    default=""        remark="客户号（账户的资产账号）"        />
+    <field src="FUTURE_EXP_FLAG"     dst="SSTATUS0"        		   width="1"     default=""        remark="具有期货经验"          />
+    <field src="INT_ORG" 			       dst="SNAME"           		   width="20"    default=""        remark="内部机构"          />
+    <field src="COOP_ORG"            dst="SNAME2"            	   width="20"    default=""        remark="合作机构"        />
+    <field src="CONTRACT_NO"       	 dst="SPAGER"                width="20"    default=""        remark="合同编号"          />
+    <field src="SBANK_ACC"    		   dst="SBANK_ACC"             width="80"    default=""        remark="交易所和交易编码类型串"          />
+    <field src="OPEN_REGION"         dst="SHOLDER_TYPE2"         width="2"     default=""        remark="开户客户地域"/>
+    <field src="OPEN_MODE"    		   dst="SCUST_TYPE"            width="2"     default="-"       remark="境外客户开户模式" />
+    <field src="USER_TYPE"           dst="SCUST_TYPE2"           width="2"     default="-"       remark="客户类型"          />
+	  <field src="SCUSTTYPES"          dst="SCUSTTYPES"         	 width="190"   default=""        remark="客户名称~^|原始输入的证件号码~^|职业"/>
+  	<field src="USER_NAME"           dst="SEMP_NO"         		   width="8"     default=""        remark="客户简称"/>
+    <field src="ID_TYPE"             dst="SNATION_CODE"          width="2"     default=""        remark="证件类型"/>
+  	<field src="BIRTHDAY"            dst="SSERIAL0"         	 	 width="10"    default=""        remark="出生日期 "/>
+  	<field src="ID_EXP_DATE"         dst="SDATE3"         		   width="8"     default=""        remark="证件截止日"/>
+  	<field src="SEX"           		   dst="SSTATUS1"         	   width="1"     default=""    dict="IB_SEX"  remark="性别"/>
+  	<field src="SSECTYPES"           dst="SSECTYPES"         	   width="190"   default=""        remark="工作单位~^|联系地址中的国家~^|联系地址中的省/自治区/直辖市"/>
+	  <field src="UNIT_TYPE"           dst="SSERIAL1"              width="10"    default=""        remark="单位性质"/>
+    <field src="INVESTOR_TYPE"     	 dst="SSERIAL2"              width="10"    default=""        remark="投资者类型"      />    
+	  <field src="TEL_COUNTRY_NO"    	 dst="SSERIAL3"              width="10"    default=""        remark="联系电话中的国家代码"      />
+	  <field src="TEL_AREA_NO"         dst="SSERIAL4"              width="10"    default=""        remark="联系电话中的区号"      />
+	  <field src="TEL"                 dst="SPHONE"                width="30"    default=""        remark="联系电话中的电话号码 "      />
+	  <field src="MOBILE"           	 dst="SPHONE2"               width="30"    default=""        remark="手机号"      />
+	  <field src="TEL_OTHER"           dst="SPHONE3"               width="30"    default="1"       remark="其他联系电话"      />
+	  <field src="ZIP_CODE"            dst="SHOLDER_AC_NO2"        width="10"    default=""        remark="邮政编码"/>
+	  <field src="ADDR_CNO"            dst="SSTATION1"         	   width="10"    default=""        remark="联系地址中的国家代码 "/>
+    <field src="ADDR_PRO_NO"         dst="SCUST_AUTH"         	 width="20"    default=""        remark="联系地址中的省/自治区/直辖市代码"/>
+	  <field src="ADDR_CITY_NO "       dst="SCUST_AUTH2"           width="20"    default=""        remark="联系地址中的市/县/区代码 "/>
+    <field src="VSVARSTR0"           dst="VSVARSTR0"             width="240"   default=""        remark="联系地址中的市/县/区~^|联系地址中的地址~^|营业执照号~^|组织机构代码~^|交易中心"      />    
+	  <field src="TAX_REGIST_NO"   		 dst="SCARD0"                width="40"    default=""        remark="税务登记号"      />
+	  <field src="BUS_SCOPE"           dst="SEMAIL"                width="60"    default="-"       remark="经营范围"      />
+	  <field src="ZJS_ORG"             dst="SCUST_LIMIT"           width="20"    default="-"       remark="中金所营业部"      />
+	  <field src="ZSS_BUS_SCOPE"       dst="SCUST_LIMIT2"          width="20"    default=""        remark="郑商所经营范围"      />
+	  <field src="VSVARSTR1"           dst="VSVARSTR1"             width="124"   default="1"       remark="客户属性~^|权限模板~^|客户类"      />
+	  <field src="ENTRUST_PSW"    		 dst="SEMP_PWD"              width="8"     default=""        remark="委托密码"      />
+	  <field src="FUND_PSW"            dst="SEMP_PWD2"             width="8"     default=""        remark="资金密码"      />
+	  <field src="TRANS_PSW"           dst="SBANK_PWD"             width="8"     default=""        remark="交易密码"      />
+	  <field src=""                    dst="SCUST_LIMIT2"          width="1"     default="0"       remark="修改身份信息（1-修改身份信息0-修改一般信息）"  />
+	  <field src=""                    dst="SMAIN_FLAG2"           width="1"     default="1"       remark="中投开销户必填项校验"      />
+	  <field src="SSTATUS3"            dst="SSTATUS3"              width="1"     default=""        remark="是否二次开户"      />
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT"    default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 期货客户附加信息设置 -->
+<message src="L6014901" dst="865022">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="F_OP_SITE"           dst="F_OP_SITE"             width="32"    default=""        remark="操作站点"          />
+    <field src="F_OP_SRC"            dst="F_OP_SRC"              width="32"    default=""        remark="操作用户来源"      />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src="F_SESSION"           dst="F_SESSION"             width="256"   default=""        remark="会话凭证"          />
+    <field src="F_FUNCTION"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src="F_RUNTIME"           dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    <field src="F_OP_ORG"            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+ 
+    <field src="OPER_TYPE"             dst="SSTATUS1"            width="16"    default=""  dict="IB_BASIC_OPER_TYPE"    remark="操作标志（3增加，4修改，5删除）"     />
+    <field src="CUST_CODE"             dst="SHOLDER_AC_N"        width="1"     default=""        remark="客户号"        />
+    <field src="AGENCY_ID"             dst="SCUST_NO2"           width="10"    default=""        remark="转委托中介机构ID"          />
+    <field src="CUST_COUNTRY" 		     dst="SNATION_CODE"        width="3"     default=""        remark="客户所在国家"          />
+    <field src="CUST_PRO"              dst="SCERT_NO"            width="50"    default="1"       remark="客户所在省/州"        />
+    <field src="CUST_CITY"       	     dst="SCERT_NO2"           width="50"    default=""        remark="客户所在城市"          />
+    <field src="REG_BUS_CURRENCY"      dst="SBRANCH_CODE1"       width="3"     default=""        remark="注册资本的币种代码 "          />
+    <field src="REG_BUS"               dst="SCUST_AUTH2"         width="20"    default=""        remark="注册资本"/>
+    <field src="OPERATING_PERIOD"      dst="SNAME"               width="256"   default=""        remark="经营期限" />
+    <field src="VSVARSTR0"             dst="VSVARSTR0 "          width="32"    default=""        remark="联系人姓名~^|单位客户网址~^|注册地址的省/自治区/直辖市"          />
+	  <field src="FAX_COUNTRY_NO"        dst="SORDER0"             width="20"    default=""        remark="传真中的国家代码"/>
+	  <field src="FAX_AREA_NO"           dst="SSERIAL0"            width="20"    default=""        remark="传真中的区号"/>
+    <field src="FAX_TEL_NO"            dst="SPHONE"              width="20"    default=""        remark="传真中的电话号码"/>
+	  <field src="COUNTRY"               dst="SROOM_NO2"           width="20"    default=""        remark="注册地址的国家 "/>
+	  <field src="VSVARSTR1"             dst="VSVARSTR1"           width="20"    default=""        remark="注册地址市/县/区~^|电子邮件~^|职务"/>
+	  <field src="VSVARSTR2"             dst="VSVARSTR2"           width="20"    default=""        remark="注册地址~^|法人代表"/>
+    <field src="REMARK"                dst="VSVARSTR3"           width="100"   default=""        remark="备注"/>
+    <field src="MONITOR_AGENCY_CODE"   dst="SSERIAL3"            width="32"    default=""        remark="监控中心分配的境外中介机构代码"   />      
+	  <field src="EXCHANGE_AGENCY_CODE"  dst="SSERIAL4"            width="32"    default=""        remark="交易所分配的境外中介机构代码"      />
+	  <field src="MDF_FLAG"              dst="SMAIN_FLAG"          width="32"    default=""        remark="修改上报标记(身份一般)"      />
+	  <field src=""                      dst="SMAIN_FLAG2 "        width="32"    default="1"       remark="中投开销户必填项校验"      />
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT"    default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 期货IB客户附加人信息维护 -->
+<message src="L6014902" dst="865004">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="F_OP_SITE"           dst="F_OP_SITE"             width="32"    default=""        remark="操作站点"          />
+    <field src="F_OP_SRC"            dst="F_OP_SRC"              width="32"    default=""        remark="操作用户来源"      />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src="F_SESSION"           dst="F_SESSION"             width="256"   default=""        remark="会话凭证"          />
+    <field src="F_FUNCTION"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src="F_RUNTIME"           dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    <field src="F_OP_ORG"            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    
+	  <field src="F_OP_USER"           dst="SCUST_NO"            width="64"     default=""         remark="操作员"        />
+    <field src="OPER_TYPE"           dst="OPER_TYPE"           width="64"      default=""   dict="IB_EXTER_OPER_TYPE"    remark="操作类型"          /> 
+    <field src="CUST_CODE"           dst="SHOLDER_AC_NO"       width="32"      default=""        remark="客户号"     />
+	  <field src="EXT_NO"              dst="LVOL0"         	     width="16"      default=""       remark="编号"     />
+	  <field src="VSVARSTR0"   		     dst="VSVARSTR0"           width="256"     default=""        remark="附加人基本信息串" />
+    <field src="VSVARSTR1"      	   dst="VSVARSTR1"       	   width="256"     default=""       remark="附加人电话邮编信息串"     />
+    <field src="VSVARSTR2"           dst="VSVARSTR2"           width="256"     default=""       remark="附加人地址信息串"     />
+    <field src="SCUSTTYPES"          dst="SCUSTTYPES"          width="8"       default=""          remark="附加人类型"     />
+	  <field src=""                    dst="SMAIN_FLAG2"         width="8"       default="1"          remark="中投开销户必填项校验"     />
+	  <field src="SSTATUS0"          	 dst="SSTATUS0"            width="4"       default=""          remark="是否修改标示"     />
+	  <field src="SSTATUS4"          	 dst="SSTATUS4"            width="2"       default=""          remark="是否修改身份信息"     />
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT"    default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 期货IB客户银行信息设置 -->
+<message src="L6014903" dst="865006">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="F_OP_SITE"           dst="F_OP_SITE"             width="32"    default=""        remark="操作站点"          />
+    <field src="F_OP_SRC"            dst="F_OP_SRC"              width="32"    default=""        remark="操作用户来源"      />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src="F_SESSION"           dst="F_SESSION"             width="256"   default=""        remark="会话凭证"          />
+    <field src="F_FUNCTION"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src="F_RUNTIME"           dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    <field src="F_OP_ORG"            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    
+    <field src="CUACCT_CODE"         dst="SHOLDER_AC_NO"         width="32"    default=""        remark="客户号"        />
+    <field src="BANK_CODE"           dst="SPOST_CODE"            width="1"     default=""        remark="开户银行代码"          />
+    <field src="BANK_ACCT"           dst="SCERT_NO"              width="64"    default=""        remark="开户帐户"          />
+    <field src="OPENER_BANK_BRANCH"  dst="VSVARSTR0"             width="32"    default=""        remark="开户人名称~^|开户行支行网点"          />
+    <field src=""                    dst="SMAIN_FLAG2"           width="128"   default="1"       remark="中投开销户必填项校验"        />
+    <field src="BANK_ACCT_OLD"       dst="SCERT_NO2"             width="1"     default=""        remark="旧银行帐号"          />
+    <field src="SSTATUS0"            dst="SSTATUS0"              width="1"     default=""        remark="是否修改标示"          />
+    <field src="SSTATUS4"            dst="SSTATUS4"              width="32"    default=""        remark="是否修改身份信息"          />
+    <field src="OPER_TYPE"           dst="SCUST_TYPE"            width="32"    default=""        remark="操作标志"          />
+    <field src="CURRENCY"            dst="SSTATUS2"              width="32"    default=""        remark="币种"      />
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 期货IB数据字典信息查询 -->
+<message src="L6014904" dst="865009">
+  <input format="!table">
+    <field src="F_FUNCTION"           dst="F_FUNCTION"          width="8"   default=""  remark="LBM服务名称" />
+    <field src="F_OP_USER"            dst="SCUST_NO"            width="16"  default=""  remark="操作用户代码" />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"           width="1"   default=""  remark="操作角色"    />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"           width="1"   default=""  remark="操作渠道"    />
+    <field src="F_OP_SITE"            dst="F_OP_SITE"           width="16"  default=""  remark="操作网点"    />
+    <field src="F_RUNTIME"            dst="F_RUNTIME"           width="16"  default=""  remark="调用时间"    />
+    <field src="F_SESSION"            dst="F_SESSION"           width="16"  default=""  remark="会话凭证"    />
+    <field src="F_REMOTE_OP_USER"     dst="F_REMOTE_OP_USER"    width="16"  default=""  remark="一柜通目标柜员"    />
+    <field src="F_REMOTE_OP_ORG"      dst="F_REMOTE_OP_ORG"     width="16"  default=""  remark="一柜通目标机构代码"    />
+    <field src="F_OPEN_TYPE"          dst="F_OPEN_TYPE"         width="1"   default=""  remark="开户方式"    />
+
+    <field src="IB_DD_ITEM_DATA"      dst="LVOL0"               width="64"  default=""  remark="数据字典值"    />
+  </input>
+  <output format="table">
+    <field src="IB_DD_ITEM_DATA"           dst="LVOL0"               width="64"    default=""    remark="条目名称" />
+    <field src="IB_DD_ITEM"                dst="SORDER0"             width="64"    default=""    remark="子项代码"/>
+    <field src="IB_DD_ITEM_NAME"           dst="SBANK_ACC"           width="64"    default=""    remark="子项名称"/>
+  </output>
+</message>
+
+<!-- win版配置模板 -->
+<message src="L0000000" dst="000000">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="F_OP_SITE"           dst="F_OP_SITE"             width="32"    default=""        remark="操作站点"          />
+    <field src="F_OP_SRC"            dst="F_OP_SRC"              width="32"    default=""        remark="操作用户来源"      />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src="F_SESSION"           dst="F_SESSION"             width="256"   default=""        remark="会话凭证"          />
+    <field src="F_FUNCTION"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src="F_RUNTIME"           dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    <field src="F_OP_ORG"            dst="F_OP_ORG"              width="32"    default=""        dict="F_OP_ORG"  remark="操作机构"          />
+    
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+</kdmid1pc>

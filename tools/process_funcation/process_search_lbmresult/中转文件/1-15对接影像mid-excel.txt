@@ -1,0 +1,5 @@
+sys=,biz=yxxt,mid=L3100505,acct=L1100505,demo=用户影像数据上传
+sys=,biz=yxxt,mid=L3100505,acct=L1100702,demo=网上开户影像上传
+sys=,biz=yxxt,mid=L3100505,acct=L1100723,demo=弃用
+sys=,biz=yxxt,mid=L3100505,acct=L1120154,demo=网上开户影像上传
+sys=,biz=yxxt,mid=L3100505,acct=L2100409,demo=证券账户业务回报

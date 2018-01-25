@@ -1,0 +1,2089 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--win,unix版交易柜台外围接口接入kbss系统配置  lanwf 2010.06.01 -->
+<!--在KBSS系统win版kcbp 或中转网关 XA Resource加载一个XA  
+需要per2kbss.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+
+<!--字典项dict 需自行调整-->
+
+<!--函数列表-->
+<function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="strSource" type="string"/>
+ </argument>
+</function>
+
+<function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="inputstring" type="string"/>
+  <argv name="start" type="int"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="formattor" type="string"/>
+ </argument>
+</function>
+
+<function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="orgtimestr" type="string"/>
+  <argv name="opdirect" type="string"/>
+  <argv name="type" type="string"/>
+ </argument>
+</function>
+
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+<function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="StrVal" type="string"/>
+  <argv name="Param"  type="string"/>
+  <argv name="ValLen" type="int"/>
+ </argument>
+</function>
+
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+<function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--KBSS版柜台解密函数encrypt.dll -->
+<function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--WIN版柜台加密函数KDEncodeCli.dll -->
+<function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--WIN版柜台重加密函数KDEncodeCli.dll -->
+<function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="oldkey"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+  <argv name="newkey"  type="string"/>
+ </argument>
+</function>
+
+
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+<function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval1" type="string"/>
+  <argv name="strval2"  type="string"/>
+  <argv name="flag" type="string"/>
+ </argument>
+</function>
+
+<!--16进制转换10进制 -->
+<function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval" type="string"/>
+ </argument>
+</function>
+
+<!--复数字典转换 参数 
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+<function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryNames" type="string"/>
+  <argv name="SrcFlag" type="int"/>
+  <argv name="DstFlag" type="int"/>
+ </argument>
+</function>
+
+<!--区间字典转换 参数 
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+<function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryName" type="string"/>
+ </argument>
+</function>
+
+
+<!-- win版外围接口:获取风险测评试题 -->
+<message src="99001100" dst="L1100012">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"          width="32"    default="8888"    remark="操作用户代码" />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"          width="32"    default="2"       remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""        remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""        remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""        remark="会话凭证"     />
+    <field src="@messagedst"         dst="F_FUNCTION"         width="32"    default=""        remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""        remark="调用时间"     />
+
+    <field src="SURVEY_CLS"          dst="SURVEY_CLS"         width="32"    default="0"       remark="题目类别"     />
+    <field src="USER_TYPE"           dst="USER_TYPE"          width="32"    default=""        remark="用户类型"     />
+    <field src="SURVEY_SN"           dst="SURVEY_SN"          width="32"    default=""        remark="调查表编号"     />
+  </input>
+  <output format="table">
+    <field  src="SURVEY_SN"          dst="SURVEY_SN"          width="8"     default=""        remark="试题编码" />
+    <field  src="SURVEY_COL"         dst="SURVEY_COL"         width="8"     default=""        remark="题目编号" />
+    <field  src="SURVEY_CELL"        dst="SURVEY_CELL"        width="8"     default=""        remark="选项编码" />
+    <field  src="SURVEY_CELL_TEXT"   dst="SURVEY_CELL_TEXT"   width="2048"  default=""        remark="选项内容" />
+    <field  src="SURVEY_CELL_VAL"    dst="SURVEY_CELL_VAL"    width="8"     default=""        remark="选项分值" />
+    <field  src="SURVEY_COL_TEXT"    dst="SURVEY_COL_TEXT"    width="2048"  default=""        remark="试题内容" />
+    <field  src="SURVEY_COL_OPT"     dst="SURVEY_COL_OPT"     width="1"     default=""        remark="选项类型" />
+  </output>
+</message>
+
+
+<!-- win版外围接口:风险测评答题 -->
+<dict name="anssurveyfunc">
+  <entry name=""    value="L1100014"/> <!-- 0:客户号作答-->
+  <entry name="0"   value="L1100014"/> <!-- 0:客户号作答-->
+  <entry name="1"   value="L1100080"/> <!-- 1:预约号作答-->
+</dict>
+<message src="99001110" dst="L1100014">
+  <input format="!table">
+    <field src="ANS_TYPE"            dst="@messagedst"        width="64"     dict="anssurveyfunc" default=""    remark="功能转换" />
+    <field src="F_OP_USER"           dst="F_OP_USER"          width="32"    default="8888"   remark="操作用户代码" />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"          width="32"    default="2"  remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""   remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""   remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""   remark="会话凭证"     />
+    <field src="@messagesrc"         dst="F_FUNCTION"         width="32"    default=""   remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""   remark="调用时间"     />
+
+    <field src="USER_CODE"           dst="USER_CODE"          width="32"    default=""   remark="用户代码"      />
+    <field src="APPT_SERIAL_NO"      dst="APPT_SERIAL_NO"     width="32"    default=""   remark="预约流水号"    />
+    <field src=""                    dst="USER_ROLE"          width="32"    default="1"  remark="用户角色"      />
+    <field src="SURVEY_SN"           dst="SURVEY_SN"          width="32"    default="1"  remark="调查表编码"    />
+    <field src=""                    dst="SURVEY_GR"          width="32"    default="1"  remark="调查表栏组"    />
+    <field src="SURVEY_COL  "        dst="SURVEY_COL  "       width="32"    default=""   remark="调查表栏目"    />
+    <field src="SURVEY_CELLS"        dst="SURVEY_CELLS"       width="32"    default=""   remark="调查表单元"    />
+    <field src="ANS_STATUS  "        dst="ANS_STATUS  "       width="32"    default=""   remark="作答状态"      />
+    <field src="SUBSYS"              dst="SUBSYS"             width="32"    default=""   remark="同步子系统"    />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"           dst="msgok"              width="128"   default="风险测评答题成功"          />
+  </output>
+</message>
+
+
+<!-- win版外围接口:风险测评结果查询 -->
+<dict name="qureysurveyfunc">
+  <entry name=""    value="L1160011"/> <!-- 0:客户号作答-->
+  <entry name="0"   value="L1160011"/> <!-- 0:客户号作答-->
+  <entry name="1"   value="L1100081"/> <!-- 1:预约号作答-->
+</dict>
+<message src="99001120" dst="L1160011">
+  <input format="!table">
+    <field src="ANS_TYPE"            dst="@messagedst"        width="64"    dict="qureysurveyfunc" default=""    remark="功能转换" />
+    <field src="F_OP_USER"           dst="F_OP_USER"          width="32"    default="8888"   remark="操作用户代码" />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"          width="32"    default="2"  remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""   remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""   remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""   remark="会话凭证"     />
+    <field src="@messagesrc"         dst="F_FUNCTION"         width="32"    default=""   remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""   remark="调用时间"     />
+
+    <field src="SURVEY_SN"           dst="SURVEY_SN"          width="32"    default=""   remark="调查表编码"    />
+    <field src="APPT_SERIAL_NO"      dst="APPT_SERIAL_NO"     width="32"    default=""   remark="预约流水号"    />
+    <field src="USER_CODE"           dst="USER_CODE"          width="32"    default=""   remark="用户代码"      />
+    <field src=""                    dst="USER_ROLE"          width="32"    default="1"  remark="用户角色"      />
+    <field src="BGN_DATE"            dst="BGN_DATE"           width="32"    default=""   remark="开始日期"      />
+    <field src="END_DATE"            dst="END_DATE"           width="32"    default=""   remark="结束日期"      />
+  </input>
+  <output format="table">
+    <field  src="SURVEY_SN"          dst="SURVEY_SN"          width="32"    default=""   remark="调查表编码"    />
+    <field  src="USER_CODE"          dst="USER_CODE"          width="128"   default=""   remark="客户号"        />
+    <field  src="APPT_SERIAL_NO"     dst="APPT_SERIAL_NO"     width="128"   default=""   remark="预约流水号"    />
+    <field  src="SURVEY_SCORE"       dst="SURVEY_SCORE"       width="128"   default=""   remark="测评得分"      />
+    <field  src="RATING_LVL"         dst="RATING_LVL"         width="128"   default=""   remark="评级级别"      />
+    <field  src="RATING_LVL_NAME"    dst="RATING_LVL_NAME"    width="128"   default=""   remark="级别名称"      />
+    <field  src="RATING_DATE"        dst="RATING_DATE"        width="128"   default=""   remark="评级日期"      />
+    <field  src="EXP_DATE"           dst="EXP_DATE"           width="128"   default=""   remark="有效截止日期"  />
+    <field  src="SURVEY_CLS"         dst="SURVEY_CLS"         width="32"    default=""   remark="调查表类别"  />
+    <field  src="SURVEY_NAME"        dst="SURVEY_NAME"        width="64"    default=""   remark="调查表名称"  />
+    <field  src="SURVEY_SYN"         dst="SURVEY_SYN"         width="32"    default=""   remark="远程同步系统"  />
+  </output>
+</message>
+
+
+<!-- win版外围接口:用户资料查询 -->
+<message src="99001251" dst="L1160106">
+  <input format="!table">
+    <field src="F_OP_USER"          dst="F_OP_USER"             width="32"    default="8888"   remark="操作用户代码" />
+    <field src="F_OP_ROLE"          dst="F_OP_ROLE"             width="32"    default="2"      remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"                   dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"                  dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG"           dst="F_OP_ORG"              width="32"    default="0"      remark="操作机构"     />
+    <field src="F_CHANNEL"          dst="F_CHANNEL"             width="32"    default=""       remark="操作渠道"     />
+    <field src=""                   dst="F_SESSION"             width="32"    default=""       remark="会话凭证"     />
+    <field src="@messagesrc"        dst="F_FUNCTION"            width="32"    default=""       remark="功能代码"     />
+    <field src=""                   dst="F_RUNTIME"             width="32"    default=""       remark="调用时间"     />
+
+    <field src="INT_ORG"            dst="INT_ORG"               width="8"     default=""       remark="机构代码"     />
+    <field src="USER_NAME"          dst="USER_NAME"             width="32"    default=""       remark="用户名称"     />
+    <field src="ID_CODE"            dst="ID_CODE"               width="48"    default=""       remark="证件号码"     />
+    <field src="CARD_ID"            dst="CARD_ID"               width="32"    default=""       remark="磁卡编号"     />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"          dst="CUST_CODE"             width="32"    default=""       remark="客户代码"           />
+    <field src="CUST_TYPE"          dst="CUST_TYPE"             width="1"     default=""       remark="客户类型"           />
+    <field src="CUST_CLS"           dst="CUST_CLS"              width="1"     default=""       remark="客户类别"           />
+    <field src="CUST_STATUS"        dst="CUST_STATUS"           width="1"     default=""       remark="客户状态"           />
+    <field src="CARD_ID"            dst="CARD_ID"               width="32"    default=""       remark="磁卡号码"           />
+    <field src="CRITERION"          dst="CRITERION"             width="16"    default=""       remark="规范标志（复数）"   />
+    <field src="RISK_FACTOR"        dst="RISK_FACTOR"           width="16"    default=""       remark="风险因素（复数）"   />
+    <field src="INT_ORG"            dst="INT_ORG"               width="8"     default=""       remark="内部机构"           />
+    <field src="OPEN_DATE"          dst="OPEN_DATE"             width="16"    default=""       remark="开户日期"           />
+    <field src="CHANNELS"           dst="CHANNELS"              width="64"    default=""       remark="操作渠道（复数）"   />
+    <field src="USER_NAME"          dst="USER_NAME"             width="32"    default=""       remark="用户名称"           />
+    <field src="USER_TYPE"          dst="USER_TYPE"             width="1"     default=""       remark="用户类型"           />
+    <field src="ID_TYPE"            dst="ID_TYPE"               width="32"    default=""       remark="证件类型"           />
+    <field src="ID_CODE"            dst="ID_CODE"               width="32"    default=""       remark="证件号码"           />
+  </output>
+</message>
+
+<!-- win版外围接口:客户开户 -->
+<message src="99001254" dst="L1100102">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"          width="32"    default="8888"    remark="操作用户代码" />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"          width="32"    default="2"       remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"           dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"          dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""        remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""        remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""        remark="会话凭证"     />
+    <field src="@messagedst"         dst="F_FUNCTION"         width="32"    default=""        remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""        remark="调用时间"     />
+    
+    <field src="CUST_CODE"           dst="CUST_CODE"          width="32"    default=""    remark="客户代码"          />
+    <field src="USER_NAME"           dst="USER_NAME"          width="32"    default=""    remark="用户名称"          />
+    <field src="USER_TYPE"           dst="USER_TYPE"          width="1"     default=""    remark="用户类型"          />
+    <field src="INT_ORG"             dst="INT_ORG"            width="32"    default=""    remark="机构代码"          />
+    <field src="ID_TYPE"             dst="ID_TYPE"            width="2"     default=""    remark="证件类型"          />
+    <field src="ID_CODE"             dst="ID_CODE"            width="48"    default=""    remark="证件号码"          />
+    <field src="USER_FNAME"          dst="USER_FNAME"         width="128"   default=""    remark="用户全称"          />
+    <field src="ID_ISS_AGCY"         dst="ID_ISS_AGCY"        width="64"    default=""    remark="发证机关"          />
+    <field src="ID_BEG_DATE"         dst="ID_BEG_DATE"        width="16"    default=""    remark="证件开始日期"      />
+    <field src="ID_EXP_DATE"         dst="ID_EXP_DATE"        width="16"    default=""    remark="证件有效日期"      />
+    <field src="ID_ZIP_CODE"         dst="ID_ZIP_CODE"        width="8"     default=""    remark="证件编码"          />
+    <field src="ID_ADDR"             dst="ID_ADDR"            width="256"   default=""    remark="证件地址"          />
+    <field src="ZIP_CODE"            dst="ZIP_CODE"           width="8"     default=""    remark="邮政编码"          />
+    <field src="ADDRESS"             dst="ADDRESS"            width="256"   default=""    remark="联系地址"          />
+    <field src="TEL"                 dst="TEL"                width="32"    default=""    remark="联系电话"          />
+    <field src="FAX"                 dst="FAX"                width="32"    default=""    remark="传真电话"          />
+    <field src="EMAIL"               dst="EMAIL"              width="48"    default=""    remark="电子邮箱"          />
+    <field src="MOBILE_TEL"          dst="MOBILE_TEL"         width="32"    default=""    remark="移动电话"          />
+    <field src="CITIZENSHIP"         dst="CITIZENSHIP"        width="3"     default=""    remark="国籍"              />
+    <field src="NATIONALITY"         dst="NATIONALITY"        width="32"    default=""    remark="民族"              />
+    <field src="EDUCATION"           dst="EDUCATION"          width="1"     default=""    remark="学历"              />
+    <field src="NATIVE_PLACE"        dst="NATIVE_PLACE"       width="32"    default=""    remark="籍贯/注册地"       />
+    <field src="SEX"                 dst="SEX"                width="1"     default=""    remark="性别"              />
+    <field src="BIRTHDAY"            dst="BIRTHDAY"           width="16"    default=""    remark="出生日期/注册日期" />
+    <field src="REMARK"              dst="REMARK"             width="128"   default=""    remark="备注信息"          />
+    <field src="MARRY"               dst="MARRY"              width="1"     default=""    remark="婚姻状况"          />
+    <field src="INTEREST"            dst="INTEREST"           width="32"    default=""    remark="兴趣爱好"          />
+    <field src="VEHICLE"             dst="VEHICLE"            width="1"     default=""    remark="交通工具"          />
+    <field src="HOUSE_OWNER"         dst="HOUSE_OWNER"        width="1"     default=""    remark="住宅所有权状况"    />
+    <field src="OFFICE_TEL"          dst="OFFICE_TEL"         width="32"    default=""    remark="办公电话"          />
+    <field src="WELL_TEL"            dst="WELL_TEL"           width="32"    default=""    remark="小灵通电话"         />
+    <field src="LINKTEL_ORDER"       dst="LINKTEL_ORDER"      width="1"     default=""    remark="首选联系电话"       />
+    <field src="OFFICE_ADDR"         dst="OFFICE_ADDR"        width="32"    default=""    remark="办公地址"           />
+    <field src="CORP_ADDR"           dst="CORP_ADDR"          width="32"    default=""    remark="公司地址"           />
+    <field src="LINKADDR_ORDER"      dst="LINKADDR_ORDER"     width="1"     default=""    remark="首选联系地址"       />
+    <field src="CUST_CLS"            dst="CUST_CLS"           width="1"     default=""    remark="客户类别"           />
+    <field src="CUST_TYPE"           dst="CUST_TYPE"          width="1"     default=""    remark="客户类型"           />
+    <field src="CHANNELS"            dst="CHANNELS"           width="64"    default=""    remark="操作渠道"           />
+    <field src="CRITERION"           dst="CRITERION"          width="16"    default=""    remark="规范客户标志"       />
+    <field src="RISK_FACTOR"         dst="RISK_FACTOR"        width="16"    default=""    remark="风险因素"           />
+    <field src="CREDIT_LVL"          dst="CREDIT_LVL"         width="1"     default=""    remark="信用级别"           />
+    <field src="REMOTE_PROTOCOL"     dst="REMOTE_PROTOCOL"    width="1"     default=""    remark="远程签署协议"       />
+    <field src="CUST_SOURCE"         dst="CUST_SOURCE"        width="1"     default=""    remark="客户来源"           />
+    <field src="SERVICE_LVL"         dst="SERVICE_LVL"        width="1"     default=""    remark="服务级别"           />
+    <field src="BSB_USER_FNAME"      dst="BSB_USER_FNAME"     width="128"   default=""    remark="签约客户姓名"       />
+    <field src="BSB_ID_TYPE"         dst="BSB_ID_TYPE"        width="2"     default=""    remark="签约证件类型"       />
+    <field src="BSB_ID_CODE"         dst="BSB_ID_CODE"        width="48"    default=""    remark="签约证件号码"       />
+    <field src="BSB_ID_EXP_DATE"     dst="BSB_ID_EXP_DATE"    width="16"    default=""    remark="签约证件有效日期"   />
+    <field src="CARD_ID"             dst="CARD_ID"            width="32"    default=""    remark="磁卡号码"           />
+    <field src="CHK_RIGHT_FLAG"      dst="CHK_RIGHT_FLAG"     width="1"     default=""    remark="校验标志"           />
+    <field src="AML_LVL"             dst="AML_LVL"            width="1"     default=""    remark="反洗钱等级"         />
+    <field src="FILINGCABINET_NO"    dst="FILINGCABINET_NO"   width="32"    default=""    remark="文件柜编号"         />
+    <field src="CUST_GRP"            dst="CUST_GRP"           width="1"     default=""    remark="客户分组"           />
+    <field src="IDCARD_TYPE"         dst="IDCARD_TYPE"        width="1"     default=""    remark="证件卡类型"         />
+    <field src="IDCARD_CHECK_FLAG"   dst="IDCARD_CHECK_FLAG"  width="1"     default=""    remark="证件卡校验标志"     />
+    <field src=""              	     dst="SUBSYS"             width="16"    default="13"  remark="同步系统编号"       />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"          dst="USER_CODE"           width="32"      default=""        remark="用户代码"          />
+    <field src="USER_ROLES"         dst="USER_ROLES"          width="32"       default=""        remark="用户角色"          />
+    <field src="INT_ORG"            dst="INT_ORG"             width="32"       default=""        remark="内部机构"          />
+    <field src="OPEN_DATE"          dst="OPEN_DATE"           width="32"      default=""        remark="开户日期"          />
+  </output>
+</message>
+
+<!-- win版外围接口:用户密码管理 -->
+<message src="99001258" dst="L1100009">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"          width="32"    default="8888"    remark="操作用户代码" />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"          width="32"    default="2"       remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""        remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""        remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""        remark="会话凭证"     />
+    <field src="@messagedst"         dst="F_FUNCTION"         width="32"    default=""        remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""        remark="调用时间"     />
+    
+    <field src="OPERATION_TYPE"      dst="OPERATION_TYPE"     width="1"     default=""        remark="操作类型"     />
+    <field src="USER_CODE"           dst="USER_CODE"          width="32"    default=""        remark="用户代码"     />
+    <field src="USER_ROLE"           dst="USER_ROLE"          width="1"     default=""        remark="用户角色"     />
+    <field src="USE_SCOPE"           dst="USE_SCOPE"          width="1"     default=""        remark="使用范围"     />
+    <field src="AUTH_TYPE"           dst="AUTH_TYPE"          width="1"     default=""        remark="认证类型"     />
+    <field src="OLD_AUTH_DATA"       dst="OLD_AUTH_DATA"      width="256"   default=""        remark="原认证信息"   />
+    <field src="NEW_AUTH_DATA"       dst="NEW_AUTH_DATA"      width="256"   default=""        remark="新认证信息"   />
+    <field src="OP_REMARK"           dst="OP_REMARK"          width="128"   default=""        remark="操作备注"     />
+    <field src=""              	     dst="SUBSYS"             width="16"    default="13"      remark="同步系统编号" />
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT"   width="64"  default="业务运行成功" />
+  </output>
+</message>
+
+<!-- win版外围接口:资产帐户开户 -->
+<message src="99001259" dst="L1202001">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"          width="32"    default="8888"    remark="操作用户代码" />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"          width="32"    default="2"       remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""        remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""        remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""        remark="会话凭证"     />
+    <field src="@messagedst"         dst="F_FUNCTION"         width="32"    default=""        remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""        remark="调用时间"     />
+
+    <field src="USER_CODE"           dst="USER_CODE"          width="32"    default=""        remark="用户代码"      />
+    <field src="CUACCT_CODE"         dst="CUACCT_CODE"        width="32"    default=""        remark="资产账户"      />
+    <field src="INT_ORG"             dst="INT_ORG"            width="8"     default=""        remark="内部机构"      />
+    <field src="CUACCT_ATTR"         dst="CUACCT_ATTR"        width="1"     default=""        remark="资产账户属性"  />
+    <field src="CUACCT_CLS"          dst="CUACCT_CLS"         width="1"     default=""        remark="资产账户类别"  />
+    <field src="CUACCT_LVL"          dst="CUACCT_LVL"         width="1"     default=""        remark="资产账户级别"  />
+    <field src="CUACCT_GRP"          dst="CUACCT_GRP"         width="1"     default=""        remark="资产账户组别"  />
+    <field src="CURRENCY"            dst="CURRENCY"           width="1"     default=""        remark="货币"          />
+    <field src="INT_RATE_SN"         dst="INT_RATE_SN"        width="8"     default=""        remark="利率编码"      />
+    <field src="OP_REMARK"           dst="OP_REMARK"          width="128"   default=""        remark="备注信息"      />
+    <field src="CHK_RIGHT_FLAG"      dst="CHK_RIGHT_FLAG"     width="1"     default=""        remark="校验标志"      />
+    <field src="FUND_TYPE"           dst="FUND_TYPE"          width="1"     default=""        remark="帐户类型"      />
+    <field src="DR_RATE_GRP"         dst="DR_RATE_GRP"        width="8"     default=""        remark="负债利率编码"  />
+    <field src=""              	     dst="SUBSYS"             width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="table">
+    <field src="CUACCT_CODE"        dst="CUACCT_CODE"         width="32"      default=""        remark="资产账户"          />
+    <field src="CURRENCY"           dst="CURRENCY"            width="8"       default=""        remark="货币"              />
+  </output>
+</message>
+
+<!-- win版外围接口:查询客户签约信息 -->
+<message src="99001262" dst="L1262562">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"          width="32"    default="8888"    remark="操作用户代码" />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"          width="32"    default="2"       remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"           dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"          dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""        remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""        remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""        remark="会话凭证"     />
+    <field src="@messagedst"         dst="F_FUNCTION"         width="32"    default=""        remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""        remark="调用时间"     />
+
+    <field src="CUACCT_CODE"         dst="CUACCT_CODE"        width="32"    default=""        remark="资产帐户"           />
+    <field src="CUST_CODE"           dst="CUST_CODE"          width="32"    default=""        remark="客户代码"           />
+    <field src="FISL"                dst="FISL"               width="1"     default=""        remark="查询接融资融券系统" />
+    <field src="CURRENCY"            dst="CURRENCY"           width="1"     default=""        remark="货币代码"           />
+  </input>
+  <output format="table">
+    <field src="EXT_ORG"                   dst="EXT_ORG"                  width="64"    default=""    remark="外部机构"               />
+    <field src="INT_ORG"                   dst="INT_ORG"                  width="64"    default=""    remark="内部机构"               />
+    <field src="CURRENCY"                  dst="CURRENCY"                 width="64"    default=""    remark="货币代码"               />
+    <field src="BANK_ACCT"                 dst="BANK_ACCT"                width="64"    default=""    remark="银行账户"               />
+    <field src="BDMF_ACCT"                 dst="BDMF_ACCT"                width="64"    default=""    remark="存管账户"               />
+    <field src="CUST_CODE"                 dst="CUST_CODE"                width="64"    default=""    remark="客户代码"               />
+    <field src="CUACCT_CODE"               dst="CUACCT_CODE"              width="64"    default=""    remark="资产账户"               />
+    <field src="CHANNELS"                  dst="CHANNELS"                 width="64"    default=""    dict="CHANNEL"    remark="操作渠道（复数）"       />
+    <field src="OPEN_DATE"                 dst="OPEN_DATE"                width="64"    default=""    remark="开户日期"               />
+    <field src="ACCT_DRAW_UPLMT"           dst="ACCT_DRAW_UPLMT"          width="64"    default=""    remark="账户全日转出上限"       />
+    <field src="ACCT_DRAWN_AMT"            dst="ACCT_DRAWN_AMT"           width="64"    default=""    remark="账户全日已转出额"       />
+    <field src="CONTRACT_STATUS"           dst="CONTRACT_STATUS"          width="64"    default=""    dict="CONTRACT_STATUS" remark="签约状态"  />
+  </output>
+</message>
+
+<!-- win版外围接口: 用户代码产生器 -->
+<message src="99001268" dst="L1100001">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"        />  
+   
+    <field src="INT_ORG"             dst="INT_ORG"            width="16"    default=""         remark="机构代码"     /> 
+    <field src="USER_CODE"           dst="USER_CODE"          width="64"    default=""         remark="用户代码"     /> 
+    <field src="USER_ROLE"           dst="USER_ROLE"          width="32"    default=""         remark="用户角色"     />                                                                                                                  
+  </input>                                                                                                                
+  <output format="table">  
+    <field src="USER_CODE"           dst="USER_CODE"                width="32"     default=""        remark="用户代码"   /> 
+    <field src="USER_ROLES"          dst="USER_ROLES"               width="32"     default=""        remark="用户角色"   /> 
+  </output>
+</message>
+
+<!-- win版外围接口:用户基本资料查询 -->
+<message src="99001270" dst="L1160001">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"            width="32"    default="8888"   remark="操作用户代码" />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"            width="32"    default="2"      remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""          width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG"            dst="F_OP_ORG"             width="32"    default="0"      remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"            width="32"    default=""       remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"            width="32"    default=""       remark="会话凭证"     />
+    <field src="@messagesrc"         dst="F_FUNCTION"           width="32"    default=""       remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"            width="32"    default=""       remark="调用时间"     />
+
+    <field src="USER_CODE"           dst="USER_CODE"            width="32"    default=""    remark="用户代码"           />
+    <field src="USER_ROLE"           dst="USER_ROLE"            width="1"     default=""    remark="用户角色"           />
+    <field src="OP_TYPE"             dst="OP_TYPE"              width="1"     default="1"    remark="操作类型"           />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"          dst="USER_CODE"             width="32"    default=""       remark="用户代码"        />
+    <field src="USER_ROLES"         dst="USER_ROLES"            width="8"     default=""       remark="用户角色"        />
+    <field src="USER_NAME "         dst="USER_NAME "            width="32"    default=""       remark="用户名称"        />
+    <field src="USER_TYPE"          dst="USER_TYPE"             width="1"     default=""       remark="用户类型"        />
+    <field src="INT_ORG"            dst="INT_ORG"               width="32"    default=""       remark="机构代码"        />
+    <field src="ID_TYPE"            dst="ID_TYPE"               width="2"     default=""       remark="证件类型"        />
+    <field src="ID_CODE"            dst="ID_CODE"               width="32"    default=""       remark="证件号码"        />
+    <field src="ID_ISS_AGCY"        dst="ID_ISS_AGCY"           width="64"    default=""       remark="发证机关"        />
+    <field src="ID_EXP_DATE"        dst="ID_EXP_DATE"           width="32"    default=""       remark="证件有效日期"    />
+    <field src="OPEN_DATE"          dst="OPEN_DATE"             width="32"    default=""       remark="开户日期"        />
+    <field src="USER_FNAME"         dst="USER_FNAME"            width="128"   default=""       remark="用户全称"        />
+    <field src="ZIP_CODE"           dst="ZIP_CODE"              width="8"     default=""       remark="邮政编码"        />
+    <field src="ADDRESS"            dst="ADDRESS"               width="256"   default=""       remark="联系地址"        />
+    <field src="TEL"                dst="TEL"                   width="32"    default=""       remark="联系电话"        />
+    <field src="FAX"                dst="FAX"                   width="32"    default=""       remark="传真电话"        />
+    <field src="EMAIL"              dst="EMAIL"                 width="32"    default=""       remark="电子邮箱"        />
+    <field src="MOBILE_TEL"         dst="MOBILE_TEL"            width="32"    default=""       remark="移动电话"        />
+    <field src="CITIZENSHIP"        dst="CITIZENSHIP"           width="3"     default=""       remark="国籍"            />
+    <field src="NATIONALITY"        dst="NATIONALITY"           width="32"    default=""       remark="民族"            />
+    <field src="EDUCATION"          dst="EDUCATION"             width="1"     default=""       remark="学历"            />
+    <field src="NATIVE_PLACE"       dst="NATIVE_PLACE"          width="32"    default=""       remark="籍贯/注册地"     />
+    <field src="SEX "               dst="SEX "                  width="1"     default=""       remark="性别"            />
+    <field src="BIRTHDAY"           dst="BIRTHDAY"              width="32"    default=""       remark="出生日期/注册日期"/>
+    <field src="REMARK"             dst="REMARK"                width="128"   default=""       remark="备注信息"        />
+    <field src="MARRY"              dst="MARRY"                 width="1"     default=""       remark="婚姻状况"        />
+    <field src="AVOCATION"          dst="AVOCATION"             width="32"    default=""       remark="兴趣爱好"        />
+    <field src="VEHICLE"            dst="VEHICLE"               width="1"     default=""       remark="交通工具"        />
+    <field src="HOUSE_OWNER"        dst="HOUSE_OWNER"           width="1"     default=""       remark="住宅所有权状况"  />
+    <field src="OFFICE_TEL "        dst="OFFICE_TEL "           width="32"    default=""       remark="办公电话"        />
+    <field src="WELL_TEL"           dst="WELL_TEL"              width="32"    default=""       remark="小灵通电话"      />
+    <field src="LINKTEL_ORDER"      dst="LINKTEL_ORDER"         width="1"     default=""       remark="首选联系电话"    />
+    <field src="CORP_ADDR"          dst="CORP_ADDR"             width="128"   default=""       remark="公司地址"        />
+    <field src="LINKADDR_ORDER"     dst="LINKADDR_ORDER"        width="1"     default=""       remark="首选联系地址"    />
+    <field src="ID_ZIP_CODE"        dst="ID_ZIP_CODE"           width="8"     default=""       remark="证件邮编"        />
+    <field src="ID_ADDR "           dst="ID_ADDR "              width="256"   default=""       remark="证件地址"        />
+    <field src="OFFICE_ADDR"        dst="OFFICE_ADDR"           width="128"   default=""       remark="办公地址"        />
+    <field src="ID_BEG_DATE"        dst="ID_BEG_DATE"           width="32"    default=""       remark="证件开始日期"    />
+    <field src="CUST_EXT_ATTR"      dst="CUST_EXT_ATTR"         width="32"    default=""       remark="客户拓展属性"    />
+  </output>
+</message>
+
+
+ <!-- 用户身份注册认证 -->
+<message src="99001275" dst="L0000507">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"            width="32"    default="8888"   remark="操作用户代码" />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"            width="32"    default="2"      remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""          width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG"            dst="F_OP_ORG"             width="32"    default="0"      remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"            width="32"    default=""       remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"            width="32"    default=""       remark="会话凭证"     />
+    <field src="@messagesrc"         dst="F_FUNCTION"           width="32"    default=""       remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"            width="32"    default=""       remark="调用时间"     />
+
+    <field src="USER_CODE"          dst="USER_CODE"           width="32"      default=""       remark="用户代码"    />
+    <field src="USER_ROLE"          dst="USER_ROLE"           width="32"      default=""       remark="用户角色"    />
+    <field src="USE_SCOPE"          dst="USE_SCOPE"           width="32"      default="0"       remark="使用范围"   />
+    <field src="AUTH_TYPE"          dst="AUTH_TYPE"           width="32"      default="0"       remark="认证类型"   />
+    <field src="AUTH_DATA"          dst="AUTH_DATA"           width="256"     default=""       remark="认证信息"    />
+    <field src="SECRECY_CODE"  	    dst="SECRECY_CODE"        width="32"      default=""       remark="验证码"    />
+  </input>
+  <output format="table">                                                                                                   
+    <field src="USER_CODE"         dst="USER_CODE"           width="16"      default=""       remark="用户代码" />
+    <field src="USER_ROLE"         dst="USER_ROLE"           width="1"       default=""       remark="用户角色" />
+    <field src="USER_TICKET"       dst="USER_TICKET"         width="128"     default=""       remark="用户票据" />
+    <field src="VALIDATE_CODE"     dst="VALIDATE_CODE"       width="32"      default=""       remark="服务验证码" />
+    <field src="INT_ORG"           dst="INT_ORG"             width="256"     default=""       remark="内部机构" />
+    <field src="LAST_LOGIN_TIME"   dst="LAST_LOGIN_TIME"     width="32"      default=""       remark="上次登陆时间" />
+    <field src="LAST_LOGIN_SITE"   dst="LAST_LOGIN_SITE"     width="32"      default=""       remark="上次登陆站点" />
+    <field src="LAST_LOGIN_CHNL"   dst="LAST_LOGIN_CHNL"     width="32"      default=""       remark="上次登陆渠道" />
+    <field src="USER_NAME"         dst="USER_NAME"           width="32"      default=""       remark="用户名称" />
+    <field src="ID_CODE"           dst="ID_CODE"             width="48"      default=""       remark="证件号码" />
+    <field src="SUBSYS_NAME"       dst="SUBSYS_NAME"         width="128"     default=""       remark="系统名称" />
+    <field src="SYSTEM_TIME"       dst="SYSTEM_TIME"         width="32"      default=""       remark="系统时间" />
+    <field src="TRD_DATE"          dst="TRD_DATE"            width="32"      default=""       remark="交易日期" />
+    <field src="SETT_DATE"         dst="SETT_DATE"           width="32"      default=""       remark="清算日期" />   
+    <field src="BIZ_STATUS"        dst="BIZ_STATUS"          width="32"      default=""       remark="系统状态" />   
+    <field src="BIZ_STATUS_NAME"   dst="BIZ_STATUS_NAME"     width="32"      default=""       remark="状态描述" />
+    </output>      
+</message>
+
+<!-- 重要资料变更 -->
+<message src="99001326" dst="L1100003">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="用户代码"          />
+    <field src="USER_NAME"            dst="USER_NAME"             width="32"    default=""        remark="用户名称"          />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          />
+    <field src="USER_FNAME"           dst="USER_FNAME"            width="128"   default=""        remark="用户全称"          />
+    <field src="ID_ISS_AGCY"          dst="ID_ISS_AGCY"           width="64"    default=""        remark="发证机关"          />
+    <field src="ID_BEG_DATE"          dst="ID_BEG_DATE"           width="32"    default=""        remark="证件开始日期"      />
+    <field src="ID_EXP_DATE"          dst="ID_EXP_DATE"           width="32"    default=""        remark="证件有效日期"      />
+    <field src="ID_ZIP_CODE"          dst="ID_ZIP_CODE"           width="8"     default=""        remark="证件编码"          />
+    <field src="ID_ADDR"              dst="ID_ADDR"               width="256"   default=""        remark="证件地址"          />
+    <field src="OP_REMARK"            dst="OP_REMARK"             width="128"   default=""        remark="操作备注"          />
+    <field src="BSB_USER_FNAME"       dst="BSB_USER_FNAME"        width="2"     default=""        remark="签约客户姓名"      />
+    <field src="BSB_ID_TYPE"          dst="BSB_ID_TYPE"           width="48"    default=""        remark="签约证件类型"      />
+    <field src="BSB_ID_CODE"          dst="BSB_ID_CODE"           width="32"    default=""        remark="签约证件号码"      />
+    <field src="BSB_ID_EXP_DATE"      dst="BSB_ID_EXP_DATE"       width="32"    default=""        remark="签约证件有效日期"  />
+    <field src="BUSINESS_TAX_NO"      dst="BUSINESS_TAX_NO"       width="32"    default=""        remark="税务登记证"        />
+    <field src="TAX_NO_EXP_DATE"      dst="TAX_NO_EXP_DATE"       width="32"    default=""        remark="登记证有效日期"    />
+    <field src="BUSINESS_LICENCE_NO"  dst="BUSINESS_LICENCE_NO"   width="32"    default=""        remark="营业执照号"        />
+    <field src="LICENCE_NO_EXP_DATE"  dst="LICENCE_NO_EXP_DATE"   width="32"    default=""        remark="执照有效日期"      />
+    <field src="ORG_ID_CODE"          dst="ORG_ID_CODE"           width="48"    default=""        remark="组织机构代码"      />
+    <field src="ORG_ID_EXP_DATE"      dst="ORG_ID_EXP_DATE"       width="32"    default=""        remark="代码证有效日期"    />
+    <field src=""              	      dst="SUBSYS"                width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 普通资料变更 -->
+<message src="99001327" dst="L1100004">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="用户代码"          />
+    <field src="ZIP_CODE"             dst="ZIP_CODE"              width="8"     default=""        remark="邮政编码"          />
+    <field src="ADDRESS"              dst="ADDRESS"               width="256"   default=""        remark="联系地址"          />
+    <field src="TEL"                  dst="TEL"                   width="32"    default=""        remark="联系电话"          />
+    <field src="FAX"                  dst="FAX"                   width="32"    default=""        remark="传真电话"          />
+    <field src="EMAIL"                dst="EMAIL"                 width="48"    default=""        remark="电子邮箱"          />
+    <field src="MOBILE_TEL"           dst="MOBILE_TEL"            width="32"    default=""        remark="移动电话"          />
+    <field src="CITIZENSHIP"          dst="CITIZENSHIP"           width="3"     default=""        remark="国籍"              />
+    <field src="NATIONALITY"          dst="NATIONALITY"           width="32"    default=""        remark="民族"              />
+    <field src="EDUCATION"            dst="EDUCATION"             width="1"     default=""        remark="学历"              />
+    <field src="NATIVE_PLACE"         dst="NATIVE_PLACE"          width="32"    default=""        remark="籍贯/注册地"       />
+    <field src="SEX"                  dst="SEX"                   width="1"     default=""        remark="性别"              />
+    <field src="BIRTHDAY"             dst="BIRTHDAY"              width="32"    default=""        remark="出生日期/注册日期" />
+    <field src="REMARK"               dst="REMARK"                width="128"   default=""        remark="备注信息"          />
+    <field src="ID_ISS_AGCY"          dst="ID_ISS_AGCY"           width="64"    default=""        remark="发证机关"          />
+    <field src="ID_EXP_DATE"          dst="ID_EXP_DATE"           width="32"    default=""        remark="证件有效日期"      />
+    <field src="ID_BEG_DATE"          dst="ID_BEG_DATE"           width="32"    default=""        remark="证件开始日期"      />
+    <field src="ID_ZIP_CODE"          dst="ID_ZIP_CODE"           width="8"     default=""        remark="证件编码"          />
+    <field src="ID_ADDR"              dst="ID_ADDR"               width="256"   default=""        remark="证件地址"          />
+    <field src="MARRY"                dst="MARRY"                 width="1"     default=""        remark="婚姻状况"          />
+    <field src="AVOCATION"            dst="AVOCATION"             width="32"    default=""        remark="兴趣爱好"          />
+    <field src="VEHICLE"              dst="VEHICLE"               width="1"     default=""        remark="交通工具"          />
+    <field src="HOUSE_OWNER"          dst="HOUSE_OWNER"           width="1"     default=""        remark="住宅所有权状况"    />
+    <field src="OFFICE_TEL"           dst="OFFICE_TEL"            width="32"    default=""        remark="办公电话"          />
+    <field src="WELL_TEL"             dst="WELL_TEL"              width="32"    default=""        remark="小灵通电话"        />
+    <field src="LINKTEL_ORDER"        dst="LINKTEL_ORDER"         width="1"     default=""        remark="首选联系电话"      />
+    <field src="OFFICE_ADDR"          dst="OFFICE_ADDR"           width="128"   default=""        remark="办公地址"          />
+    <field src="CORP_ADDR"            dst="CORP_ADDR"             width="128"   default=""        remark="公司地址"          />
+    <field src="LINKADDR_ORDER"       dst="LINKADDR_ORDER"        width="1"     default=""        remark="首选联系地址"      />
+    <field src="CHG_SPEC_REMARK_FLAG"   dst="CHG_SPEC_REMARK_FLAG"   width="1"  default=""        remark="特殊操作备注修改标志" />
+    <field src=""              	      dst="SUBSYS"                width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 操作渠道修改 -->
+<message src="99001340" dst="L1100105">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="CHANNELS"             dst="CHANNELS"              width="64"    default=""        remark="操作渠道"          />
+    <field src="OP_REMARK"            dst="OP_REMARK"             width="128"   default=""        remark="操作备注"          />
+    <field src="OP_TYPE"              dst="OP_TYPE"               width="1"     default=""        remark="操作类型"          />
+    <field src="SUBSYS"               dst="SUBSYS"                width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 资产帐户属性维护 -->
+<message src="99001328" dst="L1202005">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="CUACCT_ATTR"          dst="CUACCT_ATTR"           width="1"     default=""        remark="资产账户属性"      />
+    <field src="OP_REMARK"            dst="OP_REMARK"             width="128"   default=""        remark="操作备注"          />
+    <field src=""              	      dst="SUBSYS"                width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 资产帐户状态维护 -->
+<message src="99001329" dst="L1202002">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="CUACCT_STATUS"        dst="CUACCT_STATUS"         width="1"     default=""        remark="资产账户状态"      />
+    <field src="FUND_STATUS"          dst="FUND_STATUS"           width="1"     default=""        remark="币种分户状态"      />
+    <field src="CURRENCY"             dst="CURRENCY"              width="3"     default=""        remark="货币"              />
+    <field src="OP_REMARK"     	      dst="OP_REMARK"      	      width="128"   default=""        remark="备注信息"          />
+    <field src=""              	      dst="SUBSYS"                width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 资产帐户分类维护 -->
+<message src="99001330" dst="L1202003">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="CUACCT_CLS"           dst="CUACCT_CLS"            width="1"     default=""        remark="资产账户类别"      />
+    <field src="CUACCT_LVL"           dst="CUACCT_LVL"            width="1"     default=""        remark="资产账户级别"      />
+    <field src="CUACCT_GRP"           dst="CUACCT_GRP"            width="1"     default=""        remark="资产账户组别"      />
+    <field src="OP_REMARK"     	      dst="OP_REMARK"      	      width="128"   default=""        remark="备注信息"          />
+    <field src=""              	      dst="SUBSYS"                width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 主资产账户设置 -->
+<message src="99001331" dst="L2100114">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG"             dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="NEW_CUACCT"           dst="NEW_CUACCT"            width="32"    default=""        remark="新主资产账户"      />
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"    default=""        remark="机构代码"          />
+    <field src="OLD_CUACCT"           dst="OLD_CUACCT"            width="16"    default=""        remark="原主资产账户"      />
+    <field src="OP_REMARK"     	      dst="REMARK"                width="128"   default=""        remark="备注信息"          />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 客户资产帐户信息查询 -->
+<message src="99001332" dst="L1262001">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="用户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产帐户代码"      />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="用户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="CUACCT_ATTR"          dst="CUACCT_ATTR"           width="1"     default=""        remark="资产账户属性"      />
+    <field src="CUACCT_CLS"           dst="CUACCT_CLS"            width="1"     default=""        remark="资产账户类别"      />
+    <field src="CUACCT_LVL"           dst="CUACCT_LVL"            width="1"     default=""        remark="资产账户级别"      />
+    <field src="CUACCT_GRP"           dst="CUACCT_GRP"            width="1"     default=""        remark="资产账户组别"      />
+    <field src="CUACCT_STATUS"        dst="CUACCT_STATUS"         width="1"     default=""        remark="资产账户状态"      />
+    <field src="MAIN_FLAG"            dst="MAIN_FLAG"             width="1"     default=""        remark="主账户标识"        />
+    <field src="INT_ORG"              dst="INT_ORG"               width="16"    default=""        remark="内部机构"          />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"          />
+    <field src="CLOSE_DATE"           dst="CLOSE_DATE"            width="32"    default=""        remark="销户日期"          />
+    <field src="CUACCT_EXT_ATTR"      dst="CUACCT_EXT_ATTR"       width="32"    default=""        remark="资产账户扩展属性"          />
+  </output>
+</message>
+
+<!-- 资产帐户销户 -->
+<message src="99001333" dst="L1202004">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="CURRENCY"             dst="CURRENCY"              width="3"     default=""        remark="货币"              />
+    <field src="OP_REMARK"     	      dst="OP_REMARK"      	      width="128"   default=""        remark="备注信息"          />
+    <field src=""              	      dst="SUBSYS"                width="16"    default="13"      remark="同步系统编号"       />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 登记账户维护 -->
+<message src="99001334" dst="L1190011">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="OPER_TYPE"            dst="OPER_TYPE"             width="1"     default=""        remark="操作类型"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="OTC_CODE"             dst="OTC_CODE"              width="8"     default=""        remark="登记机构"          />
+    <field src="OTC_ACCT"             dst="OTC_ACCT"              width="32"    default=""        remark="登记账号"          />
+    <field src="TRANS_ACCT"           dst="TRANS_ACCT"            width="20"    default=""        remark="交易账号"          />
+    <field src="ACCT_STAT"            dst="ACCT_STAT"             width="1"     default=""        remark="账户状态"          />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="32"    default=""        remark="证件号码"          />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"          />
+    <field src="CLOSE_DATE"           dst="CLOSE_DATE"            width="32"    default=""        remark="销户日期"          />
+    <field src="INST_CLS"             dst="INST_CLS"              width="1024"  default=""        remark="产品子类"          />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 登记账户查询 -->
+<message src="99001335" dst="L1160811">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产帐户代码"      />
+    <field src="OTC_CODE"             dst="OTC_CODE"              width="8"     default=""        remark="登记机构"          />
+    <field src="TRANS_ACCT"           dst="TRANS_ACCT"            width="20"    default=""        remark="交易账号"          />
+    <field src="INST_CLS"             dst="INST_CLS"              width="1024"  default=""        remark="产品子类"          />
+  </input>
+  <output format="table">
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="OTC_CODE"             dst="OTC_CODE"              width="8"     default=""        remark="登记机构"          />
+    <field src="OTC_ACCT"             dst="OTC_ACCT"              width="32"    default=""        remark="登记账号"          />
+    <field src="TRANS_ACCT"           dst="TRANS_ACCT"            width="20"    default=""        remark="交易账号"          />
+    <field src="ACCT_STAT"            dst="ACCT_STAT"             width="1"     default=""        remark="账户状态"          />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="32"    default=""        remark="证件号码"          />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"          />
+    <field src="CLOSE_DATE"           dst="CLOSE_DATE"            width="32"    default=""        remark="销户日期"          />
+    <field src="INST_CLS"             dst="INST_CLS"              width="1024"  default=""        remark="产品子类"          />
+  </output>
+</message>
+
+<!-- 支付账户维护 -->
+<message src="99001336" dst="L1190012">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="OPER_TYPE"            dst="OPER_TYPE"             width="1"     default=""        remark="操作类型"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="BANK_CODE"            dst="BANK_CODE"             width="32"    default=""        remark="银行代码"          />
+    <field src="BANK_ACCT"            dst="BANK_ACCT"             width="32"    default=""        remark="银行账号"          />
+    <field src="ACCT_STAT"            dst="ACCT_STAT"             width="1"     default=""        remark="账户状态"          />
+    <field src="PAY_WAY"              dst="PAY_WAY"               width="1"     default=""        remark="支付方式"          />
+    <field src="PAY_ORG"              dst="PAY_ORG"               width="8"     default=""        remark="支付机构"          />
+    <field src="PAY_ACCT"             dst="PAY_ACCT"              width="32"    default=""        remark="支付账号"          />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"          />
+    <field src="CLOSE_DATE"           dst="CLOSE_DATE"            width="32"    default=""        remark="销户日期"          />
+    <field src="BANK_ACCT_TYPE"       dst="BANK_ACCT_TYPE"        width="1"     default=""        remark="银行账户类别"      />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!-- 支付账户查询 -->
+<message src="99001337" dst="L1160812">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+  </input>
+  <output format="table">
+    <field src="OPER_TYPE"            dst="OPER_TYPE"             width="1"     default=""        remark="操作类型"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="BANK_CODE"            dst="BANK_CODE"             width="32"    default=""        remark="银行代码"          />
+    <field src="BANK_ACCT"            dst="BANK_ACCT"             width="32"    default=""        remark="银行账号"          />
+    <field src="ACCT_STAT"            dst="ACCT_STAT"             width="1"     default=""        remark="账户状态"          />
+    <field src="PAY_WAY"              dst="PAY_WAY"               width="1"     default=""        remark="支付方式"          />
+    <field src="PAY_ORG"              dst="PAY_ORG"               width="8"     default=""        remark="支付机构"          />
+    <field src="PAY_ACCT"             dst="PAY_ACCT"              width="32"    default=""        remark="支付账号"          />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"          />
+    <field src="CLOSE_DATE"           dst="CLOSE_DATE"            width="32"    default=""        remark="销户日期"          />
+  </output>
+</message>
+
+<!-- 客户电子协议签署 -->
+<message src="99001338" dst="L1120142">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CONTRACT_CLS"         dst="CONTRACT_CLS"          width="3"     default=""        remark="协议种类"          />
+    <field src="VERSION"              dst="VERSION"               width="32"    default=""        remark="版本"              />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="SIGN_ORG"             dst="SIGN_ORG"              width="32"    default=""        remark="签署机构"          />
+    <field src="SIGN_TYPE"            dst="SIGN_TYPE"             width="2"     default=""        remark="签署类型"          />
+    <field src="SIGN_TEXT"            dst="SIGN_TEXT"             width="4000"  default=""        remark="客户签署内容"      />
+    <field src="SIGN_EXINFO"          dst="SIGN_EXINFO"           width="1024"  default=""        remark="签署内容附加"      />
+    <field src="STRING"               dst="STRING"                width="4000"  default=""        remark="验签字串"          />
+    <field src="EFT_DATE"             dst="EFT_DATE"              width="32"    default=""        remark="生效日期"              />
+    <field src="EXP_DATE"             dst="EXP_DATE"              width="32"    default=""        remark="有效日期"              />
+    <field src="REMARK"               dst="REMARK"                width="64"    default=""        remark="备注"              />
+    <field src="INST_TYPE"            dst="INST_TYPE"             width="1"     default=""        remark="产品大类"          />
+    <field src="INST_CLS"             dst="INST_CLS"              width="2"     default=""        remark="产品子类"          />
+    <field src="ISS_CODE"             dst="ISS_CODE"              width="8"     default=""        remark="发行人代码"        />
+    <field src="INST_CODE"            dst="INST_CODE"             width="20"    default=""        remark="产品代码"          />
+    <field src="INST_ID"              dst="INST_ID"               width="12"    default=""        remark="产品编码"          />
+    <field src="EC_NO"                dst="EC_NO"                 width="32"    default=""        remark="电子合同编号"      />
+    <field src="AGREEMENT_ID"         dst="AGREEMENT_ID"          width="32"    default=""        remark="电子协议书标识"    />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水号"          />
+  </output>
+</message>
+
+<!-- 客户电子协议签署信息查询 -->
+<message src="99001339" dst="L1120145">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CONTRACT_CLS"         dst="CONTRACT_CLS"          width="3"     default=""        remark="协议种类"          />
+    <field src="VERSION"              dst="VERSION"               width="32"    default=""        remark="版本"              />
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"    default=""        remark="机构代码"          />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="INST_TYPE"            dst="INST_TYPE"             width="1"     default=""        remark="产品大类"          />
+    <field src="INST_CLS"             dst="INST_CLS"              width="2"     default=""        remark="产品子类"          />
+    <field src="ISS_CODE"             dst="ISS_CODE"              width="8"     default=""        remark="发行人代码"        />
+    <field src="INST_CODE"            dst="INST_CODE"             width="20"    default=""        remark="产品代码"          />
+    <field src="INST_ID"              dst="INST_ID"               width="12"    default=""        remark="产品编码"          />
+    <field src="EC_NO"                dst="EC_NO"                 width="32"    default=""        remark="电子合同编号"      />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水号"            />
+    <field src="CONTRACT_CLS"         dst="CONTRACT_CLS"          width="32"    default=""        remark="电子协议种类"      />
+    <field src="CHANNEL"              dst="CHANNEL"               width="1"     default=""        remark="操作渠道"          />
+    <field src="OP_SITE"              dst="OP_SITE"               width="32"    default=""        remark="操作站点"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          />
+    <field src="SIGN_ORG"             dst="SIGN_ORG"              width="32"    default=""        remark="签署机构"          />
+    <field src="SIGN_TYPE"            dst="SIGN_TYPE"             width="2"     default=""        remark="签署类型"          />
+    <field src="SIGN_DATE"            dst="SIGN_DATE"             width="32"    default=""        remark="签署日期"          />
+    <field src="SIGN_TIME"            dst="SIGN_TIME"             width="32"    default=""        remark="签署时间"          />
+    <field src="SIGN_EXINFO"          dst="SIGN_EXINFO"           width="1024"  default=""        remark="签署内容附加"      />
+    <field src="SIGN_TEXT"            dst="SIGN_TEXT"             width="4000"  default=""        remark="签名内容"          />
+    <field src="VERSION"              dst="VERSION"               width="32"    default=""        remark="版本"              />
+    <field src="STRING"               dst="STRING"                width="4000"  default=""        remark="验签字串"          />
+    <field src="EFT_DATE"             dst="EFT_DATE"              width="32"    default=""        remark="生效日期"          />
+    <field src="EXP_DATE"             dst="EXP_DATE"              width="32"    default=""        remark="有效日期"          />
+    <field src="REMARK"               dst="REMARK"                width="64"    default=""        remark="备注"              />
+    <field src="INST_TYPE"            dst="INST_TYPE"             width="1"     default=""        remark="产品大类"          />
+    <field src="INST_CLS"             dst="INST_CLS"              width="2"     default=""        remark="产品子类"          />
+    <field src="ISS_CODE"             dst="ISS_CODE"              width="8"     default=""        remark="发行人代码"        />
+    <field src="INST_CODE"            dst="INST_CODE"             width="20"    default=""        remark="产品代码"          />
+    <field src="INST_ID"              dst="INST_ID"               width="12"    default=""        remark="产品编码"          />
+    <field src="EC_NO"                dst="EC_NO"                 width="32"    default=""        remark="电子合同编号"      />
+  </output>
+</message>
+
+<!--客户资料同步OTC 系统 -->
+<message src="99001341" dst="L1190020">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUACCT_CODES"          dst="CUACCT_CODES"         width="256"   default=""        remark="资产账户"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="OPERATION_TYPE"       dst="OPERATION_TYPE"        width="20"    default=""        remark="操作类型"          />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!--资产账户同步OTC系统-->
+<dict name="OperationsTypeFunc">
+  <entry name="0"   value="20222"/> <!-- 0:资产账户同步（新增）-->
+  <entry name="1"   value="21222"/> <!-- 1:资产账户同步（修改）-->
+</dict>
+<message src="99001367" dst="L1190020">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUST_CODE"            dst="CUST_CODE"            width="32"   default=""    remark="客户代码"          />
+    <field src="CUACCT_CODES"         dst="CUACCT_CODES"         width="256"  default=""    remark="资产账户"          />
+    <field src="OPERATION_TYPE"       dst="OPERATION_TYPE"   width="20"   default=""    remark="操作类型"  dict="OperationsTypeFunc"    />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!--券商发起银证开户 -->
+<message src="99001342" dst="L1202537">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CURRENCY            "   dst="CURRENCY            "       width="1"     default=""    remark="货币代码    "   />
+    <field src="CUACCT_CODE         "   dst="CUACCT_CODE         "       width="32"     default=""    remark="资产账户    "   />
+    <field src="EXT_ORG             "   dst="EXT_ORG             "       width="16"     default=""    remark="外部机构    "   />
+    <field src="CUBSB_TRD_ID        "   dst="CUBSB_TRD_ID        "       width="2"     default=""    remark="银证业务标识"   />
+    <field src="CUBSB_TYPE          "   dst="CUBSB_TYPE          "       width="1"     default=""    remark="银证业务类型"   />
+    <field src="STKBD               "   dst="STKBD               "       width="2"     default=""    remark="交易板块    "   />
+    <field src="TRDACCT             "   dst="TRDACCT             "       width="10"     default=""    remark="交易账户    "   />
+    <field src="FUND_AUTH_DATA      "   dst="FUND_AUTH_DATA      "       width="32"     default=""    remark="资金认证数据"   />
+    <field src="BANK_AUTH_DATA      "   dst="BANK_AUTH_DATA      "       width="32"     default=""    remark="银行认证数据"   />
+    <field src="BANK_ACCT           "   dst="BANK_ACCT           "       width="32"     default=""    remark="银行帐户    "   />
+    <field src="OP_FLAG             "   dst="OP_FLAG             "       width="1"     default=""    remark="操作标志    "   />
+    <field src="OP_REMARK           "   dst="OP_REMARK           "       width="128"     default=""    remark="操作备注    "   />
+  </input>
+  <output format="table">
+    <field src="OCCUR_DATE"           dst="OCCUR_DATE"            width="32"    default=""        remark="发生日期"            />
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水序号"      />
+    <field src="CUBSB_TRD_STATUS"     dst="CUBSB_TRD_STATUS"      width="1"     default=""        remark="银证业务状态"          />
+    <field src="EXT_MSG_CODE"         dst="EXT_MSG_CODE"          width="16"    default=""        remark="外部调用信息代码"          />
+    <field src="EXT_MSG_TEXT"         dst="EXT_MSG_TEXT"          width="256"   default=""        remark="外部调用信息内容"          />
+  </output>
+</message>
+
+<!--券商发起存管签约 -->
+<message src="99001343" dst="L1202538">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CURRENCY            "   dst="CURRENCY            "       width="1"     default=""    remark="货币代码    "   />
+    <field src="CUACCT_CODE         "   dst="CUACCT_CODE         "       width="32"     default=""    remark="资产账户    "   />
+    <field src="EXT_ORG             "   dst="EXT_ORG             "       width="16"     default=""    remark="外部机构    "   />
+    <field src="FUND_AUTH_DATA      "   dst="FUND_AUTH_DATA      "       width="32"     default=""    remark="资金认证数据"   />
+    <field src="BANK_AUTH_DATA      "   dst="BANK_AUTH_DATA      "       width="32"     default=""    remark="银行认证数据"   />
+    <field src="BANK_ACCT           "   dst="BANK_ACCT           "       width="32"     default=""    remark="银行帐户    "   />
+    <field src="OP_REMARK           "   dst="OP_REMARK           "       width="128"     default=""    remark="操作备注    "   />
+  </input>
+  <output format="table">
+    <field src="OCCUR_DATE"           dst="OCCUR_DATE"            width="32"    default=""        remark="发生日期"            />
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水序号"      />
+  </output>
+</message>
+
+<!--券商发起存管签约 -->
+<message src="99001344" dst="L1202539">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CURRENCY            "   dst="CURRENCY            "       width="1"     default=""    remark="货币代码    "   />
+    <field src="CUACCT_CODE         "   dst="CUACCT_CODE         "       width="32"     default=""    remark="资产账户    "   />
+    <field src="EXT_ORG             "   dst="EXT_ORG             "       width="16"     default=""    remark="外部机构    "   />
+    <field src="FUND_AUTH_DATA      "   dst="FUND_AUTH_DATA      "       width="32"     default=""    remark="资金认证数据"   />
+    <field src="BANK_AUTH_DATA      "   dst="BANK_AUTH_DATA      "       width="32"     default=""    remark="银行认证数据"   />
+    <field src="BANK_ACCT           "   dst="BANK_ACCT           "       width="32"     default=""    remark="银行帐户    "   />
+    <field src="OP_REMARK           "   dst="OP_REMARK           "       width="128"     default=""    remark="操作备注    "   />
+  </input>
+  <output format="table">
+    <field src="OCCUR_DATE"           dst="OCCUR_DATE"            width="32"    default=""        remark="发生日期"            />
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水序号"      />
+  </output>
+</message>
+
+<!--账户资料同步OTC 系统 -->
+<message src="99001345" dst="L1190021">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUACCT_CODES"         dst="CUACCT_CODES"          width="256"    default=""       remark="资产账户"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="OPERATION_TYPE"       dst="OPERATION_TYPE"        width="20"    default=""        remark="操作类型"          />
+    <field src="BANK_CODE"            dst="BANK_CODE"             width="32"    default=""        remark="银行代码"          />
+    <field src="BANK_ACCT"            dst="BANK_ACCT"             width="32"    default=""        remark="银行账号"          />
+    <field src="PAY_WAY"              dst="PAY_WAY"               width="1"     default=""        remark="支付方式"          />
+    <field src="PAY_ORG"              dst="PAY_ORG"               width="8"     default=""        remark="支付机构"          />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!--柜员资料同步OTC系统-->
+<message src="99001346" dst="L1100219">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="OPER_TYPE"            dst="OPER_TYPE"             width="1"     default=""        remark="操作类型"          />
+    <field src="OP_CODE"              dst="OP_CODE"               width="32"    default=""        remark="操作员代码"        />
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT"            dst="MSG_TEXT"              width="64"    default="业务运行成功"                       />
+  </output>
+</message>
+
+<!--柜员资料查询-->
+<message src="99001347" dst="L1160202">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="OP_CODE"             dst="OP_CODE"               width="64"     default=""        remark="操作员代码"          />
+    <field src="INT_ORG"             dst="INT_ORG"               width="32"     default=""        remark="机构代码"        />
+    <field src="OP_CLS"              dst="OP_CLS"                width="1"      default=""        remark="操作员类别"          />
+    <field src="OP_STAUS"            dst="OP_STAUS"              width="1"      default=""        remark="操作员状态"        />
+  </input>
+  <output format="table">
+    <field src="OP_CODE"              dst="OP_CODE"               width="64"     default=""        remark="操作员代码"          />
+    <field src="OP_CLS"               dst="OP_CLS"                width="64"     default=""        remark="操作员类别"          />
+    <field src="OP_STATUS"            dst="OP_STATUS"             width="64"     default=""        remark="操作员状态"          />
+    <field src="INT_ORG"              dst="INT_ORG"               width="64"     default=""        remark="内部机构"          />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="64"     default=""        remark="开户日期"          />
+    <field src="EMPLOYEE_ID"          dst="EMPLOYEE_ID"           width="64"     default=""        remark="员工标识"          />
+    <field src="CHANNELS"             dst="CHANNELS"              width="64"     default=""        remark="操作渠道（复数）"          />
+    <field src="REMARK"               dst="REMARK"                width="128"     default=""        remark="备注信息"          />
+    <field src="OPER_EXT_ATTR"        dst="OPER_EXT_ATTR"         width="64"     default=""        remark="操作员扩展属性"          />
+  </output>
+</message>
+
+<!--特殊机构查询-->
+<message src="99001350" dst="L1160813">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"   remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"      remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""     remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""     remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""         remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="INT_ORG"             dst="INT_ORG"               width="32"     default=""        remark="内部机构"          />
+    <field src="SPEC_ORG_CODE"       dst="SPEC_ORG_CODE"         width="8"     default=""         remark="外部特殊代码"      />
+    <field src="SPEC_ORG_TYPE"       dst="SPEC_ORG_TYPE"         width="1"      default=""        remark="机构类型"          />
+  </input>
+  <output format="table">
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"     default=""        remark="机构代码"          />
+    <field src="SPEC_ORG_CODE"        dst="SPEC_ORG_CODE"         width="64"     default=""        remark="外部特殊代码"      />
+    <field src="SPEC_ORG_TYPES"       dst="SPEC_ORG_TYPES"        width="64"     default=""        remark="机构类型(复数)   " />
+    <field src="SPEC_ORG_SNAME"       dst="SPEC_ORG_SNAME"        width="64"     default=""        remark="机构简称"          />
+    <field src="SPEC_ORG_FNAME"       dst="SPEC_ORG_FNAME"        width="128"    default=""        remark="机构全称"          />
+    <field src="ORG_PREFIX"           dst="ORG_PREFIX"            width="64"     default=""        remark="机构前缀"          />
+    <field src="TA_FLAG"              dst="TA_FLAG"               width="64"     default=""        remark="TA返回标示"        />
+    <field src="SURVEY_SN"            dst="SURVEY_SN"             width="128"    default=""        remark="试题编号"          />
+    <field src="INST_CLS_FLAG"        dst="INST_CLS_FLAG"         width="64"     default=""        remark="发送产品类别标识"  />
+    <field src="DADA_CHECK_SET"       dst="DADA_CHECK_SET"        width="128"    default=""        remark="数据校验设置"      />
+    <field src="TIMESLICES"           dst="TIMESLICES"            width="128"    default=""        remark="业务有效时间段"    />
+    <field src="SEND_IMG_CLS"         dst="SEND_IMG_CLS"          width="1024"   default=""        remark="影像报送类型"      />
+    <field src="CUST_CHANNEL_ID"      dst="CUST_CHANNEL_ID"       width="32"     default=""        remark="客户渠道ID"        />
+    <field src="CYR_CODE"             dst="CYR_CODE"              width="3"      default=""        remark="参与人代码"        />
+    <field src="BANK_RESULT_FLAG"     dst="BANK_RESULT_FLAG"      width="1"      default=""        remark="银行处理结果返回标识"  />
+    <field src="SURVEY_CHK_FLAG"      dst="SURVEY_CHK_FLAG"       width="1"      default=""        remark="风险测评检查标识"  />
+    <field src="AGREE_CHK_SET"        dst="AGREE_CHK_SET"         width="128"    default=""        remark="电子协议检查设置"  />
+    <field src="TA_ORG_CLS"           dst="TA_ORG_CLS"            width="1"      default=""        remark="登记机构类别"      />
+  </output>
+</message>
+
+ <!-- 查询数据字典(单项查询) -->
+<message src="99001319" dst="L1000011">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="INT_ORG"             dst="INT_ORG"           width="1"     default="0"     remark="内部机构"     />
+    <field src="DD_ID"               dst="DD_ID"             width="32"    default=""      remark="字典标识"     />
+  </input>             
+  <output format="table">                                                                                                   
+    <field src="DD_ID"               dst="DD_ID"             width="32"     default=""       remark="字典标识"   />
+    <field src="DD_ITEM"             dst="DD_ITEM"           width="32"    default=""       remark="字典项目"   />
+    <field src="DD_ITEM_NAME"        dst="DD_ITEM_NAME"      width="128"   default=""       remark="字典项目名称"   />
+    <field src="INT_ORG"             dst="INT_ORG"           width="1"     default=""       remark="内部机构"   />
+  </output>      
+</message>
+
+ <!-- 机构信息查询 -->
+<message src="99001274" dst="L0063001">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="ORG_CODE"            dst="ORG_CODE"           width="16"    default=""    remark="机构编码"     />
+    <field src="ORG_TYPE"            dst="ORG_TYPE"           width="1"     default=""    remark="机构类型"     />
+    <field src="RIGHT_FLAG"           dst="RIGHT_FLAG"         width="1"     default=""    remark="权限标志"     />
+  </input>             
+  <output format="table">                                                                                                   
+    <field src="ORG_CODE"           dst="ORG_CODE"              width="16"    default=""       remark="机构代码"   />
+    <field src="ORG_TYPE"           dst="ORG_TYPE"              width="1"     default=""       remark="机构类型"   />
+    <field src="ORG_CLS"            dst="ORG_CLS"               width="2"     default=""       remark="机构类别"   />
+    <field src="ORG_NAME"           dst="ORG_NAME"              width="32"    default=""       remark="机构名称"   />
+    <field src="ORG_FULL_NAME"      dst="ORG_FULL_NAME"         width="256"   default=""       remark="机构全称"   />
+    <field src="ORG_STATUS"         dst="ORG_STATUS"            width="1"     default=""       remark="机构状态"   />
+    <field src="PARENT_ORG"         dst="PARENT_ORG"            width="16"    default=""       remark="上级机构"   />
+    <field src="ACCT_LEN"           dst="ACCT_LEN"              width="16"    default=""       remark="账户长度"   />
+    <field src="ACCT_PREFIX"        dst="ACCT_PREFIX"           width="8"     default=""       remark="账户前缀"   />
+    <field src="AREA_NO"            dst="AREA_NO"               width="6"     default=""       remark="电话区号"   />
+    <field src="ZIP_CODE"           dst="ZIP_CODE"              width="8"     default=""       remark="邮政编码"   />
+    <field src="AREA_ADDR"          dst="AREA_ADDR"             width="128"   default=""       remark="所在地地址" />
+    <field src="RIGHT_FLAG"         dst="RIGHT_FLAG"            width="1"     default=""       remark="权限标志"   />
+    <field src="TEL"                dst="TEL"                   width="64"    default=""       remark="机构电话"   />
+    </output>      
+</message>
+
+<!-- 客户批量答题 -->
+<message src="99001351" dst="L1120160">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"     />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"     />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"        />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"        />
+    <field src="F_OP_ORG "            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="SURVEY_SN"          dst="SURVEY_SN"      width="2"     default="2"         remark="调查表编码"            />
+    <field src="USER_CODE"          dst="USER_CODE"      width="8"     default="8"         remark="用户代码"              />
+    <field src="SURVEY_COL"         dst="SURVEY_COL"     width="1024"   default="1024"        remark="调查表栏目(复数)"   />
+    <field src="SURVEY_CELLS"       dst="SURVEY_CELLS "  width="1024"   default="1024"     remark="调查表单元（复数）"    />
+  </input>                
+  <output format="!table">   
+    <field  src="MSG_TEXT       "     dst="MSG_TEXT       "     width="64"     default="业务运行成功"           />
+  </output>
+</message>
+
+<!-- 用户拓展资料查询 -->
+<message src="99001352" dst="L1160012">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"     />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"     />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"        />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"        />
+    <field src="F_OP_ORG "            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="USER_CODE"           dst="USER_CODE"          width="32"    default=""        remark="用户代码"       /> 
+    <field src="TAB_CODE"            dst="TAB_CODE"           width="64"    default="USER_EXT_INFO"        remark="数据表代码"     /> 
+    <field src="FLD_CODE"            dst="FLD_CODE"           width="64"    default="OCCUPATION_INFO"        remark="表字段代码"     /> 
+    <field src="PKG_TYPE"            dst="PKG_TYPE"           width="1"     default="1"        remark="打包方式"       /> 
+  </input>                
+  <output format="table">   
+    <field src="USER_CODE"           dst="USER_CODE"          width="32"    default=""        remark="用户代码"     />  
+    <field src="WORKPLACE"           dst="WORKPLACE"          width="64"    default=""        remark="工作单位"     /> 
+    <field src="INCOME"              dst="INCOME"             width="16"    default=""        remark="家庭收入"     /> 
+    <field src="TRADE"               dst="TRADE"              width="2"     default=""        remark="行业类型"     /> 
+    <field src="VOCATION"            dst="VOCATION"           width="32"    default=""        remark="职业"         /> 
+    <field src="PRACTICE_DATE"       dst="PRACTICE_DATE"      width="16"    default=""        remark="从业日期"     /> 
+    <field src="CERTIFICATE_TYPE"    dst="CERTIFICATE_TYPE"   width="2"     default=""        remark="资格证书种类" />
+    <field src="CERTIFICATE_NO"      dst="CERTIFICATE_NO"     width="32"    default=""        remark="资格证书号"   />
+    <field src="OCCU_TYPE"           dst="OCCU_TYPE"          width="2"     default=""        remark="职业类型"     />
+    <field src="POSITION"            dst="POSITION"           width="32"    default=""        remark="职位"         />
+    <field src="WORKING_TEL"         dst="WORKING_TEL"        width="32"    default=""        remark="公司电话"     />
+    <field src="WORKING_FAX"         dst="WORKING_FAX"        width="32"    default=""        remark="传真电话"     />
+    <field src="OP_REMARK"           dst="OP_REMARK"          width="128"   default=""        remark="备注"         />
+  </output>
+</message>
+
+<!-- 用户职业资料设置 -->
+<message src="99001353" dst="L1120079">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"     />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"     />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"        />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"        />
+    <field src="F_OP_ORG "            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="USER_CODE"           dst="USER_CODE"          width="32"    default=""        remark="用户代码"     /> 
+    <field src="OPERATION_TYPE"      dst="OPERATION_TYPE"     width="1"     default=""        remark="操作类型"     /> 
+    <field src="WORKPLACE"           dst="WORKPLACE"          width="64"    default=""        remark="工作单位"     /> 
+    <field src="INCOME"              dst="INCOME"             width="16"    default=""        remark="家庭收入"     /> 
+    <field src="TRADE"               dst="TRADE"              width="2"     default=""        remark="行业类型"     /> 
+    <field src="VOCATION"            dst="VOCATION"           width="32"    default=""        remark="职业"         /> 
+    <field src="PRACTICE_DATE"       dst="PRACTICE_DATE"      width="16"    default=""        remark="从业日期"     /> 
+    <field src="CERTIFICATE_TYPE"    dst="CERTIFICATE_TYPE"   width="2"     default=""        remark="资格证书种类" />
+    <field src="CERTIFICATE_NO"      dst="CERTIFICATE_NO"     width="32"    default=""        remark="资格证书号"   />
+    <field src="OCCU_TYPE"           dst="OCCU_TYPE"          width="2"     default=""        remark="职业类型"     />
+    <field src="POSITION"            dst="POSITION"           width="32"    default=""        remark="职位"         />
+    <field src="WORKING_TEL"         dst="WORKING_TEL"        width="32"    default=""        remark="公司电话"     />
+    <field src="WORKING_FAX"         dst="WORKING_FAX"        width="32"    default=""        remark="传真电话"     />
+    <field src="OP_REMARK"           dst="OP_REMARK"          width="128"   default=""        remark="备注"         />
+    <field src=""                    dst="SUBSYS"             width="64"    default="13"      remark="同步子系统"   />
+  </input>             
+  <output format="!table">
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT"   width="64"  default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 按证件号码查询客户信息 -->
+<message src="99001354" dst="L1100010">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"     />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"     />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"        />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"        />
+    <field src="F_OP_ORG "            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"           /> 
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          /> 
+    <field src="CHK_APPT_FLAG"        dst="CHK_APPT_FLAG"         width="1"     default=""        remark="预约资料检查标志"   />  
+  </input>                
+  <output format="table">   
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="用户代码"     />  
+    <field src="USER_ROLES"           dst="USER_ROLES"            width="32"    default=""        remark="用户角色"     /> 
+    <field src="USER_NAME"            dst="USER_NAME"             width="32"    default=""        remark="用户名称"     /> 
+    <field src="USER_TYPE"            dst="USER_TYPE"             width="1"     default=""        remark="用户类型"     /> 
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"    default=""        remark="机构代码"         /> 
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="16"    default=""        remark="证件类型"     /> 
+    <field src="ID_CODE"              dst="ID_CODE"               width="32"     default=""        remark="证件号码" />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"   />
+    <field src="USER_STATUS"          dst="USER_STATUS"           width="64"     default=""        remark="用户状态"     />
+  </output>
+</message>
+
+<!-- 客户销户 -->
+<message src="99001355" dst="L1100112">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"     />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"     />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"        />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"        />
+    <field src="F_OP_ORG "            dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"           /> 
+    <field src=""                     dst="SUBSYS"                width="32"    default="13"      remark="同步子系统"          /> 
+    <field src="OP_REMARK"            dst="OP_REMARK"             width="128"   default=""        remark="操作备注"   />  
+  </input>                
+  <output format="table">   
+    <field src="MSG_TEXT#-1" dst="MSG_TEXT"   width="64"  default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 客户资金资产帐户信息查询 -->
+<message src="99001356" dst="L1160821">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="用户代码"          />
+  </input>
+  <output format="table">
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"          />
+    <field src="CURRENCY"             dst="CURRENCY"              width="32"    default=""        remark="币种"              />
+    <field src="MAIN_FLAG"            dst="MAIN_FLAG"             width="1"     default=""        remark="主账户标识"        />
+    <field src="CUACCT_ATTR"          dst="CUACCT_ATTR"           width="1"     default=""        remark="资产账户类型"      />
+    <field src="CUACCT_STATUS"        dst="CUACCT_STATUS"         width="1"     default=""        remark="资产账户状态"      />
+    <field src="EXT_ORG"              dst="EXT_ORG"               width="16"    default=""        remark="存管银行代码"      />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"          />
+    <field src="CLOSE_DATE"           dst="CLOSE_DATE"            width="32"    default=""        remark="销户日期"          />
+  </output>
+</message>
+
+<!-- 按客户号查询客户信息 -->
+<message src="99001357" dst="L1160822">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="用户代码"          />
+    <field src="SURVEY_CLS"           dst="SURVEY_CLS"            width="1"     default="0"        remark="调查表类别"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"              dst="USER_CODE"              width="32"    default=""        remark="客户编号"               />
+    <field src="USER_NAME"              dst="USER_NAME"              width="32"    default=""        remark="客户姓名"               />
+    <field src="USER_FNAME"             dst="USER_FNAME"             width="128"   default=""        remark="客户全名"               />
+    <field src="CUST_STATUS"            dst="CUST_STATUS"            width="1"     default=""        remark="客户状态"               />
+    <field src="INT_ORG"                dst="INT_ORG"                width="8"     default=""        remark="营业部"                 />
+    <field src="OPEN_DATE"              dst="OPEN_DATE"              width="16"    default=""        remark="开户日期"               />
+    <field src="CLOSE_DATE"             dst="CLOSE_DATE"             width="16"    default=""        remark="销户日期"               />
+    <field src="CUST_TYPE"              dst="CUST_TYPE"              width="1"     default=""        remark="机构标识"               />
+    <field src="TRADE"                  dst="TRADE"                  width="32"    default=""        remark="行业分类"               />
+    <field src="ID_TYPE"                dst="ID_TYPE"                width="2"     default=""        remark="证件类别"               />
+    <field src="ID_CODE"                dst="ID_CODE"                width="48"    default=""        remark="证件编号"               />
+    <field src="ID_EXP_DATE"            dst="ID_EXP_DATE"            width="16"    default=""        remark="证件有效期"             />
+    <field src="ADDRESS"                dst="ADDRESS"                width="256"   default=""        remark="地址"                   />
+    <field src="RATING_LVL"             dst="RATING_LVL"             width="8"     default=""        remark="风险承受能力"           />
+    <field src="RATING_DATE"            dst="RATING_DATE"            width="32"    default=""        remark="风险评估日期"           />
+    <field src="CHANNELS"               dst="CHANNELS"               width="32"    default=""        remark="委托方式"               />
+    <field src="MOBILE_TEL"             dst="MOBILE_TEL"             width="32"    default=""        remark="移动电话"               />
+    <field src="TEL"                    dst="TEL"                    width="32"    default=""        remark="电话"                   />
+    <field src="CITIZENSHIP"            dst="CITIZENSHIP"            width="3"     default=""        remark="国籍"                   />
+    <field src="ZIP_CODE"               dst="ZIP_CODE"               width="8"     default=""        remark="邮政编码"               />
+    <field src="EMAIL"                  dst="EMAIL"                  width="48"    default=""        remark="电子邮箱"               />
+    <field src="SERVICE_LVL"            dst="SERVICE_LVL"            width="1"     default=""        remark="客户级别"               />
+    <field src="BIRTHDAY"               dst="BIRTHDAY"               width="32"    default=""        remark="出生日期(个人)/注册日(机构)"          />
+    <field src="ID_ADDR"                dst="ID_ADDR"                width="256"   default=""        remark="证件地址"               />
+    <field src="ID_ZIP_CODE"            dst="ID_ZIP_CODE"            width="8"     default=""        remark="证件地址邮编"           />
+    <field src="ID_ISS_AGCY"            dst="ID_ISS_AGCY"            width="64"    default=""        remark="发证机关"               />
+    <field src="SEX"                    dst="SEX"                    width="1"     default=""        remark="性别"                   />
+    <field src="MARRY"                  dst="MARRY"                  width="1"     default=""        remark="婚姻状况"               />
+    <field src="VOCATION"               dst="VOCATION"               width="64"    default=""        remark="职业"                   />
+    <field src="EDUCATION"              dst="EDUCATION"              width="1"     default=""        remark="学历"                   />
+    <field src="NATIVE_PLACE"           dst="NATIVE_PLACE"           width="32"    default=""        remark="籍贯(个人)/注册地(机构)"/>
+    <field src="NATIONALITY"            dst="NATIONALITY"            width="32"    default=""        remark="民族"                   />
+    <field src="WORKPLACE"              dst="WORKPLACE"              width="64"    default=""        remark="工作单位"               />
+    <field src="CORP_ADDR"              dst="CORP_ADDR"              width="256"   default=""        remark="工作单位地址"           />
+    <field src="POSITION"               dst="POSITION"               width="64"    default=""        remark="工作单位职位"           />
+    <field src="OFFICE_TEL"             dst="OFFICE_TEL"             width="32"    default=""        remark="工作单位电话"           />
+    <field src="INDUS_TYPE"             dst="INDUS_TYPE"             width="64"    default=""        remark="行业代码"               />
+    <field src="WORKING_TEL"            dst="WORKING_TEL"            width="32"    default=""        remark="公司电话"               />
+    <field src="REGISTER_FUND"          dst="REGISTER_FUND"          width="32"    default=""        remark="注册资金"               />
+    <field src="ORG_ID_CODE"            dst="ORG_ID_CODE"            width="32"    default=""        remark="组织机构代码"           />
+    <field src="LEGAL_REP_TYPE"         dst="LEGAL_REP_TYPE"         width="64"    default=""        remark="法人类别"               />
+    <field src="LEGAL_REP"              dst="LEGAL_REP"              width="32"    default=""        remark="法人代表"               />
+    <field src="LEGAL_REP_ID_TYPE"      dst="LEGAL_REP_ID_TYPE"      width="64"    default=""        remark="法人代表证件类别"       />
+    <field src="LEGAL_REP_ID_CODE"      dst="LEGAL_REP_ID_CODE"      width="64"    default=""        remark="法人代表证件编号"       />
+    <field src="LEGAL_REP_ID_EXP_DATE"  dst="LEGAL_REP_ID_EXP_DATE"  width="64"    default=""        remark="法人代表证件有效期"     />
+    <field src="ASSIGN_PERSON_ID_DAT"   dst="ASSIGN_PERSON_ID_DAT"   width="32"    default=""        remark="经办人证件有效期"       />
+    <field src="ASSIGN_PERSON_TEL"      dst="ASSIGN_PERSON_TEL"      width="32"    default=""        remark="经办人电话"             />
+  </output>
+</message>
+
+<!-- 按证件号码查询客户信息 -->
+<message src="99001358" dst="L1160822">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          />
+    <field src="SURVEY_CLS"           dst="SURVEY_CLS"            width="1"     default="0"        remark="调查表类别"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"              dst="USER_CODE"              width="32"    default=""        remark="客户编号"               />
+    <field src="USER_NAME"              dst="USER_NAME"              width="32"    default=""        remark="客户姓名"               />
+    <field src="USER_FNAME"             dst="USER_FNAME"             width="128"   default=""        remark="客户全名"               />
+    <field src="CUST_STATUS"            dst="CUST_STATUS"            width="1"     default=""        remark="客户状态"               />
+    <field src="INT_ORG"                dst="INT_ORG"                width="8"     default=""        remark="营业部"                 />
+    <field src="OPEN_DATE"              dst="OPEN_DATE"              width="16"    default=""        remark="开户日期"               />
+    <field src="CLOSE_DATE"             dst="CLOSE_DATE"             width="16"    default=""        remark="销户日期"               />
+    <field src="CUST_TYPE"              dst="CUST_TYPE"              width="1"     default=""        remark="机构标识"               />
+    <field src="TRADE"                  dst="TRADE"                  width="32"    default=""        remark="行业分类"               />
+    <field src="ID_TYPE"                dst="ID_TYPE"                width="2"     default=""        remark="证件类别"               />
+    <field src="ID_CODE"                dst="ID_CODE"                width="48"    default=""        remark="证件编号"               />
+    <field src="ID_EXP_DATE"            dst="ID_EXP_DATE"            width="16"    default=""        remark="证件有效期"             />
+    <field src="ADDRESS"                dst="ADDRESS"                width="256"   default=""        remark="地址"                   />
+    <field src="RATING_LVL"             dst="RATING_LVL"             width="8"     default=""        remark="风险承受能力"           />
+    <field src="RATING_DATE"            dst="RATING_DATE"            width="32"    default=""        remark="风险评估日期"           />
+    <field src="CHANNELS"               dst="CHANNELS"               width="32"    default=""        remark="委托方式"               />
+    <field src="MOBILE_TEL"             dst="MOBILE_TEL"             width="32"    default=""        remark="移动电话"               />
+    <field src="TEL"                    dst="TEL"                    width="32"    default=""        remark="电话"                   />
+    <field src="CITIZENSHIP"            dst="CITIZENSHIP"            width="3"     default=""        remark="国籍"                   />
+    <field src="ZIP_CODE"               dst="ZIP_CODE"               width="8"     default=""        remark="邮政编码"               />
+    <field src="EMAIL"                  dst="EMAIL"                  width="48"    default=""        remark="电子邮箱"               />
+    <field src="SERVICE_LVL"            dst="SERVICE_LVL"            width="1"     default=""        remark="客户级别"               />
+    <field src="BIRTHDAY"               dst="BIRTHDAY"               width="32"    default=""        remark="出生日期(个人)/注册日(机构)"          />
+    <field src="ID_ADDR"                dst="ID_ADDR"                width="256"   default=""        remark="证件地址"               />
+    <field src="ID_ZIP_CODE"            dst="ID_ZIP_CODE"            width="8"     default=""        remark="证件地址邮编"           />
+    <field src="ID_ISS_AGCY"            dst="ID_ISS_AGCY"            width="64"    default=""        remark="发证机关"               />
+    <field src="SEX"                    dst="SEX"                    width="1"     default=""        remark="性别"                   />
+    <field src="MARRY"                  dst="MARRY"                  width="1"     default=""        remark="婚姻状况"               />
+    <field src="VOCATION"               dst="VOCATION"               width="64"    default=""        remark="职业"                   />
+    <field src="EDUCATION"              dst="EDUCATION"              width="1"     default=""        remark="学历"                   />
+    <field src="NATIVE_PLACE"           dst="NATIVE_PLACE"           width="32"    default=""        remark="籍贯(个人)/注册地(机构)"/>
+    <field src="NATIONALITY"            dst="NATIONALITY"            width="32"    default=""        remark="民族"                   />
+    <field src="WORKPLACE"              dst="WORKPLACE"              width="64"    default=""        remark="工作单位"               />
+    <field src="CORP_ADDR"              dst="CORP_ADDR"              width="256"   default=""        remark="工作单位地址"           />
+    <field src="POSITION"               dst="POSITION"               width="64"    default=""        remark="工作单位职位"           />
+    <field src="OFFICE_TEL"             dst="OFFICE_TEL"             width="32"    default=""        remark="工作单位电话"           />
+    <field src="INDUS_TYPE"             dst="INDUS_TYPE"             width="64"    default=""        remark="行业代码"               />
+    <field src="WORKING_TEL"            dst="WORKING_TEL"            width="32"    default=""        remark="公司电话"               />
+    <field src="REGISTER_FUND"          dst="REGISTER_FUND"          width="32"    default=""        remark="注册资金"               />
+    <field src="ORG_ID_CODE"            dst="ORG_ID_CODE"            width="32"    default=""        remark="组织机构代码"           />
+    <field src="LEGAL_REP_TYPE"         dst="LEGAL_REP_TYPE"         width="64"    default=""        remark="法人类别"               />
+    <field src="LEGAL_REP"              dst="LEGAL_REP"              width="32"    default=""        remark="法人代表"               />
+    <field src="LEGAL_REP_ID_TYPE"      dst="LEGAL_REP_ID_TYPE"      width="64"    default=""        remark="法人代表证件类别"       />
+    <field src="LEGAL_REP_ID_CODE"      dst="LEGAL_REP_ID_CODE"      width="64"    default=""        remark="法人代表证件编号"       />
+    <field src="LEGAL_REP_ID_EXP_DATE"  dst="LEGAL_REP_ID_EXP_DATE"  width="64"    default=""        remark="法人代表证件有效期"     />
+    <field src="ASSIGN_PERSON_ID_DAT"   dst="ASSIGN_PERSON_ID_DAT"   width="32"    default=""        remark="经办人证件有效期"       />
+    <field src="ASSIGN_PERSON_TEL"      dst="ASSIGN_PERSON_TEL"      width="32"    default=""        remark="经办人电话"             />
+  </output>
+</message>
+
+<!-- 代理人关系查询 -->
+<message src="99001359" dst="L1160111">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="代理人代码"         />
+    <field src="USER_NAME"            dst="USER_NAME"             width="32"    default=""        remark="代理人姓名"             />
+    <field src="TEL"                  dst="TEL"                   width="32"    default=""        remark="代理人联系电话"         />
+    <field src="FAX"                  dst="FAX"                   width="32"    default=""        remark="代理人传真电话"         />
+    <field src="MOBILE_TEL"           dst="MOBILE_TEL"            width="32"    default=""        remark="代理人移动电话"         />
+    <field src="EMAIL"                dst="EMAIL"                 width="64"    default=""        remark="代理人邮箱"             />
+    <field src="OFFICE_TEL"           dst="OFFICE_TEL"            width="32"    default=""        remark="代理人办公电话"         />
+    <field src="WELL_TEL"             dst="WELL_TEL"              width="32"    default=""        remark="代理人小灵通电话"       />
+    <field src="LINKTEL_ORDER"        dst="LINKTEL_ORDER"         width="1"     default=""        remark="代理人首选联系电话"     />
+    <field src="OFFICE_ADDR"          dst="OFFICE_ADDR"           width="128"   default=""        remark="代理人办公地址"         />
+    <field src="CORP_ADDR"            dst="CORP_ADDR"             width="128"   default=""        remark="代理人公司地址"         />
+    <field src="ADDRESS"              dst="ADDRESS"               width="256"   default=""        remark="代理人联系地址"         />
+    <field src="LINKADDR_ORDER"       dst="LINKADDR_ORDER"        width="1"     default=""        remark="代理人首选联系地址"     />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"               />
+    <field src="CITIZENSHIP"          dst="CITIZENSHIP"           width="3"     default=""        remark="代理人国籍"             />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="代理人证件类型"         />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="代理人证件号码"         />
+    <field src="ID_EXP_DATE"          dst="ID_EXP_DATE"           width="64"    default=""        remark="代理人证件有效期"       />
+    <field src="BGN_DATE"             dst="BGN_DATE"              width="64"    default=""        remark="代理合同开始日期"       />
+    <field src="END_DATE"             dst="END_DATE"              width="64"    default=""        remark="代理合同结束日期"       />
+    <field src="ZIP_CODE"             dst="ZIP_CODE"              width="8"     default=""        remark="代理人邮政编码"         />
+    <field src="SEX"                  dst="SEX"                   width="1"     default=""        remark="代理人性别"             />
+  </output>
+</message>
+
+<!-- 代理人信息查询 -->
+<message src="99001360" dst="L1160402">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="AGT_CODE"             dst="AGT_CODE"              width="32"    default=""        remark="代理人代码"          />
+    <field src="AGT_CLS_ES"           dst="AGT_CLS_ES"            width="32"    default=""        remark="代理人类别(复数)"    />
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"    default=""        remark="机构代码"            />
+  </input>
+  <output format="table">
+    <field src="AGT_CODE"             dst="AGT_CODE"              width="32"    default=""        remark="代理人代码"          />
+    <field src="AGT_CLS"              dst="AGT_CLS"               width="1"     default=""        remark="代理人类别"          />
+    <field src="AGT_STATUS"           dst="AGT_STATUS"            width="1"     default=""        remark="代理人状态"          />
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"    default=""        remark="机构代码"            />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"            />
+    <field src="CHANNELS"             dst="CHANNELS"              width="64"    default=""        remark="操作渠道"            />
+    <field src="REMARK"               dst="REMARK"                width="128"   default=""        remark="备注"                />
+  </output>
+</message>
+
+<!-- 客户首次交易日期查询 -->
+<message src="99001361" dst="L2160200">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="STKEX"                dst="STKEX"                 width="1"     default=""        remark="交易市场"          />
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水序号"          />
+    <field src="SERIAL_NO_POS"        dst="SERIAL_NO_POS"         width="32"    default=""        remark="流水序号位置"      />
+    <field src="BGN_DATE"             dst="BGN_DATE"              width="32"    default=""        remark="开始日期"          />
+    <field src="END_DATE"             dst="END_DATE"              width="32"    default=""        remark="结束日期"          />
+    <field src="ACCTBIZ_EXCODE"       dst="ACCTBIZ_EXCODE"        width="128"   default=""        remark="业务类型"          />
+    <field src="ACCT_EXTYPE"          dst="ACCT_EXTYPE"           width="2"     default=""        remark="账户类型"          />
+    <field src="TRDACCT"              dst="TRDACCT"               width="10"    default=""        remark="交易账户"          />
+    <field src="CHK_STATUS"           dst="CHK_STATUS"            width="8"     default=""        remark="复核状态"          />
+    <field src="ACCTBIZ_STATUS"       dst="ACCTBIZ_STATUS"        width="8"     default=""        remark="账户业务状态"      />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="回报日期"          />
+    <field src="PRINT_FLAG"           dst="PRINT_FLAG"            width="1"     default=""        remark="打印标志"          />
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"    default=""        remark="机构代码"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          />
+    <field src="OPEN_TYPE"            dst="OPEN_TYPE"             width="1"     default=""        remark="开户方式"          />
+  </input>
+  <output format="table">
+    <field src="STKEX"                dst="STKEX"                 width="1"     default=""        remark="交易市场"          />
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水序号"          />
+    <field src="OCCUR_DATE"           dst="OCCUR_DATE"            width="32"    default=""        remark="发生日期"          />
+    <field src="TRDACCT_NAME"         dst="TRDACCT_NAME"          width="32"    default=""        remark="账户名称"          />
+    <field src="TRDACCT_FNAME"        dst="TRDACCT_FNAME"         width="128"   default=""        remark="账户全称"          />
+    <field src="CITIZENSHIP"          dst="CITIZENSHIP"           width="3"     default=""        remark="国籍"              />
+    <field src="SEX"                  dst="SEX"                   width="1"     default=""        remark="性别"              />
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"          />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"          />
+    <field src="ZIP_CODE"             dst="ZIP_CODE"              width="8"     default=""        remark="邮政编码"          />
+    <field src="ADDRESS"              dst="ADDRESS"               width="256"   default=""        remark="联系地址"          />
+    <field src="TEL"                  dst="TEL"                   width="32"    default=""        remark="联系电话"          />
+    <field src="FAX"                  dst="FAX"                   width="32"    default=""        remark="传真电话"          />
+    <field src="BIRTHDAY"             dst="BIRTHDAY"              width="32"    default=""        remark="出生/注册日期"     />
+    <field src="EDUCATION"            dst="EDUCATION"             width="1"     default=""        remark="学历"              />
+    <field src="OCCU_EXTYPE"          dst="OCCU_EXTYPE"           width="2"     default=""        remark="职业类型"          />
+    <field src="LEGAL_REP"            dst="LEGAL_REP"             width="32"    default=""        remark="法人代表"          />
+    <field src="ACCTBIZ_AGTCODE"      dst="ACCTBIZ_AGTCODE"       width="8"     default=""        remark="账户业务代理网点"  />
+    <field src="ACCTBIZ_CODE"         dst="ACCTBIZ_CODE"          width="8"     default=""        remark="账户业务代码"      />
+    <field src="ACCTBIZ_EXCODE"       dst="ACCTBIZ_EXCODE"        width="2"     default=""        remark="账户业务代码(外部)"/>
+    <field src="TRDACCT"              dst="TRDACCT"               width="10"    default=""        remark="交易账户"          />
+    <field src="ACCT_EXTYPE"          dst="ACCT_EXTYPE"           width="2"     default=""        remark="账户类型"          />
+    <field src="NET_SERVICE"          dst="NET_SERVICE"           width="32"    default=""        remark="网络服务"          />
+    <field src="CHK_STATUS"           dst="CHK_STATUS"            width="1"     default=""        remark="复核状态"          />
+    <field src="OPEN_DATE"            dst="OPEN_DATE"             width="32"    default=""        remark="开户日期"          />
+    <field src="FEE_AMT_EX"           dst="FEE_AMT_EX"            width="32"    default=""        remark="费用金额(外部)"    />
+    <field src="FEE_AMT"              dst="FEE_AMT"               width="3"     default=""        remark="费用金额"          />
+    <field src="RETURN_MSG"           dst="RETURN_MSG"            width="128"   default=""        remark="返回信息"          />
+    <field src="CHK_APP_SN"           dst="CHK_APP_SN"            width="48"    default=""        remark="复核申请序号"      />
+    <field src="PRINT_FLAG"           dst="PRINT_FLAG"            width="1"     default=""        remark="打印标志"          />
+    <field src="PRINT_DATE"           dst="PRINT_DATE"            width="32"    default=""        remark="打印日期"          />
+    <field src="ACCTBIZ_STATUS"       dst="ACCTBIZ_STATUS"        width="1"     default=""        remark="账户业务状态"      />
+    <field src="ORIGINAL_SN"          dst="ORIGINAL_SN"           width="32"    default=""        remark="关联流水号"        />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"          />
+    <field src="ID_EXP_DATE"          dst="ID_EXP_DATE"           width="32"    default=""        remark="证件有效日期"      />
+    <field src="ORG_ID_CODE"          dst="ORG_ID_CODE"           width="48"    default=""        remark="组织机构代码证"    />
+    <field src="ORG_ID_EXP_DATE"      dst="ORG_ID_EXP_DATE"       width="32"    default=""        remark="代码证有效截至日期"/>
+    <field src="MOBILE_TEL"           dst="MOBILE_TEL"            width="32"    default=""        remark="移动电话"          />
+    <field src="EMAIL"                dst="EMAIL"                 width="48"    default=""        remark="电子邮箱"          />
+    <field src="SHACCT_STATUS"        dst="SHACCT_STATUS"         width="2"     default=""        remark="账户状态"          />
+    <field src="SHACCT_STATUS_DESC"   dst="SHACCT_STATUS_DESC"    width="64"    default=""        remark="账户状态说明"      />
+    <field src="NATIONAL_ATTR"        dst="NATIONAL_ATTR"         width="1"     default=""        remark="国有属性"          />
+    <field src="LISTED_ATTR"          dst="LISTED_ATTR"           width="1"     default=""        remark="上市属性"          />
+    <field src="CAPITAL_ATTR"         dst="CAPITAL_ATTR"          width="32"    default=""        remark="资本属性"          />
+    <field src="SZORG_TYPE"           dst="SZORG_TYPE"            width="2"     default=""        remark="机构或产品类别"    />
+    <field src="LEGAL_REP_ID_CODE"    dst="LEGAL_REP_ID_CODE"     width="2"     default=""        remark="法人代表证件号码"  />
+    <field src="ZD_REMARK"            dst="ZD_REMARK"             width="64"    default=""        remark="备注内容"          />
+    <field src="CREDE_SCAN"           dst="CREDE_SCAN"            width="1"     default=""        remark="凭证扫描"          />
+    <field src="BIZ_DATE"             dst="BIZ_DATE"              width="32"    default=""        remark="业务日期"          />
+    <field src="FIRST_TRD_DATE"       dst="FIRST_TRD_DATE"        width="32"    default=""        remark="首次交易日"        />
+    <field src="OPEN_TYPE"            dst="OPEN_TYPE"             width="1"     default=""        remark="开通类型"          />
+    <field src="SIGN_DATE"            dst="SIGN_DATE"             width="32"    default=""        remark="签署日期"          />
+    <field src="RTN_ERR_CODE"         dst="RTN_ERR_CODE"          width="6"     default=""        remark="错误代码"          />
+    <field src="SZACCT_EXTYPE1"       dst="SZACCT_EXTYPE1"        width="2"     default=""        remark="深圳账户类别"      />
+    <field src="SZACCT_EXTYPE2"       dst="SZACCT_EXTYPE2"        width="1"     default=""        remark="深圳股东类别"      />
+    <field src="INT_ORG"              dst="INT_ORG"               width="32"    default=""        remark="机构代码"          />
+    <field src="UNTRD_FLAG"           dst="UNTRD_FLAG"            width="1"     default=""        remark="非交易报送标志"    />
+    <field src="ACCT_OPENTYPE"        dst="ACCT_OPENTYPE"         width="1"     default=""        remark="开户方式"          />
+    <field src="OP_USER"              dst="OP_USER"               width="32"    default=""        remark="操作用户编号"      />
+    <field src="OP_ORG"               dst="OP_ORG"                width="32"    default=""        remark="操作机构"          />
+  </output>
+</message>
+
+<!-- 代理账户业务信息查询 -->
+<message src="99001363" dst="L1160117">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="代理人代码"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"    />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="代理人代码"          />
+    <field src="USER_ROLE"            dst="USER_ROLE"             width="1"     default=""        remark="用户角色"            />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"            />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"            />
+    <field src="ACCT_BIZES"           dst="ACCT_BIZES"            width="1024"  default=""        remark="账户业务权限(复数)"      />
+    <field src="EXCL_ACCT_BIZES"      dst="EXCL_ACCT_BIZES"       width="1024"  default=""        remark="禁止账户业务权限(复数)"  />
+    <field src="BGN_DATE"             dst="BGN_DATE"              width="32"    default=""        remark="开始日期"            />
+    <field src="END_DATE"             dst="END_DATE"              width="32"    default=""        remark="结束日期"            />
+  </output>
+</message>
+
+<!-- 代理资金业务信息查询 -->
+<message src="99001364" dst="L1160112">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="代理人代码"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"    />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="代理人代码"          />
+    <field src="USER_ROLE"            dst="USER_ROLE"             width="1"     default=""        remark="用户角色"            />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"            />
+    <field src="CUACCT_CODE"          dst="CUACCT_CODE"           width="32"    default=""        remark="资产账户"            />
+    <field src="CURRENCY"             dst="CURRENCY"              width="1"     default=""        remark="货币代码"            />
+    <field src="FUND_BIZES"           dst="FUND_BIZES"            width="1024"  default=""        remark="资金业务权限(复数)"      />
+    <field src="EXCL_FUND_BIZES"      dst="EXCL_FUND_BIZES"       width="1024"  default=""        remark="禁止资金业务权限(复数)"  />
+    <field src="BGN_DATE"             dst="BGN_DATE"              width="32"    default=""        remark="开始日期"            />
+    <field src="END_DATE"             dst="END_DATE"              width="32"    default=""        remark="结束日期"            />
+  </output>
+</message>
+
+<!-- 代理证券业务信息查询 -->
+<message src="99001365" dst="L2160013">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="代理人代码"          />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"    />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"             width="32"    default=""        remark="代理人代码"              />
+    <field src="USER_ROLE"            dst="USER_ROLE"             width="1"     default=""        remark="用户角色"                />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"                />
+    <field src="STKBD"                dst="STKBD"                 width="2"     default=""        remark="交易板块"                />
+    <field src="TRDACCT"              dst="TRDACCT"               width="10"    default=""        remark="交易账户"                />
+    <field src="STK_CLSES"            dst="STK_CLSES"             width="64"    default=""        remark="证券类别(复数)"          />
+    <field src="EXCL_STK_CLSES"       dst="EXCL_STK_CLSES"        width="64"    default=""        remark="禁止证券类别(复数)"      />   
+    <field src="STK_BIZES"            dst="STK_BIZES"             width="256"   default=""        remark="证券业务权限(复数)"      />
+    <field src="EXCL_STK_BIZES"       dst="EXCL_STK_BIZES"        width="256"   default=""        remark="禁止证券业务权限(复数)"  />
+    <field src="BGN_DATE"             dst="BGN_DATE"              width="32"    default=""        remark="开始日期"                />
+    <field src="END_DATE"             dst="END_DATE"              width="32"    default=""        remark="结束日期"                />
+  </output>
+</message>
+
+<!-- 代理中登账户业务 -->
+<!-- 业务类型转换 KBSS<> WIN -->
+<dict name="ACCTBIZ_EXCODE">
+  <entry name="0"   value="17"  remark="深圳业务类型" />
+  <entry name="1"   value="11"  remark="上海业务类型" />
+</dict>
+<message src="99001366" dst="L2100200">
+  <input format="!table">
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="OPERATOR_TYPE"        dst="OPERATOR_TYPE"         width="1"     default=""        remark="操作类型"          />
+    <field src="STKEX"                dst="STKEX"                 width="1"     default=""        remark="交易市场"    />
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水序号"              />
+    <field src="OCCUR_DATE"           dst="OCCUR_DATE"            width="1"     default=""        remark="发生日期"                />
+    <field src="TRDACCT_NAME"         dst="TRDACCT_NAME"          width="32"    default=""        remark="账户名称"                />
+    <field src="TRDACCT_FNAME"        dst="TRDACCT_FNAME"         width="128"   default=""        remark="账户全称"                />
+    <field src="TRDACCT_ENAME"        dst="TRDACCT_ENAME"         width="128"   default=""        remark="英文名称"                />
+    <field src="CITIZENSHIP"          dst="CITIZENSHIP"           width="3"     default=""        remark="国籍"          />
+    <field src="SEX"                  dst="SEX"                   width="3"     default=""        remark="性别"      />   
+    <field src="ID_TYPE"              dst="ID_TYPE"               width="2"     default=""        remark="证件类型"      />
+    <field src="ID_CODE"              dst="ID_CODE"               width="48"    default=""        remark="证件号码"  />
+    <field src="ID_ZIP_CODE"          dst="ID_ZIP_CODE"           width="8"     default=""        remark="证件邮编"                />
+    <field src="ID_ADDR"              dst="ID_ADDR"               width="256"   default=""        remark="证件地址"                />
+    <field src="ZIP_CODE"             dst="ZIP_CODE"              width="8"     default=""        remark="邮政编码"              />
+    <field src="ADDRESS"              dst="ADDRESS"               width="256"   default=""        remark="联系地址"                />
+    <field src="TEL"                  dst="TEL"                   width="32"    default=""        remark="联系电话"                />
+    <field src="FAX"                  dst="FAX"                   width="32"    default=""        remark="传真电话"                />
+    <field src="BIRTHDAY"             dst="BIRTHDAY"              width="32"    default=""        remark="出生/注册日期"                />
+    <field src="EDUCATION"            dst="EDUCATION"             width="1"     default=""        remark="学历"          />
+    <field src="OCCU_EXTYPE"          dst="OCCU_EXTYPE"           width="2"     default=""        remark="职业类型"      />   
+    <field src="INVESTOR_EXTYPE"      dst="INVESTOR_EXTYPE"       width="1"     default=""        remark="投资人类型"      />
+    <field src="INDUS_EXTYPE"         dst="INDUS_EXTYPE"          width="2"     default=""        remark="行业类型"  />
+    <field src="CORP_EXTYPE"          dst="CORP_EXTYPE"           width="2"     default=""        remark="企业类型"                />
+    <field src="LEGAL_REP_EXTYPE"     dst="LEGAL_REP_EXTYPE"      width="2"     default=""        remark="法人代表类型"                />
+    <field src="LEGAL_REP"            dst="LEGAL_REP"             width="32"    default=""        remark="法人代表"              />
+    <field src="STKPBU"               dst="STKPBU"                width="8"     default=""        remark="交易单元"                />
+    <field src="TRDACCT"              dst="TRDACCT"               width="10"    default=""        remark="交易账户"                />
+    <field src="ACCT_EXTYPE"          dst="ACCT_EXTYPE"           width="2"     default=""        remark="账户类型"                />
+    <field src="ACCT_EXCLS"           dst="ACCT_EXCLS"            width="2"     default=""        remark="账户类别"                />
+    <field src="NET_SERVICE"          dst="NET_SERVICE"           width="32"    default=""        remark="网络服务"          />
+    <field src="CHK_STATUS"           dst="CHK_STATUS"            width="8"     default=""        remark="复核状态"      />   
+    <field src="CHK_APP_NO"           dst="CHK_APP_NO"            width="32"    default=""        remark="复核申请序号"      />
+    <field src="ORIGINAL_SN"          dst="ORIGINAL_SN"           width="32"    default=""        remark="关联流水号"  />
+    <field src="STKEX"       dst="ACCTBIZ_EXCODE"        width="2"     default=""    dict="ACCTBIZ_EXCODE"        remark="业务类型"                />
+    <field src="CUST_CODE"            dst="CUST_CODE"             width="32"    default=""        remark="客户代码"                />
+    <field src="ID_EXP_DATE"          dst="ID_EXP_DATE"           width="32"    default=""        remark="证件有效日期"              />
+    <field src="ORG_ID_CODE"          dst="ORG_ID_CODE"           width="48"    default=""        remark="组织机构代码证"                />
+    <field src="ORG_ID_EXP_DATE"      dst="ORG_ID_EXP_DATE"       width="32"    default=""        remark="代码证有效日期"                />
+    <field src="MOBILE_TEL"           dst="MOBILE_TEL"            width="32"    default=""        remark="移动电话"                />
+    <field src="EMAIL"                dst="EMAIL"                 width="48"    default=""        remark="电子邮箱"                />
+    <field src="INT_ORG"              dst="INT_ORG"               width="64"    default=""        remark="内部机构"          />
+    <field src="STKBD"                dst="STKBD"                 width="2"     default=""        remark="市场板块"      />   
+    <field src="IMG_FLAG"             dst="IMG_FLAG"              width="32"    default=""        remark="影像扫描标志"      />
+    <field src="SZACCT_EXTYPE1"       dst="SZACCT_EXTYPE1"        width="2"     default=""        remark="深圳账户类别"  />
+    <field src="SZACCT_EXTYPE2"       dst="SZACCT_EXTYPE2"        width="1"     default=""        remark="深圳股东类别"                />
+    <field src="NATIONAL_ATTR"        dst="NATIONAL_ATTR"         width="1"     default=""        remark="国有属性"                />
+    <field src="LISTED_ATTR"          dst="LISTED_ATTR"           width="1"    default=""        remark="上市属性"              />
+    <field src="CAPITAL_ATTR"         dst="CAPITAL_ATTR"          width="1"     default=""        remark="资本属性"                />
+    <field src="SZORG_TYPE"           dst="SZORG_TYPE"            width="2"    default=""        remark="机构或产品类别"                />
+    <field src="LEGAL_REP_ID_CODE"    dst="LEGAL_REP_ID_CODE"     width="48"     default=""        remark="法人代表证件号码"                />
+    <field src="ZD_REMARK"            dst="ZD_REMARK"             width="60"    default=""        remark="备注内容"                />
+    <field src="FIRST_TRD_DATE"       dst="FIRST_TRD_DATE"        width="64"    default=""        remark="首次交易日期"          />
+    <field src="SIGN_DATE"            dst="SIGN_DATE"             width="64"    default=""        remark="签署日期"      />   
+    <field src="OPEN_TYPE"            dst="OPEN_TYPE"             width="1"   default=""        remark="开通类型"      />
+    <field src="EFT_DATE"             dst="EFT_DATE"              width="32"   default=""        remark="生效日期"  />
+    <field src="CREDESCAN"            dst="CREDESCAN"             width="1"    default=""        remark="凭证扫描"                />
+    <field src="OPEN_TYPE_WIN"        dst="OPEN_TYPE_WIN"         width="1"    default=""        remark="开通类型"                />
+    <field src="OPERATION_TYPE"       dst="OPERATION_TYPE"        width="1"   default=""        remark="操作类型"  />
+    <field src="REDO_FLAG"            dst="REDO_FLAG"             width="1"    default=""        remark="操作类型"                />
+  </input>
+  <output format="table">
+    <field src="SERIAL_NO"            dst="SERIAL_NO"             width="32"    default=""        remark="流水序号"              />
+  </output>
+</message>
+
+<!-- win版外围接口:资产账号产生器 -->
+<message src="99001286" dst="L1202006">
+  <input format="!table">     
+    <field src="F_OP_USER"             dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"             dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"     dst=""        width="32"   default=""       remark="操作站点"          />
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"    dst="F_OP_SITE" width="32" default=""       remark="操作站点"          />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"              width="32"    default=""        remark="操作机构"          />
+    <field src="F_CHANNEL"              dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src=""                     dst="F_SESSION"             width="32"    default=""        remark="会话凭证"          />
+    <field src="@messagedst"          dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src=""                     dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+    <field src="INT_ORG"             dst="INT_ORG"            width="16"    default=""   remark="机构代码"     />
+    <field src="CUACCT_CODE"         dst="CUACCT_CODE"        width="32"    default=""   remark="资产账户"     />
+    <field src="CUACCT_USES"         dst="CUACCT_USES"        width="1"     default=""   remark="资产账户用途"     />
+  </input>             
+  <output format="table">
+    <field src="CUACCT_CODE"           dst="CUACCT_CODE"           width="32"    default=""       remark="资产账户"   />
+  </output>
+</message>
+
+<!-- 配置模板 -->
+<message src="00000000" dst="00000000">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"          width="32"    default=""   remark="操作用户代码" />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"          width="32"    default="1"  remark="操作用户角色" />
+    <field src="NET_ADDR"             dst="F_OP_SITE"          width="32"    default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "            dst="F_OP_ORG"           width="32"    default=""   remark="操作机构"     />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"          width="32"    default=""   remark="操作渠道"     />
+    <field src=""                     dst="F_SESSION"          width="32"    default=""   remark="会话凭证"     />
+    <field src="@messagedst"          dst="F_FUNCTION"         width="32"    default=""   remark="功能代码"     />
+    <field src=""                     dst="F_RUNTIME"          width="32"    default=""   remark="调用时间"     />
+
+  </input>
+  <output format="!table">
+    <field  src="MSG_TEXT       "     dst="MSG_TEXT       "     width="64"     default="业务运行成功"           />
+  </output>
+</message>
+
+</kdmid1pc>

@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--KBSS系统对接统一认证系统接口配置  dongc 20160309 -->
+<!--KBSS系统部署对接统一认证可以在账户系统的XA Resource直接加载一个XA
+需要kbss2tyrz.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+<!--字典项dict 需自行调整-->
+
+<!--函数列表-->
+<function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="strSource" type="string"/>
+ </argument>
+</function>
+
+<function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="inputstring" type="string"/>
+  <argv name="start" type="int"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="formattor" type="string"/>
+ </argument>
+</function>
+
+<function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="orgtimestr" type="string"/>
+  <argv name="opdirect" type="string"/>
+  <argv name="type" type="string"/>
+ </argument>
+</function>
+
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+<function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="StrVal" type="string"/>
+  <argv name="Param"  type="string"/>
+  <argv name="ValLen" type="int"/>
+ </argument>
+</function>
+
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+<function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--KBSS版柜台解密函数encrypt.dll -->
+<function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--OTC柜台加密函数KDEncodeCli.dll -->
+<function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--OTC柜台重加密函数KDEncodeCli.dll -->
+<function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="oldkey"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+  <argv name="newkey"  type="string"/>
+ </argument>
+</function>
+
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+<function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval1" type="string"/>
+  <argv name="strval2"  type="string"/>
+  <argv name="flag" type="string"/>
+ </argument>
+</function>
+
+<!--16进制转换10进制 -->
+<function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval" type="string"/>
+ </argument>
+</function>
+
+<!--复数字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+<function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryNames" type="string"/>
+  <argv name="SrcFlag" type="int"/>
+  <argv name="DstFlag" type="int"/>
+ </argument>
+</function>
+
+<!--区间字典转换 参数
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+<function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryName" type="string"/>
+ </argument>
+</function>
+
+
+<dict name="SYSTEM_ID">
+  <entry name="3"    value="0"/>  <!--交易子系统     -->  
+  <entry name="10"   value="2"/>  <!--融资融券子系统 -->
+  <entry name="13"   value="13"/>  <!--OTC子系统      -->
+  <entry name="16"   value="4"/>  <!--股票期权子系统 -->
+</dict>
+<dict name="SERVER_ID">
+<entry name="101"   value="1"/>  <!--	融资融券子系统	-->
+<entry name="111"   value="1"/>  <!--	消费支付子系统	-->
+<entry name="131"   value="1"/>  <!--	OTC子系统	-->
+<entry name="161"   value="1"/>  <!--	股票期权子系统	-->
+<entry name="181"   value="1"/>  <!--	资金管理系统	-->
+<entry name="21"    value="1"/>  <!--	清算子系统	-->
+<entry name="271"   value="1"/>  <!--	统一认证子系统	-->
+<entry name="281"   value="1"/>  <!--	CIF子系统	-->
+<entry name="31"    value="1"/>  <!--	交易子系统	-->
+<entry name="32"    value="2"/>  <!--	交易子系统	-->
+<entry name="41"    value="1"/>  <!--	数据服务中心	-->
+<entry name="91"    value="1"/>  <!--	其他	-->
+</dict>
+<dict name="USER_ID_TYPE">
+  <entry name="00"   value="5"/>  <!--身份证号     -->  
+  <entry name="01"   value="A"/>  <!--护照 -->
+  <entry name="02"   value="B"/>  <!--军官证      -->
+  <entry name="10"   value="C"/>  <!--营业执照 -->
+</dict>
+
+<!-- 增加用户基本信息 -->
+<message src="L6070013" dst="T0000312">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"             dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+    <field src="USER_ROLE"                dst="USER_ROLES"               width="8"     default=""            remark="用户角色"          />
+	<field src="USER_NAME"               dst="USER_NAME"              width="64"    default=""            remark="用户名称"          />
+    <field src="AUTH_MODE"               dst="AUTH_MODE"              width="8"     default="00000000"    remark="认证方式"          />
+	<field src="AUTH_POLICY"             dst="AUTH_POLICY"            width="8"     default="00000000"    remark="登录认证策略"          />
+	<field src="BIZ_INFO"                dst="BIZ_INFO"               width="256"   default=""            remark="用户服务目录"          />
+    <field src="ID_TYPE"                 dst="ID_TYPE"            width="2"     default=""            remark="用户ID类型"          />
+    <field src="ID_CODE"                 dst="ID"                 width="32"    default=""            remark="用户ID信息"          />
+    <field src="STATUS"                   dst="STATUS"                  width="1"     default=""            remark="状态"              />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"              width="64"     default=""     remark="用户代码"/>
+    <field src="USER_ROLES"           dst="USER_ROLE"              width="8"      default=""     remark="用户角色"/>
+	<field src="USER_NAME"            dst="USER_NAME"              width="64"    default=""            remark="用户名称"          />
+    <field src="AUTH_MODE"            dst="AUTH_MODE"              width="8"     default="00000000"    remark="认证方式"          />
+	<field src="AUTH_POLICY"          dst="AUTH_POLICY"            width="8"     default="00000000"    remark="登录认证策略"          />
+	<field src="BIZ_INFO"             dst="BIZ_INFO"               width="256"   default=""            remark="用户服务目录"          />
+    <field src="ID_TYPE"              dst="USER_ID_TYPE"           width="2"      default=""     remark="用户ID类型"/>
+    <field src="ID"                   dst="USER_ID_INFO"           width="32"     default=""     remark="用户ID信息"/>
+    <field src="STATUS"               dst="STATUS"                 width="1"     default=""            remark="状态"              />
+  </output>
+</message>
+
+<!-- 修改用户基本信息 -->
+<message src="L6070014" dst="T0000313">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"             dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+    <field src="USER_ROLE"                dst="USER_ROLES"               width="8"     default=""            remark="用户角色"          />
+	<field src="USER_NAME"               dst="USER_NAME"              width="64"    default=""            remark="用户名称"          />
+    <field src="AUTH_MODE"               dst="AUTH_MODE"              width="8"     default="00000000"    remark="认证方式"          />
+	<field src="AUTH_POLICY"             dst="AUTH_POLICY"            width="8"     default="00000000"    remark="登录认证策略"          />
+	<field src="BIZ_INFO"                dst="BIZ_INFO"               width="256"   default=""            remark="用户服务目录"          />
+    <field src="ID_TYPE"                 dst="ID_TYPE"            width="2"     default=""            remark="用户ID类型"          />
+    <field src="ID_CODE"                 dst="ID"                 width="32"    default=""            remark="用户ID信息"          />
+    <field src="STATUS"                   dst="STATUS"                  width="1"     default=""            remark="状态"              />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"              width="64"     default=""     remark="用户代码"/>
+    <field src="USER_ROLES"           dst="USER_ROLE"              width="8"      default=""     remark="用户角色"/>
+	<field src="USER_NAME"            dst="USER_NAME"              width="64"    default=""            remark="用户名称"          />
+    <field src="AUTH_MODE"            dst="AUTH_MODE"              width="8"     default="00000000"    remark="认证方式"          />
+	<field src="AUTH_POLICY"          dst="AUTH_POLICY"            width="8"     default="00000000"    remark="登录认证策略"          />
+	<field src="BIZ_INFO"             dst="BIZ_INFO"               width="256"   default=""            remark="用户服务目录"          />
+    <field src="ID_TYPE"              dst="USER_ID_TYPE"           width="2"      default=""     remark="用户ID类型"/>
+    <field src="ID"                   dst="USER_ID_INFO"           width="32"     default=""     remark="用户ID信息"/>
+    <field src="STATUS"               dst="STATUS"                 width="1"     default=""            remark="状态"              />
+  </output>
+</message>
+<!-- 删除用户基本信息 -->
+<message src="L6070015" dst="T0000308">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"             dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+    <field src="RESERVED"                dst="RESERVED"                 width="64"     default=""           remark=""          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"              width="64"     default=""     remark="用户代码"/>
+    <field src="USER_ROLES"           dst="USER_ROLE"              width="8"      default=""     remark="用户角色"/>
+	<field src="USER_NAME"            dst="USER_NAME"              width="64"    default=""            remark="用户名称"          />
+    <field src="AUTH_MODE"            dst="AUTH_MODE"              width="8"     default="00000000"    remark="认证方式"          />
+	<field src="AUTH_POLICY"          dst="AUTH_POLICY"            width="8"     default="00000000"    remark="登录认证策略"          />
+	<field src="BIZ_INFO"             dst="BIZ_INFO"               width="256"   default=""            remark="用户服务目录"          />
+    <field src="ID_TYPE"              dst="USER_ID_TYPE"           width="2"      default=""     remark="用户ID类型"/>
+    <field src="ID"                   dst="USER_ID_INFO"           width="32"     default=""     remark="用户ID信息"/>
+    <field src="STATUS"               dst="STATUS"                 width="1"     default=""            remark="状态"              />
+  </output>
+</message>
+
+<!-- 添加用户认证信息(包括交易密码，登录密码，动态令牌等) -->
+<message src="L6070016" dst="T0000316">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"                dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+    <field src="USER_ROLE"                dst="USER_ROLE"               width="1"     default=""            remark="用户角色"          />
+	<field src="USE_SCOPE"                dst="USE_SCOPE"               width="1"     default=""            remark="使用范围"          />
+    <field src="AUTH_TYPE"                dst="AUTH_TYPE"               width="1"     default=""            remark="认证类型"          />
+	<field src="AUTH_DATA"                dst="AUTH_DATA"               width="256"   default=""            remark="认证信息"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"              width="64"     default=""     remark="用户代码"/>
+    <field src="USER_ROLE"           dst="USER_ROLE"              width="1"      default=""     remark="用户角色"/>
+	<field src="USE_SCOPE"            dst="USE_SCOPE"              width="1"     default=""            remark="使用范围"          />
+    <field src="AUTH_TYPE"            dst="AUTH_TYPE"              width="1"     default=""            remark="认证类型"          />
+	<field src="AUTH_DATA"            dst="AUTH_DATA"              width="256"   default=""            remark="认证信息"          />
+  </output>
+</message>
+
+<!-- 添加用户认证信息(包括交易密码，登录密码，动态令牌等) -->
+<message src="L6070017" dst="T0000202">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"                dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+	<field src="INPUT_TYPE"               dst="INPUT_TYPE"              width="1"     default=""            remark="输入标识类型"      />
+	<field src="INPUT_ID"                 dst="INPUT_ID"                width="32"    default=""             remark="输入标识"          />
+    <field src="USER_ROLE"                dst="USER_ROLE"               width="1"     default=""            remark="用户角色"          />
+	<field src="USE_SCOPE"                dst="USE_SCOPE"               width="1"     default=""            remark="使用范围"          />
+    <field src="AUTH_TYPE"                dst="AUTH_TYPE"               width="1"     default=""            remark="认证类型"          />
+	<field src="OLD_PWD"                  dst="OLD_PWD"                 width="256"   default=""            remark="认证信息"          />
+	<field src="NEW_PWD"                  dst="NEW_PWD"                 width="256"   default=""            remark="认证信息"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"              width="64"    default=""     remark="用户代码"/>
+    <field src="USER_ROLE"            dst="USER_ROLE"              width="1"     default=""     remark="用户角色"/>
+	<field src="USE_SCOPE"            dst="USE_SCOPE"              width="1"     default=""            remark="使用范围"          />
+    <field src="AUTH_TYPE"            dst="AUTH_TYPE"              width="1"     default=""            remark="认证类型"          />
+	<field src="RET_CODE"             dst="RET_CODE"               width="1"     default=""            remark="认证信息"          />
+  </output>
+</message>
+
+<!-- 用户密码重置 -->
+<message src="L6070018" dst="T0000201">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"                dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+	<field src="INPUT_TYPE"               dst="INPUT_TYPE"              width="1"     default=""            remark="输入标识类型"      />
+	<field src="INPUT_ID"                 dst="INPUT_ID"                width="32"    default=""             remark="输入标识"          />
+    <field src="USER_ROLE"                dst="USER_ROLE"               width="1"     default=""            remark="用户角色"          />
+	<field src="USE_SCOPE"                dst="USE_SCOPE"               width="1"     default=""            remark="使用范围"          />
+    <field src="AUTH_TYPE"                dst="AUTH_TYPE"               width="1"     default=""            remark="认证类型"          />
+	<field src="NEW_PWD"                  dst="NEW_PWD"                 width="256"   default=""            remark="认证信息"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"              width="64"    default=""     remark="用户代码"/>
+    <field src="USER_ROLE"            dst="USER_ROLE"              width="1"     default=""     remark="用户角色"/>
+	<field src="USE_SCOPE"            dst="USE_SCOPE"              width="1"     default=""            remark="使用范围"          />
+    <field src="AUTH_TYPE"            dst="AUTH_TYPE"              width="1"     default=""            remark="认证类型"          />
+	<field src="RET_CODE"             dst="RET_CODE"               width="1"     default=""            remark="认证信息"          />
+  </output>
+</message>
+
+<!-- 用户关联关系管理(USER_LINK表) -->
+<message src="L6070019" dst="T0004415">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="OPERATION_TYPE"           dst="OPERTYPE"              width="1"    default=""            remark="操作类型"          />
+	<field src="MAIN_USER_CODE"           dst="MAIN_USER_CODE"        width="64"     default=""          remark="主用户代码"      />
+	<field src="SUB_USER_CODE"            dst="SUB_USER_CODE"         width="64"    default=""           remark="子用户代码"          />
+    <field src="OLD_MAIN_USER_CODE"       dst="OLD_MAIN_USER_CODE"    width="64"     default=""          remark="原主用户代码"          />
+	<field src="OLD_SUB_USER_CODE"        dst="OLD_SUB_USER_CODE"     width="64"     default=""          remark="原子用户代码"          />
+    <field src="NEW_MAIN_USER_CODE"       dst="NEW_MAIN_USER_CODE"    width="64"     default=""          remark="新主用户代码"          />
+	<field src="NEW_SUB_USER_CODE"        dst="NEW_SUB_USER_CODE"     width="64"   default=""            remark="新子用户代码"          />
+  </input>
+  <output format="table">
+    <field src="MAIN_USER_CODE"           dst="MAIN_USER_CODE"        width="64"    default=""            remark="主用户代码"/>
+    <field src="SUB_USER_CODE"            dst="SUB_USER_CODE"         width="1"     default=""            remark="子用户代码"/>
+	<field src="LINK_TIME"                dst="LINK_TIME"             width="1"     default=""            remark="关联时间"          />
+    <field src="OLD_MAIN_USER_CODE"       dst="OLD_MAIN_USER_CODE"    width="1"     default=""            remark="原主用户代码"          />
+	<field src="OLD_SUB_USER_CODE"        dst="OLD_SUB_USER_CODE"     width="1"     default=""            remark="原子用户代码"          />
+	<field src="NEW_MAIN_USER_CODE"       dst="NEW_MAIN_USER_CODE"    width="1"     default=""            remark="新主用户代码"          />
+    <field src="NEW_SUB_USER_CODE"        dst="NEW_SUB_USER_CODE"     width="1"     default=""            remark="新子用户代码"          />
+  </output>
+</message>
+
+<!-- 统一认证信息同步 -->
+<message src="L6070011" dst="T0004403">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="OPER_TYPE"               dst="OPER_TYPE"              width="1"     default=""            remark="操作类型"          />
+    <field src="ORG_CODE"                dst="ORG_CODE"               width="8"    default=""             remark="机构代码"          />
+    <field src="USER_CODE"               dst="USER_CODE"              width="64"    default=""            remark="用户代码"          />
+    <field src="USER_ROLES"              dst="USER_ROLES"             width="8"     default=""            remark="用户角色"          />
+    <field src="USER_NAME"               dst="USER_NAME"              width="64"    default=""            remark="用户名称"          />
+    <field src="AUTH_MODE"               dst="AUTH_MODE"              width="8"     default="00000000"    remark="认证方式"          />
+    <field src="AUTH_POLICY"             dst="AUTH_POLICY"            width="8"     default="00000000"    remark="登录认证策略"          />
+    <field src="BIZ_INFO"                dst="BIZ_INFO"               width="256"   default=""            remark="用户服务目录"          />
+    <field src="SYSTEM_ID"               dst="SYSTEM_ID"              width="32"    default=""            dict="SYSTEM_ID"  remark="子系统编号"          />
+    <field src="SERVER_ID"               dst="SERVER_ID"              width="32"    default=""            dict="SERVER_ID"  remark="节点编号"          />
+    <field src="ID_TYPE"                 dst="ID_TYPE"                width="64"    default=""            remark="证件类型"               />
+    <field src="ID_CODE"                 dst="ID_CODE"                width="64"    default=""            remark="证件代码"           />
+    <field src="MOBILE_TEL"              dst="MOBILE_TEL"             width="64"    default=""            remark="移动电话"               />
+    <field src="CUACCT_CODES"            dst="CUACCT_CODES"           width="2048"  default=""            remark="资金账户"          />
+    <field src="TRDACCTS"                dst="TRDACCTS"               width="2048"  default=""            remark="股东代码"          />
+    <field src="NEW_PWD"                 dst="NEW_PWD"                width="2048"  default=""            remark="密码"          />
+    <field src="CHANNEL"                 dst="OPER_WAY"               width="32"    default=""            remark="操作渠道"          />
+    <field src="LOGIN_FLAG"              dst="LOGIN_FLAG"             width="1"     default=""            remark="一键登录标识"          />
+    <field src="REMARK"                  dst="REMARK"                 width="2048"  default=""            remark="备注"          />
+  </input>                           
+  <output format="table">           
+    <field src="USER_CODE"                    dst="USER_CODE"                   width="64"         default=""         remark="用户代码"               />
+    <field src="USER_ROLES"                   dst="USER_ROLES"                  width="8"          default=""         remark="用户角色"               />
+    <field src="USER_NAME"                    dst="USER_NAME"                   width="64"         default=""         remark="用户名称"               />
+    <field src="AUTH_MODE"                    dst="AUTH_MODE"                   width="8"          default=""         remark="认证方式"               />
+    <field src="AUTH_POLICY"                  dst="AUTH_POLICY"                 width="8"          default=""         remark="登录认证策略"               />
+    <field src="BIZ_INFO"                     dst="BIZ_INFO"                    width="32"         default=""         remark="可访问业务系统"               />
+    <field src="ID_TYPE"                      dst="ID_TYPE"                     width="2"          default=""         remark="证件类型"                   />
+    <field src="ID_CODE"                      dst="ID_CODE"                     width="32"         default=""         remark="证件号码"           />
+    <field src="STATUS"                       dst="STATUS"                      width="1"          default=""         remark="状态"               />
+  </output>                          
+</message>  
+
+<!-- 添加用户识别信息 -->
+<message src="L6070003" dst="T0000310">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"                dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+    <field src="USER_ROLE"                dst="USER_ROLE"               width="1"     default=""            remark="用户角色"          />
+    <field src="USER_ID_TYPE"             dst="USER_ID_TYPE"            width="1"     default=""      dict="USER_ID_TYPE"      remark="用户ID类型"          />
+    <field src="USER_ID_INFO"             dst="USER_ID_INFO"            width="32"    default=""            remark="用户ID信息"          />
+    <field src="INT_ORG"                  dst="ORG_CODE"                width="8"     default=""            remark="机构代码"          />
+    <field src="STKBD"                    dst="MARKET"                  width="2"     default=""            remark="市场标识"          />
+    <field src="STATUS"                   dst="STATUS"                  width="1"     default=""            remark="识别信息状态"              />
+    <field src="SYSTEM_ID"                dst="SYSTEM_ID"               width="64"    default=""            remark="子系统类型标识"      />
+    <field src="SERVER_ID"                dst="SERVER_ID"               width="8"     default=""            remark="子系统节点标识"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"        width="64"     default=""     remark="用户代码"/>
+    <field src="USER_ROLE"            dst="USER_ROLE"        width="1"      default=""     remark="用户角色"/>
+    <field src="USER_ID_TYPE"         dst="USER_ID_TYPE"     width="1"      default=""   dict="USER_ID_TYPE"  remark="用户ID类型"/>
+    <field src="USER_ID_INFO"         dst="USER_ID_INFO"     width="32"     default=""     remark="用户ID信息"/>
+    <field src="MARKET"               dst="MARKET"           width="2"      default=""     remark="市场标识"/>
+    <field src="SYSTEM_ID"            dst="SYSTEM_ID"        width="64"     default=""     remark="子系统类型标识"/>
+    <field src="SERVER_ID"            dst="SERVER_ID"        width="8"      default=""     remark="子系统节点标识"/>
+  </output>
+</message>
+<!-- 删除用户识别信息 -->
+<message src="L6070004" dst="T0000311">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"                dst="USER_CODE"               width="64"    default=""            remark="用户代码"          />
+    <field src="USER_ROLE"                dst="USER_ROLE"               width="1"     default=""            remark="用户角色"          />
+    <field src="USER_ID_TYPE"             dst="USER_ID_TYPE"            width="1"     default=""  dict="USER_ID_TYPE"          remark="用户ID类型"          />
+    <field src="USER_ID_INFO"             dst="USER_ID_INFO"            width="32"    default=""            remark="用户ID信息"          />
+    <field src="INT_ORG"                  dst="ORG_CODE"                width="8"     default=""            remark="机构代码"          />
+    <field src="STKBD"                    dst="MARKET"                  width="2"     default=""            remark="市场标识"          />
+    <field src="SYSTEM_ID"                dst="SYSTEM_ID"               width="64"    default=""            remark="子系统类型标识"      />
+    <field src="SERVER_ID"                dst="SERVER_ID"               width="8"     default=""            remark="子系统节点标识"          />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"            dst="USER_CODE"        width="64"     default=""     remark="用户代码"/>
+    <field src="USER_ROLE"            dst="USER_ROLE"        width="1"      default=""     remark="用户角色"/>
+    <field src="USER_ID_TYPE"         dst="USER_ID_TYPE"     width="1"      default=""  dict="USER_ID_TYPE"   remark="用户ID类型"/>
+    <field src="USER_ID_INFO"         dst="USER_ID_INFO"     width="32"     default=""     remark="用户ID信息"/>
+    <field src="MARKET"               dst="MARKET"           width="2"      default=""     remark="市场标识"/>
+    <field src="SYSTEM_ID"            dst="SYSTEM_ID"        width="64"     default=""     remark="子系统类型标识"/>
+    <field src="SERVER_ID"            dst="SERVER_ID"        width="8"      default=""     remark="子系统节点标识"/>
+  </output>
+</message>
+<!-- 用户密码解锁 -->
+<message src="L6070012" dst="T0000324">
+  <input format="!table">
+    <field src="F_OP_USER"                dst="F_OP_USER"             width="32"    default=""    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"                dst="F_OP_ROLE"             width="32"    default=""    remark="操作用户角色"      />
+    <field src="F_OP_SITE"                dst="F_OP_SITE"             width="32"    default=""    remark="操作站点"          />
+    <field src="F_OP_ORG"                 dst="F_OP_ORG"              width="32"    default=""    remark="操作机构"          />
+    <field src="F_CHANNEL"                dst="F_CHANNEL"             width="32"    default=""    remark="操作渠道"          />
+    <field src="F_SESSION"                dst="F_SESSION"             width="256"   default=""    remark="会话凭证"          />
+    <field src="F_FUNCTION"               dst="F_FUNCTION"            width="32"    default=""    remark="功能代码"          />
+    <field src="F_RUNTIME"                dst="F_RUNTIME"             width="32"    default=""    remark="调用时间"          />
+
+    <field src="USER_CODE"                dst="USER_CODE"             width="64"    default=""    remark="用户代码"             />
+    <field src="INPUT_TYPE"               dst="INPUT_TYPE"            width="1"     default=""    remark="输入标识类型"        />
+    <field src="INPUT_ID"                 dst="INPUT_ID"              width="32"    default=""    remark="输入标识"               />
+    <field src="USER_ROLE"                dst="USER_ROLE"             width="1"     default=""    remark="用户角色"          />
+    <field src="USE_SCOPE"                dst="USE_SCOPE"             width="1"     default=""    remark="使用范围"          />
+    <field src="AUTH_TYPE"                dst="AUTH_TYPE"             width="1"     default="0"   remark="认证类型"         />
+  </input>
+  <output format="table">
+    <field src="USER_CODE"                    dst="USER_CODE"         width="64"         default=""         remark="用户代码"          />
+    <field src="USE_SCOPE"                    dst="USE_SCOPE"         width="1"          default=""         remark="使用范围"          />
+    <field src="RET_CODE"                     dst="RET_CODE"          width="1"          default=""         remark="操作结果"          />
+  </output>
+</message> 
+<!-- win版配置模板 -->
+<message src="L0000000" dst="000000">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"             width="32"    default="8888"    remark="操作用户代码"      />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"             width="32"    default="2"       remark="操作用户角色"      />
+    <field src="F_OP_SITE"            dst="F_OP_SITE"             width="32"    default=""        remark="操作站点"          />
+    <field src="F_OP_SRC"             dst="F_OP_SRC"              width="32"    default="9"       remark="操作用户来源"      />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"             width="32"    default=""        remark="操作渠道"          />
+    <field src="F_SESSION"            dst="F_SESSION"             width="256"    default=""       remark="会话凭证"          />
+    <field src="F_FUNCTION"           dst="F_FUNCTION"            width="32"    default=""        remark="功能代码"          />
+    <field src="F_RUNTIME"            dst="F_RUNTIME"             width="32"    default=""        remark="调用时间"          />
+    
+  </input>
+  <output format="!table">
+     <field src="MSG_TEXT#-1" dst="MSG_TEXT" default="业务运行成功" />
+  </output>
+</message>
+
+</kdmid1pc>

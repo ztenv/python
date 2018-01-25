@@ -1,0 +1,1436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--KBSS系统对接WIN版交易柜台接口配置  lanwf 2010.03.15 -->
+<!--KBSS系统部署win版kcbp 可以在win版kcbp XA Resource直接加载一个XA
+需要kbss2win.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+<!--字典项dict 需自行调整-->
+<!-- 错误代码转换表 -->
+<dict name="errorcode">
+    <!-- win版柜台          KBSS系统 -->
+  <entry name="-12020877"   value="100"/>
+  <entry name="-12020877"   value="100"/>
+</dict>
+
+
+<!-- KCBP节点编码与win版ServerId的转换 -->
+<!-- KCBP节点编码:是指账户系统SUBSYS_CFG中的KCBP_NODE-->
+<dict name="UASIDTYPE_GOLDIDTYPE">
+<entry name="00" value="0" title="身份证"/>
+<entry name="01" value="1" title="护照"/>
+<entry name="02" value="2" title="军官证"/>
+<entry name="03" value="3" title="士兵证"/>
+<entry name="04" value="4" title="回乡证"/>
+<entry name="05" value="6" title="户口本"/>
+<entry name="06" value="7" title="其它证件"/>
+<entry name="07" value="7" title="其它证件"/>
+<entry name="08" value="7" title="其它证件"/>
+<entry name="09" value="7" title="其它证件"/>
+<entry name="10" value="8" title="营业执照"/>
+<entry name="0a" value="7" title="其它证件"/>
+<entry name="0b" value="7" title="其它证件"/>
+<entry name="0c" value="7" title="其它证件"/>
+<entry name="0d" value="5" title="台湾居民通行证"/>
+<entry name="0e" value="7" title="其它证件"/>
+<entry name="0f" value="7" title="其它证件"/>
+<entry name="0h" value="7" title="其它证件"/>
+<entry name="0j" value="7" title="其它证件"/>
+<entry name="0k" value="7" title="其它证件"/>
+<entry name="0l" value="7" title="其它证件"/>
+<entry name="1A" value="A" title="组织机构代码证"/>
+<entry name="0h" value="9" title="警官证"/>
+<entry name="11" value="7" title="其它证件"/>
+<entry name="13" value="7" title="其它证件"/>
+<entry name="14" value="7" title="其它证件"/>
+</dict>	
+
+<dict name="GOLDIDTYPE_UASIDTYPE">
+<entry name="0" value="00" title="身份证"/>
+<entry name="1" value="01" title="护照"/>
+<entry name="2" value="02" title="军官证"/>
+<entry name="3" value="03" title="士兵证"/>
+<entry name="4" value="04" title="回乡证"/>
+<entry name="5" value="0d" title="台湾居民通行证"/>
+<entry name="6" value="05" title="户口本"/>
+<entry name="7" value="09" title="其它证件"/>
+<entry name="8" value="10" title="营业执照"/>
+<entry name="A" value="1A" title="组织机构代码证"/>
+<entry name="9" value="0h" title="警官证"/>
+</dict>	
+
+<dict name="UASCUSTSTATUS_GOLDCUSTSTATUS">
+<entry name="0" value="0" title="正常"/>
+<entry name="1" value="1" title="冻结"/>
+<entry name="9" value="2" title="销户"/>
+</dict>	
+
+<dict name="GOLDCUSTSTATUS_UASCUSTSTATUS">
+<entry name="0" value="0" title="正常"/>
+<entry name="1" value="1" title="冻结"/>
+<entry name="2" value="9" title="销户"/>
+</dict>	
+
+<dict name="UASLEGALREPTYPE_GOLDLEGALREPTYPE">
+<entry name="01" value="o" title="其他"/>
+<entry name="02" value="o" title="其他"/>
+<entry name="03" value="o" title="其他"/>
+<entry name="04" value="c" title="事业单位"/>
+<entry name="05" value="o" title="其他"/>
+<entry name="06" value="g" title="政府机构"/>
+<entry name="07" value="o" title="其他"/>
+<entry name="08" value="o" title="其他"/>
+<entry name="09" value="o" title="其他"/>
+<entry name="99" value="o" title="其他"/>
+</dict>	
+
+<dict name="GOLDLEGALREPTYPE_UASLEGALREPTYPE">
+<entry name="c" value="4" title="事业单位"/>
+<entry name="g" value="6" title="政府机构"/>
+<entry name="o" value="99" title="其他"/>
+</dict>	
+
+<dict name="UASYESORNO_GOLDYESORNO">
+<entry name="0" value="1" title="否"/>
+<entry name="1" value="0" title="是"/>
+</dict>	
+
+<dict name="GOLDYESORNO_UASYESORNO">
+<entry name="1" value="0" title="否"/>
+<entry name="0" value="1" title="是"/>
+</dict>
+
+<dict name="UASSEX_GOLDSEX">
+<entry name="1" value="1" title="男"/>
+<entry name="2" value="0" title="女"/>
+<entry name="3" value="1" title="男"/>
+</dict>	
+
+<dict name="GOLDSEX_UASSEX">
+<entry name="1" value="1" title="男"/>
+<entry name="0" value="2" title="女"/>
+</dict>	
+
+<dict name="UASTRADE_GOLDTRADE">
+<entry name="A" value="7" title="其他"/>
+<entry name="B" value="7" title="其他"/>
+<entry name="C" value="7" title="其他"/>
+<entry name="D" value="7" title="其他"/>
+<entry name="E" value="7" title="其他"/>
+<entry name="F" value="7" title="其他"/>
+<entry name="J" value="5" title="金融投资类"/>
+<entry name="H" value="7" title="其他"/>
+<entry name="I" value="7" title="其他"/>
+<entry name="J" value="7" title="其他"/>
+<entry name="K" value="7" title="其他"/>
+<entry name="L" value="7" title="其他"/>
+<entry name="M" value="7" title="其他"/>
+<entry name="N" value="7" title="其他"/>
+<entry name="O" value="7" title="其他"/>
+<entry name="P" value="7" title="其他"/>
+<entry name="Q" value="7" title="其他"/>
+<entry name="R" value="7" title="其他"/>
+<entry name="S" value="7" title="其他"/>
+<entry name="T" value="7" title="其他"/>
+<entry name="Z" value="7" title="其他"/>
+</dict>
+
+<dict name="GOLDTRADE_UASTRADE">
+<entry name="5" value="J" title="金融投资类"/>
+<entry name="1" value="Z" title="首饰用金"/>
+<entry name="4" value="Z" title="产金冶炼类"/>
+<entry name="2" value="Z" title="工业类"/>
+<entry name="6" value="Z" title="银行"/>
+<entry name="3" value="Z" title="贸易类"/>
+<entry name="7" value="Z" title="其他"/>
+</dict>
+
+<dict name="UASCHANNELS_GOLDCHANNELS">
+<entry name="0" value="0" title="柜台委托"/>
+<entry name="1" value="2" title="WEB柜台委托"/>
+<entry name="2"  value="1" title="电话委托"/>
+<entry name="3"  value="3" title="其它委托"/>
+<entry name="4"  value="3" title="其它委托"/>
+<entry name="5"  value="3" title="其它委托"/>
+<entry name="6"  value="3" title="其它委托"/>
+<entry name="7"  value="3" title="其它委托"/>
+<entry name="8"  value="3" title="其它委托"/>
+<entry name="9"  value="3" title="其它委托"/>
+<entry name="a"  value="3" title="其它委托"/>
+<entry name="b"  value="3" title="其它委托"/>
+<entry name="c" value="3" title="其它委托"/>
+<entry name="d" value="3" title="其它委托"/>
+</dict>	
+
+<dict name="GOLDCHANNELS_UASCHANNELS">
+<entry name="0" value="0" title="柜台委托"/>
+<entry name="2" value="1" title="WEB柜台委托"/>
+<entry name="1"  value="2" title="电话委托"/>
+<entry name="3" value="9" title="其它委托"/>
+</dict>
+
+<dict name="UASUSERTYPE_GOLDUSERTYPE">
+<entry name="0" value="111111" title="个人开户"/>
+<entry name="1" value="222222" title="机构开户"/>
+</dict>	
+<dict name="UASACCOUNTTYPE_GOLDACCOUNTTYPE">
+<entry name="0" value="1" title="个人对私卡"/>
+<entry name="1" value="2" title="法人对公卡"/>
+</dict>	
+
+<dict name="GOLDUSERTYPE_UASUSERTYPE">
+<entry name="111111" value="0" title="个人开户"/>
+<entry name="222222" value="1" title="机构开户"/>
+</dict>
+
+
+<dict name="UASCONTRACTSTATUS_GOLDCONTRACTSTATUS">
+<entry name="0" value="1" title="正常"/>
+<entry name="1" value="0" title="待签约"/>
+<entry name="9" value="2" title="解约"/>
+</dict>	
+
+<dict name="GOLDCONTRACTSTATUS_UASCONTRACTSTATUS">
+<entry name="0" value="1" title="未处理"/>
+<entry name="1" value="0" title="签约"/>
+<entry name="2" value="9" title="解约"/>
+</dict>
+
+<dict name="UASRISKLVL_GOLDRISKLVL">
+<entry name="1" value="1" title="低"/>
+<entry name="2" value="2" title="中"/>
+<entry name="3" value="3" title="中等"/>
+<entry name="4" value="4" title="高"/>
+</dict>
+<dict name="UASBANKCODE_GOLDBANKCODE">
+<entry name="1003" value="10200000" title="工商银行"/>
+</dict>
+<dict name="GOLDBANKCODE_UASBANKCODE">
+<entry name="10200000" value="1003" title="工商银行"/>
+</dict>
+
+<message src="L7200001" dst="L7200001"  title="客户开户" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"                default="50101"  title="交易码"/>
+   <field src="errcode"                     dst="errcode"                title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"             title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"             title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"            title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"          default="3"    title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>    
+   
+   <field src="CUACCT_CODE"								  dst="CUACCT_CODE"				         title="资金账号"/>
+   <field src="STKPBU"								      dst="STKPBU"				             title="席位代码"/>
+   <field src="AUTH_DATA"                   dst="AUTH_DATA"                  title="黄金密码"/>
+   <field src="OPEN_CHANNEL"                dst="OPEN_CHANNEL"               title="开通交易渠道"/>
+   <field src="CUST_CLS"                    dst="CUST_CLS"                   title="客户类别"/>
+   <field src="CUST_CODE"                   dst="CUST_CODE"                  title="券商客户号"/>
+   <field src="CUST_FNAME"                  dst="CUST_FNAME"                 title="客户姓名"/>
+   <field src="ID_TYPE"                     dst="ID_TYPE"                    title="证件类型"/>
+   <field src="ID_CODE"                     dst="ID_CODE"                    title="证件号码"/>
+   <field src="BIRTHDAY"                    dst="BIRTHDAY"                   title="出生日期"/>
+   <field src="CUST_LVL"                    dst="CUST_LVL"                   default="000"     title="客户级别"/>
+   <field src="TEL"                         dst="TEL"                  		   title="电话"/>
+   <field src="ADDRESS"                     dst="ADDRESS"                    title="地址"/>
+   <field src="ZIP_CODE"                    dst="ZIP_CODE"           				 title="邮编"/>
+   <field src="MOBILE"                      dst="MOBILE"            				 title="手机"/>
+   <field src="FAX"                         dst="FAX"                        title="传真"/>
+   <field src="EMAIL"                       dst="EMAIL"                      title="邮箱"/>
+   <field src="CUST_MANAGER"                dst="CUST_MANAGER"               title="客户经理"/>
+   <field src="RISK_LVL"                    dst="RISK_LVL"                   title="风险等级"/>
+   <field src="RISK_SCORE"                  dst="RISK_SCORE"                 title="风险分数"/>
+   <field src="ID_VALIDITY"                 dst="ID_EXP_DATE"                title="证件有效截止日"/>
+   <field src="STKPBU_PROP"                 dst="SEAT_ATTR"                  title="席位属性"/>
+   <field src="CUST_CLS_PROP"               dst="CUST_CLS_PROP"              title="客户类别属性 0-自营 1-代理"/>
+   <field src="AREACODE_HRS"                dst="AREACODE_HRS"               title="开户户籍所在地区"/>
+   <field src="AREACODE"  		    dst="AREA_CODE"    	             title="地区代码"/>
+   <field src="AGENCY_FLAG"  	            dst="COMMISSION_FLAG"            default="s" title="代办标志 a-委办，s-亲办(默认为s-亲办)"/>
+   <field src="AUTHORIZER_NAME"  	    dst="AUTHORIZED_PERSON_NAME"     title="授权人姓名"/>
+   <field src="AUTHORIZER_ID_TYPE"          dst="AUTHORIZED_PERSON_ID_TYPE"  title="授权人证件类型"/>
+   <field src="AUTHORIZER_ID_CODE"          dst="AUTHORIZED_PERSON_ID_CODE"  title="授权人证件号码"/>
+   <field src="GOLD_PROTOCOL_VERSION"       dst="EXTRAS"                     title="附加信息4"/>         
+   <field src="FEE_TPL"                     dst="FEE_TPL"                    title="手续费率模板"/>
+   <field src="CASH_FUND_TPL"  	            dst="MARGIN_RATE_TEMPLATE"     	 title="保证金率模板"/>
+   <field src="SEX"                         dst="SEX"                        title="性别"/>
+   <field src="APPLICATION_CODE"            dst="APPLICATION_CODE"           default="111111"    title="应用代码"/>
+   <field src="ACCT_TYPE"                   dst="ACCOUNT_TYPE"               default="1"   title="账号类型"/>  
+   <field src="GOLD_TRDACCT"                dst="TRADE_CODE"                 title="交易编码"/>                         
+</input>                                                                                           
+<output format="table">                                                                            
+   <field src="LOCAL_GLIDE_CODE"               dst="LOCAL_SNO"              title="本地流水号"/>  
+   <field src="APPLICATION_CUST_CODE"          dst="APP_CUSTCODE"           title="应用客户号"/>  
+   <field src="TRADE_CODE"                     dst="GOLD_TRDACCT"           title="交易编码"/>  
+</output>                                                                                          
+</message>                                                                                         
+
+<message src="L7200016" dst="L7200016"  title="密码重置" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"         default="50104"           title="交易码"/>
+   <field src="errcode"                     dst="errcode"                    title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"        title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"    title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                TITLE="资金账户"/>
+   <field src="NEW_AUTH_DATA"               dst="NEW_GOLD_PWD"              title="新密码"/>
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>  
+
+
+<message src="L7200017" dst="L7200017"  title="密码交验" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"       default="50107"     title="交易码"/>
+   <field src="errcode"                 	  dst="errcode"                		 title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"  title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                  title="黄金密码"/>
+  
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="L7200002" dst="L7200002"  title="客户资料修改(个人)" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"          default="51201"    title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                 title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                 title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                  title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                  title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"         title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                   title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"               title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"              title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"      default="3"         title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                   title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                      title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"               title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"         title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"               title="续传标志"/>
+                                                                      
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                 title="资金账户"/>
+   <field src="CUST_FNAME"                  dst="CUST_FNAME"                  title="客户姓名"/>
+   <field src="ID_CODE"                     dst="ID_CODE"                     title="证件号码"/>
+   <field src="TEL"                         dst="TEL"                         title="电话"/>
+   <field src="MOBILE"                      dst="MOBILE"                      title="手机"/>
+   <field src="FAX"                         dst="FAX"                         title="传真"/>
+   <field src="EMAIL"                       dst="EMAIL"                       title="EMAIL"/>
+   <field src="ADDRESS"                     dst="ADDRESS"                     title="地址"/>
+   <field src="CUST_CLS"                    dst="GOLD_ACCT_TYPE"              title="客户类别"/>
+   <field src="ZIP_CODE"                    dst="ZIP_CODE"                    title="邮编"/>
+   <field src="CUST_MANAGER"                dst="CUST_MANAGER"                title="客户经理"/>
+   <field src="BIRTHDAY"                    dst="BIRTHDAY"                    title="出生日期"/>
+   <field src="SEX"                         dst="SEX"                         title="性别"/>
+   <field src="AUTHORIZED_NAME"  	          dst="AUTHORIZED_NAME"     		    title="授权人姓名"/>
+   <field src="AUTHORIZED_ID_TYPE"          dst="AUTHORIZED_ID_TYPE"          title="授权人证件类型"/>
+   <field src="AUTHORIZED_ID_CODE"          dst="AUTHORIZED_ID_CODE"          title="授权人证件号码"/> 
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"               title="密码验证标志"/>
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                    title="黄金密码"/>
+   <field src="AREACODE_HRS"                dst="AREACODE_HRS"                title="开户户籍所在地区代码"/>                                                        
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>  
+
+<message src="L7200005" dst="L7200005"  title="法人资金账户开户" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"          default="55015"           title="交易码"/>
+   <field src="errcode"                     dst="errcode"                    title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"              title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                  
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="STKPBU"                      dst="SEAT_CODE"                  title="席位代码"/> 
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="OPEN_CHANNEL"                dst="OPEN_TRADE_CHANNEL"         default="0"       title="开通操作渠道"/>
+   <field src="CUST_CLS"                    dst="CUST_CLS"                   default="2"        title="客户类别"/>
+   <field src="CUST_CODE"                   dst="CUST_CODE"                  title="客户号"/>
+   <field src="CUST_FNAME"                  dst="CUST_FNAME"                 title="客户姓名"/>
+   <field src="CUST_LVL"                    dst="CUST_LVL"                   title="客户级别"/>
+   <field src="TEL"                         dst="TEL"                        title="电话"/>
+   <field src="ADDRESS"                     dst="ADDRESS"                    title="地址"/>
+   <field src="ZIP_CODE"                    dst="ZIP_CODE"                   title="邮编"/>
+   <field src="MOBILE"                      dst="PHONE_NUMBER"               title="手机"/>
+   <field src="FAX"                         dst="FAX"                        title="传真"/>
+   <field src="EMAIL"                       dst="EMAIL"                      title="EMAIL"/>
+   <field src="CUST_MANAGER"                dst="ATTRACT_DEPOSITS_CODE"      title="吸存码/客户经理"/>
+   <field src="RISK_LVL"                    dst="RISK_LVL"                   title="风险等级"/>
+   <field src="RISK_SCORE"                  dst="RISK_SCORE"                 title="风险分数"/>
+   <field src="CUST_NAME"                   dst="USER_NAME"                  title="户名简称"/>
+   <field src="ENGLISH_FNAME"               dst="ENGLISH_FNAME"              title="英文名称"/>
+   <field src="ENGLISH_NAME"                dst="ENGLISH_NAME"               title="英文简称"/>
+   <field src="STKPBU_PROP"                 dst="STKPBU_PROP"                title="席位属性"/>
+   <field src="CUST_CLS_PROP"               dst="CUST_CLS_ATTR"              default="1"  title="客户类别属性"/>
+   <field src="CUST_TYPE3"                  dst="CUST_TYPE"                  title="客户类型"/>
+   <field src="AUTHORIZER_NAME"  		        dst="AUTHORIZER_NAME"     		   title="授权人姓名"/>
+   <field src="AUTHORIZER_ID_TYPE"          dst="AUTHORIZER_ID_TYPE"         title="授权人证件类型"/>
+   <field src="AUTHORIZER_ID_CODE"          dst="AUTHORIZER_ID_CODE"         title="授权人证件号码"/>
+   <field src="AUTHORIZER_TEL"  	          dst="AUTHORIZER_TEL"     	       title="授权人联系电话"/>
+   <field src="AUTHORIZER_ADDR"             dst="AUTHORIZER_ADDR"     	     title="授权人联系地址"/>
+   <field src="AUTHORIZER_ZIPCODE"          dst="AUTHORIZER_ZIP_CODE"        title="授权人邮政编码"/>
+   <field src="AUTHORIZER_FAX" 			        dst="AUTHORIZER_FAX"     	       title="授权人传真"/>
+   <field src="AUTHORIZER_FLAG" 	          dst="AUTHORIZER_FLAG"     	     title="是否法人书面授权"/>
+   <field src="BUSSINES_NO" 				        dst="BUSINESS_LICENCE_NO"     	 title="营业执照号"/> 
+   <field src="CORP_CODE" 		              dst="CORP_CODE"     			       title="企业代码"/>
+   <field src="TRC" 		                    dst="BUSINESS_TAX_NO"     		   title="税务登记证号"/>
+   <field src="USC_CODE"                    dst="UNIFIED_SOCIAL_CREDIT_CODE" title="统一社会信用代码"/>
+   <field src="LEGAL_REP"                   dst="LEGAL_REP"                  title="法人代表"/>
+   <field src="REG_CAPITAL"                 dst="REGISTERED_CAPITAL"         title="注册资本"/>
+   <field src="CARRY_NAME"                  dst="DELIVERY_NAME"              title="提货人姓名"/>
+   <field src="CARRY_IDTYPE"                dst="DELIVERY_ID_TYPE"           title="提货人证件类型"/>
+   <field src="CARRY_IDCODE"                dst="DELIVERY_ID_CODE"           title="提货人证件号码"/>
+   <field src="BASE_GURANTEE"               dst="BASE_GURANTEE"              title="基础保证金"/>
+   <field src="ACCOUNT_TYPE"                dst="ACCOUNT_TYPE"               title="账号类型"/>
+   <field src="FEE_TPL"                     dst="FEE_TPL"                    title="手续费率模板"/>
+   <field src="CASH_FUND_TPL"  			        dst="CASH_FUND_TPL"     		     title="保证金率模板"/> 
+   <field src="ID_EXP_DATE"                 dst="ID_EXP_DATE"                title="证件有效截止日"/>
+   <field src="LEGAL_IDCODE"                dst="LEGAL_REP_ID_CODE"          title="法人代表证件号码"/>
+   <field src="REG_ADDRESS"                 dst="REGISTER_ADDR"              title="注册地址"/>
+   <field src="VAT_INVOICE"                 dst="IS_NEED_SPECIAL_INVOICE"    title="是否需要增值税专用发票"/>
+   <field src="TAXPAYER_IDNO"               dst="TAXER_ACCT"                 title="纳税人识别代码"/>
+   <field src="INVOICE_ADDR"   	            dst="INVOICE_ADDRESS"	           title="发票开票地址"/>
+   <field src="INVOICE_TEL"                 dst="TAXER_PHONE"                title="纳税人电话"/>
+   <field src="TAXPAYER_BANKCODE"           dst="TAXER_BANK_CODE"            title="纳税人银行代码"/>
+   <field src="TAXPAYER_BANKINFO"           dst="TAXER_BANK_INFO"            title="纳税人开户信息"/>
+   <field src="TAXPAYER_ACCT"               dst="TAXER_CODE"                 title="纳税人账号"/>
+   <field src="INVOICE_RECEIVER"   	        dst="INVOICE_RECIPIENT"  	       title="发票收件人"/>
+   <field src="INVOICE_RECEIVER_TEL"        dst="INVOICE_RECIPIENT_TEL"      title="发票收件人联系电话"/>
+   <field src="INVOICE_ZIP_ADDRESS"         dst="INVOICE_ZIP_ADDRESS"        title="发票邮寄地址"/>  
+   <field src="OPEN_BASIS"                  dst="ESTABLISH_BASEIS"      	   title="设立依据"/>
+   <field src="FUNDS_SOURCE"                dst="SOURCES_OF_FUNDS"      	   title="资金来源"/>
+   <field src="RECRUITMENT_WAY"             dst="RECRUITMENT_METHODS"        title="募集方式"/>
+   <field src="PRDT_SCALE"                  dst="PRODUCT_SCALE"      				 title="产品规模"/>
+   <field src="PRDT_CREATEDATE"             dst="PRODUCT_ESTABLISHMENT_DAY"  title="产品成立日"/>
+   <field src="PRDT_VALIDE_DATE"      			dst="PRDT_VALIDE_DATE"      		 title="产品到期日"/>
+   <field src="INVEST_RANAGE"  			        dst="SCOPE_OF_INVESTMENT"  			 title="投资范围"/>
+   <field src="FUNDS_MANAGER"      				  dst="PMAG_NAME"      		         title="资产管理人"/>
+   <field src="CLIENTELE"  					        dst="CLIENT"  			             title="委托人"/>
+   <field src="FUNDS_BANK"  			          dst="BANK_CUACCT_CODE"  	       title="资金开户行"/>   
+   <field src="APPLICATION_CODE"  			    dst="APPLICATION_CODE"  	       default="222222"   title="应用代码"/>
+   <field src="ADDITIONAL_INFO4"  			    dst="ADDITIONAL_INFO4"  	       title="附加信息4"/>
+   <field src="ENTERPRISE_PROP"  			      dst="CO_INDUSTHAVE"  	           title="企业性质"/>
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"                  title="本地流水号"/>
+   <field src="APPLICATION_CUST_CODE"       dst="APPLICATION_CUST_CODE"      title="应用客户号"/>
+   <field src="TRADE_CODE"                  dst="GOLD_TRDACCT"               title="交易编码"/>
+</output>                            
+</message>   
+
+<message src="L7200006" dst="L7200006"  title="客户资料修改(法人)" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"                    default="51202"       title="交易码"/>
+   <field src="errcode"                     dst="errcode"                    title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"              title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+   
+   <field src="CUST_FNAME"                  dst="CUST_FNAME"                 title="客户姓名"/>
+   <field src="USER_NAME"                   dst="USER_NAME"                  title="户名简称"/>
+   <field src="ID_CODE" 				            dst="BUSINESS_LICENCE_NO"     	 title="证件号码 法人输入营业执照号"/>
+   <field src="TEL"                         dst="TELEPHONE"                  title="电话"/>
+   <field src="MOBILE"                      dst="PHONE_NUMBER"               title="手机"/>
+   <field src="EMAIL"                       dst="EMAIL"                      title="EMAIL"/>
+   <field src="ADDRESS"                     dst="ADDRESS"                    title="地址"/>
+   <field src="CUST_CLS"                    dst="CUST_CLS"                   title="客户类别"/>
+   <field src="ZIP_CODE"                    dst="ZIP_CODE"                   title="邮编"/>
+   <field src="AUTHORIZER_NAME"  		        dst="AUTHORIZER_NAME"     		   title="授权人姓名"/>
+   <field src="AUTHORIZER_ID_TYPE"          dst="AUTHORIZER_ID_TYPE"         title="授权人证件类型"/>
+   <field src="AUTHORIZER_ID_CODE"          dst="AUTHORIZER_ID_CODE"         title="授权人证件号码"/>
+   <field src="CARRY_NAME"                  dst="DELIVERY_NAME"              title="提货人姓名"/>
+   <field src="CARRY_IDTYPE"                dst="DELIVERY_ID_TYPE"           title="提货人证件类型"/>
+   <field src="CARRY_IDCODE"                dst="DELIVERY_ID_CODE"           title="提货人证件号码"/>
+   <field src="AUTH_OPCODE"                 dst="AUTH_OP_USER"               title="授权柜员"/>
+   <field src="VIP_AUTH_OPCODE"             dst="VIP_AUTH_OPCODE"            title="高级授权柜员"/>
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="PSW_CHKFLAG"                 dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="CUST_MANAGER"                dst="CUST_MANAGER"               title="客户经理"/>
+   <field src="LEGAL_REP"                   dst="LEGAL_REP"                  title="法人代表"/>
+   <field src="AUTHORIZER_ZIPCODE"          dst="AUTHORIZER_ZIP_CODE"        title="授权人邮政编码"/>
+   <field src="AUTHORIZER_ADDR"             dst="AUTHORIZER_ADDR"     	     title="授权人联系地址"/>
+   <field src="AUTHORIZER_FAX" 			        dst="AUTHORIZER_FAX"     	       title="授权人传真"/>
+   <field src="AUTHORIZER_FLAG" 	          dst="AUTHORIZER_FLAG"     	     title="是否法人书面授权"/>
+   <field src="ENGLISH_FNAME"               dst="ENGLISH_FNAME"              title="英文名称"/>
+   <field src="ENGLISH_NAME"                dst="ENGLISH_NAME"               title="英文简称"/>
+   <field src="CUST_TYPE3"                  dst="CUST_TYPE"                  title="客户类型"/>
+   <field src="USC_CODE"                    dst="UNIFIED_SOCIAL_CREDIT_CODE" title="统一社会信用代码"/>
+   <field src="VAT_INVOICE"                 dst="IS_NEED_SPECIAL_INVOICE"    title="是否需要增值税专用发票"/>
+   <field src="TAXPAYER_IDNO"               dst="TAXER_ACCT"                 title="纳税人识别代码"/>
+   <field src="INVOICE_ADDR"   	            dst="INVOICE_ADDRESS"	           title="发票开票地址"/>
+   <field src="INVOICE_TEL"                 dst="TAXER_PHONE"                title="纳税人电话"/>
+   <field src="TAXPAYER_BANKCODE"           dst="TAXER_BANK_CODE"            title="纳税人银行代码"/>
+   <field src="TAXPAYER_BANKINFO"           dst="TAXER_BANK_INFO"            title="纳税人开户信息"/>
+   <field src="TAXPAYER_ACCT"               dst="TAXER_CODE"                 title="纳税人账号"/>
+   <field src="INVOICE_RECEIVER"   	        dst="INVOICE_RECIPIENT"  	       title="发票收件人"/>
+   <field src="INVOICE_RECEIVER_TEL"        dst="INVOICE_RECIPIENT_TEL"      title="发票收件人联系电话"/>
+   <field src="INVOICE_ZIP_ADDRESS"         dst="INVOICE_ZIP_ADDRESS"        title="发票邮寄地址"/> 
+   <field src="OPEN_BASIS"                  dst="ESTABLISH_BASEIS"      	   title="设立依据"/>
+   <field src="FUNDS_SOURCE"                dst="SOURCES_OF_FUNDS"      	   title="资金来源"/>
+   <field src="RECRUITMENT_WAY"             dst="RECRUITMENT_METHODS"        title="募集方式"/>
+   <field src="PRODUT_SIZE"                 dst="PRODUCT_SCALE"      				 title="产品规模"/>
+   <field src="PRODUT_CREATEDATE"           dst="PRODUCT_ESTABLISHMENT_DAY"  title="产品成立日"/>
+   <field src="PRODUT_ENDDATE"      			  dst="PRDT_VALIDE_DATE"      		 title="产品到期日"/>
+   <field src="INVEST_RANAGE"  			        dst="SCOPE_OF_INVESTMENT"  			 title="投资范围"/> 
+   <field src="FUNDS_MANAGER"      				  dst="PMAG_NAME"      		         title="资产管理人"/>
+   <field src="CLIENTELE"  					        dst="CLIENT"  			             title="委托人"/>
+   <field src="FUNDS_BANK"  			          dst="BANK_CUACCT_CODE"  	       title="资金开户行"/>   
+   <field src="CUST_CLS_PROP"               dst="CUST_CLS_ATTR"              title="客户类别属性"/>
+   <field src="ENTPRISE_PROP"  			        dst="CO_INDUSTHAVE"  	           title="企业性质"/>
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>  
+
+
+<message src="L7200030" dst="L7200030"  title="客户类别变更" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"       default="50117"       title="交易码"/>
+   <field src="errcode"                     dst="errcode"                title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"    default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="NEW_CUST_CLS"                dst="GOLD_ACCT_TYPE"             title="客户类别"/>
+</input>                                                          
+<output format="table">
+	<field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>  
+
+<message src="L7200014" dst="L7200014"  title="客户销户" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="50105"     title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                		 title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                		 title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"      default="3"        title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                    dst="GOLD_PWD"                   title="黄金密码"/>
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="USER_NAME"                   dst="USER_NAME"                  title="客户姓名"/>
+   <field src="GOLD_TRADE_CODE"             dst="GOLD_TRDACCT"            title="黄金交易编码"/>
+   <field src="CANCELLATION_DATE"           dst="CANCELLATION_DATE"          title="销户日期"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易日期"/>
+</output>                            
+</message>  
+
+<message src="L7200015" dst="L7200015"  title="密码修改" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="50110"            title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                    title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"          title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="NEW_AUTH_DATA"               dst="NEW_GOLD_PWD"               title="新密码"/>>
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="L7200007" dst="L7200007"  title="客户资料查询/法人无交易编码客户查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="50112"             title="交易码"/>
+   <field src="errcode"                     dst="errcode"                    title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"    title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="GOLD_PWD"                    dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="ID_TYPE"                     dst="ID_TYPE"                    dict=""              title="证件类型"/>
+   <field src="ID_CODE"                     dst="ID_CODE"                    title="证件号码"/>
+</input>                                                          
+<output format="table">                                           
+   <field src="CUACCT_CODE"                  dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="LEVEL_TWO_ORG_CODE"           dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                    dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="USER_NAME"                    dst="USER_NAME"                  title="姓名"/>
+   <field src="ID_TYPE"       			         dst="ID_TYPE"       						  title="证件类型"/>
+   <field src="ID_CODE"                      dst="ID_CODE"                    title="证件号码"/>
+   <field src="APPLICATION_CODE"  	         dst="APPLICATION_CODE"  				  title="应用代码"/>
+   <field src="ACCOUNT_TYPE"                 dst="ACCOUNT_TYPE"               title="账户类型"/>
+   <field src="CUST_CLS"                     dst="CUST_CLS"                   title="客户类别"/>
+   <field src="GOLD_TRDACCT"                 dst="GOLD_TRDACCT"               title="交易编码"/>
+   <field src="CUST_LVL"                     dst="CUST_LVL"                   title="客户级别"/>
+   <field src="CUST_MANAGER"                 dst="CUST_MANAGER"               title="客户经理"/>
+   <field src="SEX"                          dst="SEX"                        title="性别"/>
+   <field src="TELEPHONE"                    dst="TELEPHONE"                  title="电话"/>
+   <field src="PHONE_NUMBER"                 dst="PHONE_NUMBER"               title="手机"/>
+   <field src="FAX"                          dst="FAX"                        title="传真"/>
+   <field src="EMAIL"                        dst="EMAIL"                      title="EMAIL"/>
+   <field src="ADDRESS"                      dst="ADDRESS"                    title="地址"/>
+   <field src="ZIP_CODE"                     dst="ZIP_CODE"                   title="邮编"/>
+   <field src="BIRTHDAY"                     dst="BIRTHDAY"                   title="出生日期"/>
+   <field src="AGENCY_FLAG"                  dst="AGENCY_FLAG"                title="代办标志"/>
+   <field src="OPERATOR_NAME"                dst="OPERATOR_NAME"              title="经办人姓名"/>
+   <field src="OPERATOR_ID_TYPE"             dst="OPERATOR_ID_TYPE"           title="经办人证件类型"/>
+   <field src="OPERATOR_ID_CODE"             dst="OPERATOR_ID_CODE"           title="经办人证件号码"/>
+   <field src="OPERATOR_TEL"            		 dst="OPERATOR_TEL"               title="授权人联系电话"/>
+   <field src="OPERATOR_ADDR"            		 dst="OPERATOR_ADDR"              title="授权人联系地址"/>
+   <field src="OPERATOR_ZIPCODE"             dst="OPERATOR_ZIP_CODE"          title="授权人邮政编码"/>
+   <field src="OPERATOR_FAX"            		 dst="OPERATOR_FAX"               title="授权人传真"/>
+   <field src="OPERATOR_AUTHIRTY"            dst="AUTHORIZER_FLAG"            title="授权人是否书面授权"/>
+	 <field src="DELIVERY_NAME"						     dst="CARRY_NAME"					        title="提货人姓名"/>
+	 <field src="DELIVERY_ID_TYPE"						 dst="CARRY_IDTYPE"					      title="提货人证件类型"/>
+	 <field src="DELIVERY_ID_CODE"						 dst="CARRY_IDCODE"					      title="提货人证件号码"/>
+	 <field src="BASE_GURANTEE"						     dst="BASE_GURANTEE"					    title="基础保证金"/>
+	 <field src="OPEN_TRADE_CHANNEL"				   dst="OPEN_TRADE_CHANNEL"		      title="开通交易渠道"/>
+	 <field src="CUST_STATE"						       dst="CUST_STATE"					        title="客户状态"/>
+	 <field src="TRADE_CODE_FLAG"						   dst="TRD_CODE_FLAG"					    title="有无交易编码标志"/>
+	 <field src="OPEN_ACCOUNT_DATE"						 dst="OPEN_DATE"					        title="交易编码开户日期"/>
+	 <field src="OPEN_OPERATOR"						     dst="TRD_OP_CODE"						    title="交易编码开户操作员"/>
+	 <field src="FEE_TPL"						           dst="FEE_TPL"						        title="手续费率模板"/>           
+	 <field src="CASH_FUND_TPL"			           dst="CASH_FUND_TPL"			        title="保证金率模板"/>           
+	 <field src="CUST_CLS_PROP"			           dst="CUST_CLS_PROP"			        title="客户类别属性"/> 
+	 <field src="AREACODE_HRS"			           dst="AREACODE_HRS"			          title="开户户籍所在地区代码"/>       
+	 <field src="AREACODE"					           dst="AREA_CODE"					        title="地区代码"/> 
+	 <field src="CUST_CODE"										 dst="CUST_CODE"						      title="券商客户号（客户代码）"/> 
+	 <field src="RISK_LVL"					           dst="RISK_LVL"					          title="风险等级"/>             
+	 <field src="RISK_SCORE"				           dst="RISK_SCORE"				          title="风险分数"/> 
+	 <field src="ID_VALIDITY"                  dst="EXPIRE_DATE"                title="证件有效截止日期"/>
+	 <field src="LEGAL_IDNO"                   dst="LEGALLS_IDCODE"             title="法人代表证件号码"/>
+	 <field src="REGISTER_ADDRESS"             dst="REG_ADDRESS"                title="注册地址"/>
+	 <field src="TAXER_ACCT"                   dst="TAXPAYER_IDNO"              title="纳税人识别代码"/>
+   <field src="TAXER_FLAG"                   dst="VAT_INVOICE"                title="纳税人标识"/>
+   <field src="TAXER_ADDR"                   dst="INVOICE_ADDR"               title="纳税人地址"/>
+   <field src="TAXER_PHONE"                  dst="INVOICE_TEL"                title="纳税人电话"/>
+   <field src="TAXER_BANK_CODE"              dst="TAXPAYER_BANKCODE"          title="纳税人银行代码"/>
+   <field src="TAXER_BANK_INFO"              dst="TAXPAYER_BANKINFO"          title="纳税人开户信息"/> 
+		  
+</output>                            
+</message>
+
+
+<message src="L7200008" dst="L7200008"  title="客户销户准备" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="50113"       title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"    default="3"     title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                   title="黄金密码"/>
+</input>                                                          
+<output format="table">   
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>                                        
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="INTEREST"                    dst="INTEREST"                   title="利息"/>
+   <field src="BASE_GURANTEE"               dst="BASE_GURANTEE"              title="基础保证金"/>
+   <field src="AVAILABLE_FUND"              dst="AVAILABLE_FUND"             title="可用资金"/>
+   <field src="INTEREST_TAX"                dst="INTEREST_TAX"               title="利息税"/>
+   <field src="TOTAL"                       dst="TOTAL"                      title="总计"/>
+   
+</output>                            
+</message>
+
+<message src="L7200009" dst="L7200009"  title="客户出金" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"      					 default="50704"   title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"       default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                    dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="TRANSFER_AMOUNT"             dst="TRANSFER_AMOUNT"            title="转账金额"/>
+   <field src="FUND_TYPE"                   dst="FUND_TYPE"                  title="资金类型"/>
+   <field src="CURRENCY"                    dst="CURRENCY"                   title="币种"/>
+   <field src="BANK_CODE"                   dst="BANK_CODE"                  dict=""           title="银行代码"/>
+   <field src="BANK_ACCOUNT"                dst="BANK_ACCOUNT"               title="银行帐号"/>
+</input>                                                          
+<output format="table">   
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>                                        
+   <field src="HOST_GLIDE_CODE"             dst="HOST_GLIDE_CODE"            title="主机流水号"/>
+</output>                            
+</message>
+
+<message src="L7200027" dst="L7200027"  title="客户可提资金查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"    default="50811"          title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"  title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                    dst="GOLD_PWD"                   title="黄金密码"/>
+	  
+</input>                                                          
+<output format="table">   
+   <field src="AVAILABLE_FUND"              dst="AVAILABLE_FUND"             title="可用资金"/>                                        
+   <field src="MENTION_FUND"                dst="MENTION_FUND"               title="可提资金"/>
+</output>                            
+</message>
+
+<message src="L7200028" dst="L7200028"  title="银行信息管理查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"      default="55520"     title="交易码"/>
+   <field src="errcode"                 	  dst="errcode"                title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"      default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="BANK_CODE"                   dst="BANK_CODE"                  title="银行代码"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="BANK_CODE"                   dst="BANK_CODE"    dict="GOLDBANKCODE_UASBANKCODE"    title="银行代码"/>
+   <field src="BANK_NAME"                   dst="BANK_NAME"                  title="银行名称"/>
+</output>                            
+</message>
+
+<message src="L7200026" dst="L7200026"  title="黄金资产情况汇总查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="50914"      title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"      default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="QRY_DATE"                  dst="QUERY_DATE"                 title="查询日期"/>	 
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="GOLD_PWD"                    dst="GOLD_PWD"                   title="黄金密码"/>
+</input>                                                          
+<output format="table">   
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易日期"/>                                        
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="TRADE_CODE"                  dst="GOLD_TRDACCT"                 title="交易编码"/>                                        
+   <field src="AVAILABLE_FUND"              dst="AVAILABLE_FUND"             title="可用资金"/>
+   <field src="POSITION_BOND"               dst="POSITION_BOND"              title="持仓保证金"/>                                        
+   <field src="DELIVERY_BOND"               dst="DELIVERY_BOND"              title="提货保证金"/>
+   <field src="STORAGE_BOND"                dst="STORAGE_BOND"               title="仓储保证金"/>                                        
+   <field src="DELIVERY_BOND_OCCUPY"        dst="DELIVERY_BOND_OCCUPY"       title="交割保证金占用"/>
+   <field src="SPOT_COMMODITY_MARKET"       dst="SPOT_COMMODITY_MARKET"      title="现货市值"/>                                        
+   <field src="FROZEN_FUND"                 dst="FROZEN_FUND"                title="其他冻结资金"/>
+   <field src="TOTAL_ASSETS"                dst="TOTAL_ASSETS"               title="总资产"/>                                        
+</output>                            
+</message>
+
+<message src="L7200018" dst="L7200018"  title="客户出入金账户信息查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"       default="75026"     title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                 		title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                 		title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                  title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                  title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"         title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"          title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                   title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"               title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"              title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"  title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                   title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                      title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"               title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"         title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"               title="续传标志"/>
+                                                                      
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                 title="资金账号"/>	 
+   <field src="CUST_CODE"                 	dst="CUST_CODE"                 title="客户号"/>
+   <field src="BANK_CODE"                   dst="BANK_CODE"           			dict=""             title="银行代码"/>
+   <field src="ACCOUNT_TYPE"                dst="ACCOUNT_TYPE"                title="账户类型"/>
+   <field src="INCLUDE_DOT_FLAG"            dst="INCLUDE_DOT_FLAG"            title="包含下属网点标志"/>
+   <field src="CARD_STATE"                  dst="CARD_STATE"                  title="卡状态"/>
+</input>                                                          
+<output format="table">                                      
+   <field src="CUACCT_CODE"                dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="USER_NAME"                  dst="USER_NAME"                  title="姓名"/>
+   <field src="ACCOUNT_TYPE"               dst="ACCT_TYPE"                  title="账户类型"/>
+   <field src="BANK_NAME"                  dst="BANK_CODE"                  dict="GOLDBANKCODE_UASBANKCODE"         title="转账银行代码"/>
+   <field src="BANK_CODE"                  dst="BANK_ACCT"                  title="转账银行账号"/>
+   <field src="CARD_STATE"                 dst="CARD_STATUS"                title="卡状态"/>
+   <field src="FILIALE"                    dst="BRANCH_COMPANY"             title="分公司"/>
+   <field src="DEPARTMENT"                 dst="ORG_CODE"                 	title="营业部"/>
+
+</output>
+</message>
+
+
+<message src="L7200019" dst="L7200019"  title="客户出入金账户信息增加" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="55003"   title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                		 title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                		 title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>	 
+   <field src="BANK_CODE"                   dst="BANK_CODE"                  dict=""      title="银行代码"/>
+   <field src="BANK_ACCT"                dst="BANK_ACCOUNT"               title="银行账号"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>                                                                   
+</output>                            
+</message>
+
+<message src="L7200020" dst="L7200020"  title="客户出入金账户信息修改" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"       default="55004"      title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"      default="3"  title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>	 
+   <field src="BANK_CODE"                   dst="BANK_CODE"                  dict=""               title="银行代码"/>
+   <field src="BANK_ACCT"                dst="BANK_ACCOUNT"               title="银行账号"/>
+   <field src="BANK_NAME"                   dst="BANK_NAME"                  title="银行名称"/>
+   <field src="OLD_BANK_ACCT"               dst="OLD_BANK_CODE"              title="原转账银行账号"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>                                                                   
+</output>                            
+</message>
+
+<message src="L7200021" dst="L7200021"  title="客户出入金账户信息删除" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"       default="55005"     title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                    title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3" title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>	 
+   <field src="BANK_CODE"                   dst="BANK_CODE"                  title="银行代码"/>
+   <field src="BANK_ACCT"                		dst="BANK_ACCOUNT"               title="银行账号"/>
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>                                                                   
+</output>                            
+</message>
+
+<message src="L7200003" dst="L7200003"  title="个人资金账户开户(个人分步开户第一步)" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"       default="55012"      title="交易码"/>
+   <field src="errcode"                 	  dst="errcode"                  title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                  title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"               title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"               title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"       title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"       title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"       title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"            title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"           title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"    default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                   title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"            title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"       title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"             title="续传标志"/>
+
+	 <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+	 <field src="STKPBU"						      		dst="STKPBU"						         title="席位代码"/>   
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="OPEN_CHANNEL"                dst="OPEN_CHANNEL"               title="开通操作渠道"/>
+   <field src="CUST_CLS"                    dst="CUST_CLS"                   title="客户类别"/>
+   <field src="CUST_CODE"                   dst="CUST_CODE"                  title="客户号"/>
+   <field src="CUST_FNAME"                  dst="CUST_FNAME"                 title="客户姓名"/>
+   <field src="ID_TYPE"                     dst="ID_TYPE"                    title="证件类型"/>
+   <field src="ID_CODE"                     dst="ID_CODE"                    title="证件号码"/>
+   <field src="BIRTHDAY" 					          dst="BIRTHDAY" 					         title="出生日期"/>
+   <field src="CUST_LVL"                    dst="CUST_LVL"                   title="客户级别"/>
+   <field src="TEL"                         dst="TELEPHONE"                  title="电话"/>
+   <field src="ADDRESS"                     dst="ADDRESS"                    title="地址"/>
+   <field src="ZIP_CODE"                    dst="ZIP_CODE"                   title="邮编"/>
+   <field src="MOBILE"                      dst="PHONE_NUMBER"               title="手机"/>
+   <field src="FAX"                         dst="FAX"                        title="传真"/>
+   <field src="EMAIL"                       dst="EMAIL"                      title="EMAIL"/>
+   <field src="CUST_MANAGER"                dst="CUST_MANAGER"               title="客户经理"/>
+   <field src="RISK_LVL"                    dst="RISK_LVL"                   title="风险等级"/>
+   <field src="RISK_SCORE"                  dst="RISK_SCORE"                 title="风险分数"/>  
+   <field src="ID_VALIDITY"				          dst="ID_VALIDITY"				         title="证件有效截止日期"/>           
+	 <field src="STKPBU_PROP"				          dst="STKPBU_PROP"				         title="席位属性"/>             
+	 <field src="CUST_CLS_PROP"			          dst="CUST_CLS_PROP"			         title="客户类别属性"/>           
+	 <field src="AREACODE_HRS"			          dst="AREACODE_HRS"			         title="开户户籍所在地区代码"/>       
+	 <field src="AREACODE"					          dst="AREACODE"					         title="地区代码"/>             
+	 <field src="AGENCY_FLAG"				          dst="AGENCY_FLAG"				         title="代办标志"/>             
+	 <field src="AUTHORIZER_NAME"		          dst="AUTHORIZER_NAME"		         title="授权人姓名"/>            
+	 <field src="AUTHORIZER_ID_TYPE"          dst="AUTHORIZER_ID_TYPE"         title="授权人证件类型"/>          
+	 <field src="AUTHORIZER_ID_CODE"          dst="AUTHORIZER_ID_CODE"         title="授权人证件证件号码"/> 
+   <field src="GOLD_PROTOCOL_VERSION"       dst="GOLD_PROTOCOL_VERSION"      title="贵金属协议版本"/>
+   <field src="FEE_TPL"						          dst="FEE_TPL"						         title="手续费率模板"/>           
+	 <field src="CASH_FUND_TPL"			          dst="CASH_FUND_TPL"			         title="保证金率模板"/>           
+	 <field src="SEX"						              dst="SEX"						             title="性别"/>                                        
+	 <field src="APPLICATION_CODE"						dst="APPLICATION_CODE"		       title="应用代码"/>           	                                          
+	 <field src="ACCT_TYPE"						        dst="ACCT_TYPE"				           title="账号类型"/>
+   
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+   <field src="APPLICATION_CUST_CODE"       dst="APP_CUSTCODE"        title="应用客户号"/>  
+</output>                            
+</message>
+
+<message src="L7200004" dst="L7200004"  title="个人申请交易编码(个人分步开户第二步)" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="55013"      title="交易码"/>
+   <field src="errcode"                     dst="errcode"                    title="返回码"/>
+   <field src="errinfo"                     dst="errinfo"                    title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"     default="3"    title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+    
+   <field src="CUACCT_CODE"                	dst="CUACCT_CODE"               title="银行账号"/>
+   <field src="GOLD_TRDACCT"                dst="TRADE_CODE"                 title="交易编码"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"              title="本地流水号"/>
+   <field src="TRADE_CODE"                  dst="GOLD_TRDACCT"           title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="L7200010" dst="L7200010"  title="法人开户管理查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"     default="55517"       title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"              title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"               title="资金账号"/>
+   <field src="CUST_CODE"                   dst="CUST_CODE"                  title="客户号"/>
+   <field src="TRADE_CODE_FLAG"             dst="TRADE_CODE_FLAG"            title="有无交易编码"/>
+   <field src="INCLUDE_DOT_FLAG"            dst="INCLUDE_DOT_FLAG"           title="包含下属网点标志"/>
+   <field src="OPERATOR"                    dst="OPERATOR"                   title="操作员"/>
+   <field src="PROXY_FLAG"                  dst="PROXY_FLAG"                 title="包含三级代理公司客户"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="CUST_CODE"                   dst="CUST_CODE"                  title="客户号"/>
+   <field src="CUST_NAME"                   dst="CUST_NAME"                  title="客户名称"/>
+   <field src="TRADE_CODE"                  dst="GOLD_TRDACCT"                 title="交易编码"/>
+   <field src="BASE_GURANTEE"               dst="BASE_GURANTEE"              title="基础保证金"/>
+   <field src="BASE_GURANTEE_FLAG"          dst="BASE_GURANTEE_FLAG"         title="转基础保证金标识"/>
+   <field src="CUST_STATE"                  dst="CUST_STATE"                 title="客户状态"/>
+   <field src="ID_TYPE"       		          dst="ID_TYPE"       						 dict=""             title="证件类型"/>
+   <field src="ID_CODE"                     dst="ID_CODE"                    title="证件号码"/>
+   <field src="OPEN_ACCOUNT_DATE"           dst="OPEN_ACCOUNT_DATE"          title="开户日期"/>
+</output>                            
+</message>
+
+<message src="L7200011" dst="L7200011"  title="法人交易编码设置" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"      default="55518"      title="交易码"/>
+   <field src="errcode"                 		dst="errcode"               		 title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"               		 title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"        title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                 title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"             title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"            title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"    default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                 title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                    title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"             title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"             title="续传标志"/>
+                                                                    
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"               title="资金账号"/>
+   <field src="BASE_GURANTEE"               dst="BASE_GURANTEE"             title="基础保证金"/>
+   <field src="GOLD_TRDACCT"                dst="TRADE_CODE"                title="交易编码"/>
+   <field src="OPERATOR"                    dst="OPERATOR"                  title="操作员"/>
+   <field src="BASE_GURANTEE_FLAG"          dst="BASE_GURANTEE_FLAG"        title="转基础保证金标志"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"            title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="L7200012" dst="L7200012"  title="法人交易编码取消" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"         default="55519"     title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                		 title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                		 title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"       default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="OPERATOR"                    dst="OPERATOR"                   title="操作员"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"            title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="KS955520" dst="55520"  title="银行信息管理查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"                   title="交易码"/>
+   <field src="errcode"                 		dst="errcode"               		 title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                   title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"       title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"        title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                 title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"             title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"            title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"             title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                 title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                    title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"             title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"       title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"             title="续传标志"/>
+                                                                     
+   <field src="BANK_CODE"                   dst="BANK_CODE"          			 	title="银行代码"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="BANK_CODE"                   dst="BANK_CODE"                  title="银行代码"/>
+   <field src="BANK_NAME"                   dst="BANK_NAME"                  title="银行名称"/>
+</output>                            
+</message>
+
+<message src="L7200013" dst="L7200013"  title="法人申请交易编码审核" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"       default="55521"     title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"      default="3"   title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="BASE_GURANTEE"               dst="BASE_GURANTEE"              title="基础保证金"/>
+   <field src="TRADE_CODE_FLAG"             dst="TRADE_CODE_FLAG"            title="有无交易编码标志"/>
+   <field src="OPERATOR"                    dst="OPERATOR"                   title="操作员"/>
+	  
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="L7200022" dst="L7200022"  title="客户状态设置" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"        default="55522"     title="交易码"/>
+   <field src="errcode"                 		dst="errcode"               			title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"               			title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"       title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"        title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                 title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"             title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"            title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"    default="3"    title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                 title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                    title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"             title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"       title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"             title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"               title="资金账号"/>
+   <field src="DST_STATUS"               		dst="CUST_STATUS"         			 dict=""          title="目标状态"/>
+</input>                                                          
+<output format="table">                                      
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="L7200025" dst="L7200025"  title="客户交易编码查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"     						default="50145"  title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                 title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                 title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                  title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                  title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"         title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"    	dict=""    title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                   title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"               title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"              title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"  					default="3"  title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                   title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                      title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"               title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"         title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"               title="续传标志"/>
+		
+   <field src="ID_TYPE"                   dst="ID_TYPE"     									title="证件类型"/>
+   <field src="ID_CODE"                   dst="ID_CODE"                     	   title="证件号码"/>
+</input>                                                          
+<output format="table">                                      
+   <field src="CUST_NAME"                   dst="USER_NAME"                   title="客户姓名"/>
+   <field src="TRADE_CODE"                  dst="GOLD_TRDACCT"                  title="交易编码"/>
+   <field src="MEMBER"                      dst="MEMBER"                   title="会员"/>
+   <field src="MEMBER_NAME"                 dst="MEMBER_NAME"                  title="会员名称"/>
+</output>                            
+</message>	   
+
+<message src="L7200024" dst="L7200024"  title="贵金属风险级别修改" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"           default="56603"   title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"       default="3"  title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="GOLD_TRDACCT"                dst="TRADE_CODE"                 title="交易编码"/>
+   <field src="CUST_CODE"                   dst="CUST_CODE"                  title="券商客户号"/>
+   <field src="ID_TYPE"                 	  dst="ID_TYPE"            			   dict=""              title="证件类型"/>
+   <field src="ID_CODE"                     dst="ID_CODE"                    title="证件号码"/>
+   <field src="RISK_LVL"                    dst="RISK_LVL"                   dict=""                  title="风险等级"/>
+   <field src="RISK_SCORE"                  dst="RISK_SCORE"                 title="风险分数"/>
+	  
+</input>                                                          
+<output format="table">                                      
+    <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>
+
+<message src="L7200023" dst="L7200023"  title="贵金属风险级别查询" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"           default="56692"   title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"         title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"       default="3"  title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                     
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账号"/>
+   <field src="GOLD_TRDACCT"                dst="TRADE_CODE"                 title="交易编码"/>
+   <field src="CUST_CODE"                   dst="CUST_CODE"                  title="券商客户号"/>
+   <field src="ID_TYPE"                 	  dst="ID_TYPE"            			 	 dict=""              title="证件类型"/>
+   <field src="ID_CODE"                     dst="ID_CODE"                    title="证件号码"/>
+</input>                                                          
+<output format="table">                                      
+   <field src="RISK_LVL"                   dst="RISK_LVL"                   dict=""                  title="风险等级"/>
+   <field src="RISK_SCORE"                 dst="RISK_SCORE"                 title="风险分数"/>
+</output>                            
+</message>
+
+<message src="L7200029" dst="L7200029"  title="客户资料修改(老接口专用)" >
+<input format="!table">
+   <field src="FUNC_NO"                     dst="FUNC_NO"            	 default="50102"   title="交易码"/>
+   <field src="errcode"                 		dst="errcode"                title="返回码"/>
+   <field src="errinfo"                 		dst="errinfo"                title="返回信息"/>
+   <field src="TRADE_DATE"                  dst="TRADE_DATE"                 title="交易发生日期"/>
+   <field src="TRADE_TIME"                  dst="TRADE_TIME"                 title="交易发生时间"/>
+   <field src="TRADE_CHANNEL_NUMER"         dst="TRADE_CHANNEL_NUMER"        title="渠道交易流水号"/>
+   <field src="LEVEL_TWO_ORG_CODE"          dst="LEVEL_TWO_ORG_CODE"        title="二级机构代码"/>
+   <field src="TRADE_DOT"                   dst="TRADE_DOT"                  title="交易营业部网点"/>
+   <field src="BROKER_TELLER"               dst="BROKER_TELLER"              title="券商柜员"/>
+   <field src="EMPOWER_TELLER"              dst="EMPOWER_TELLER"             title="授权柜员"/>
+   <field src="TRADE_CHANNEL"               dst="TRADE_CHANNEL"          default="3"    title="交易渠道"/>
+   <field src="FILE_NAME"                   dst="FILE_NAME"                  title="文件名"/>
+   <field src="OFFSET"                      dst="OFFSET"                     title="偏移量"/>
+   <field src="RECORD_NUMBER"               dst="RECORD_NUMBER"              title="记录数"/>
+   <field src="TOTAL_RECORD_NUMBER"         dst="TOTAL_RECORD_NUMBER"        title="总记录数"/>
+   <field src="MOREDATE_FLAG"               dst="MOREDATE_FLAG"              title="续传标志"/>
+                                                                  
+   <field src="CUACCT_CODE"                 dst="CUACCT_CODE"                title="资金账户"/>
+   <field src="GOLD_PWD_FLAG"               dst="GOLD_PWD_FLAG"              title="密码验证标志"/>
+   <field src="AUTH_DATA"                   dst="GOLD_PWD"                   title="黄金密码"/>
+   <field src="CUST_FNAME"                  dst="CUST_FNAME"                 title="客户姓名"/>
+   <field src="CUST_NAME"                   dst="USER_NAME"                  title="户名简称"/>
+   <field src="TEL"                         dst="TELEPHONE"                  title="电话"/>
+   <field src="MOBILE"                      dst="PHONE_NUMBER"               title="手机"/>
+   <field src="FAX"                         dst="FAX"                        title="传真"/>
+   <field src="EMAIL"                       dst="EMAIL"                      title="EMAIL"/>
+   <field src="ADDRESS"                     dst="ADDRESS"                    title="地址"/>
+   <field src="ZIP_CODE"                    dst="ZIP_CODE"                   title="邮编"/>
+   <field src="OPEN_CHANNEL"                dst="OPEN_TRADE_CHANNEL"         title="开通交易渠道"/>
+   <field src="AUTHORIZER_NAME"             dst="OPERATOR_NAME"              title="经办人姓名"/>
+   <field src="AUTHORIZER_ID_TYPE"          dst="OPERATOR_ID_TYPE"           title="经办人证件类型"/>
+   <field src="AUTHORIZER_ID_CODE"          dst="OPERATOR_ID_CODE"           title="经办人证件号码"/>
+   <field src="DELIVERY_NAME"               dst="DELIVERY_NAME"              title="提货人姓名"/>
+   <field src="DELIVERY_ID_TYPE"            dst="DELIVERY_ID_TYPE"           title="提货人证件类型"/>
+   <field src="DELIVERY_ID_CODE"            dst="DELIVERY_ID_CODE"           title="提货人证件号码"/>
+   <field src="CUST_MANAGER"                dst="CUST_MANAGER"               title="客户经理"/>
+   <field src="GOLD_ACCT_TYPE"              dst="GOLD_ACCT_TYPE"             title="客户类别"/>
+   <field src="CUST_CLS"                    dst="CUST_CLS"                   title="客户类别"/>
+</input>                                                          
+<output format="table">                                           
+   <field src="LOCAL_GLIDE_CODE"            dst="LOCAL_SNO"           title="本地流水号"/>
+</output>                            
+</message>  
+
+</kdmid1pc>

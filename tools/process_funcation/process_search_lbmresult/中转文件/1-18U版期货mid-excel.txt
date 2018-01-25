@@ -1,0 +1,5 @@
+sys=,biz=865002,mid=L6014900,acct=L1192141,demo=同步客户基本资料
+sys=,biz=865022,mid=L6014901,acct=L1192141,demo=同步客户附加资料
+sys=,biz=865004,mid=L6014902,acct=L1192136,demo=期货客户附加人信息维护
+sys=,biz=865006,mid=L6014903,acct=L1192139,demo=期货客户银行账户信息维护
+sys=,biz=865009,mid=L6014904,acct=L1192142,demo=期货IB数据字典信息查询

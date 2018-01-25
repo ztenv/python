@@ -1,0 +1,3 @@
+sys=,biz=CR101011,mid=L7010000,acct=99000551,demo=
+sys=,biz=CR101011,mid=L7010000,acct=L1192170,demo=客户资产信息查询
+sys=,biz=CR101011,mid=L7010000,acct=L1192201,demo=查询CRM中客户的资产信息，中信建投专用

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kdmid1pc>
+<!--win,unix版交易柜台外围接口接入kbss系统配置  lanwf 2010.06.01 -->
+<!--在KBSS系统win版kcbp 或中转网关 XA Resource加载一个XA  
+需要per2kbss.xml,KDMID1PCFactory.dll,KDMID1PCFactoryFunction.dll,KingdomWrapper.dll四个文件-->
+
+<!--字典项dict 需自行调整-->
+
+<!--函数列表-->
+<function name="rsubstr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStrRight">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="strcat" path="KDMID1PCFactoryFunction.dll" entrypoint="StrCat">
+ <return name="strDestination" type="string"/>
+ <argument>
+  <argv name="strDestination" type="string"/>
+  <argv name="strSource" type="string"/>
+ </argument>
+</function>
+
+<function name="substr" path="KDMID1PCFactoryFunction.dll" entrypoint="SubStr">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="inputstring" type="string"/>
+  <argv name="start" type="int"/>
+  <argv name="length" type="int"/>
+ </argument>
+</function>
+
+<function name="getdate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="formattor" type="string"/>
+ </argument>
+</function>
+
+<function name="GetStartDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetStartDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="GetEndDate" path="KDMID1PCFactoryFunction.dll" entrypoint="GetEndDate">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="begin" type="string"/>
+  <argv name="end" type="string"/>
+  <argv name="ts" type="string"/>
+ </argument>
+</function>
+
+<function name="FormatDateTime" path="KDMID1PCFactoryFunction.dll" entrypoint="FormatDateTime">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="orgtimestr" type="string"/>
+  <argv name="opdirect" type="string"/>
+  <argv name="type" type="string"/>
+ </argument>
+</function>
+
+<!--对齐函数Param *N, N*, #N,N#,$N,N$, *=0x20, #=0x00,$=0x30 -->
+<function name="SysAlign" path="KDMID1PCFactoryFunction.dll" entrypoint="SysAlign">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="StrVal" type="string"/>
+  <argv name="Param"  type="string"/>
+  <argv name="ValLen" type="int"/>
+ </argument>
+</function>
+
+<!--新一代UNIX版柜台加密函数CITICS_CE.dll -->
+<function name="CommEncrypt" path="KDMID1PCFactoryFunction.dll" entrypoint="UF_CommEncrypt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--KBSS版柜台解密函数encrypt.dll -->
+<function name="Decrypt1" path="KDMID1PCFactoryFunction.dll" entrypoint="AES_Decrypt1">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--WIN版柜台加密函数KDEncodeCli.dll -->
+<function name="KDEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="key"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+ </argument>
+</function>
+
+<!--WIN版柜台重加密函数KDEncodeCli.dll -->
+<function name="KDReEncode" path="KDMID1PCFactoryFunction.dll" entrypoint="KDReEncode">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="dllpath" type="string"/>
+  <argv name="oldkey"  type="string"/>
+  <argv name="pwdtext" type="string"/>
+  <argv name="newkey"  type="string"/>
+ </argument>
+</function>
+
+<!--ifselect  Flag=1 return strVal1, else return strval2 -->
+<function name="IfSelect" path="KDMID1PCFactoryFunction.dll" entrypoint="IfSelect">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval1" type="string"/>
+  <argv name="strval2"  type="string"/>
+  <argv name="flag" type="string"/>
+ </argument>
+</function>
+
+<!--16进制转换10进制 -->
+<function name="HexToDec" path="KDMID1PCFactoryFunction.dll" entrypoint="HexToDec">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="strval" type="string"/>
+ </argument>
+</function>
+
+<!--复数字典转换 参数 
+RuleFile XML文件
+DictName 字典名称
+EntryNames 复数字典值
+SrcFlag 源分隔符ASCII码
+DstFlag 目的分隔符ASCII码-->
+<function name="dictscvt" path="KDMID1PCFactoryFunction.dll" entrypoint="DictsCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryNames" type="string"/>
+  <argv name="SrcFlag" type="int"/>
+  <argv name="DstFlag" type="int"/>
+ </argument>
+</function>
+
+<!--区间字典转换 参数 
+RuleFile XML文件
+DictName 字典名称
+EntryName 字典值
+-->
+<function name="interdictcvt" path="KDMID1PCFactoryFunction.dll" entrypoint="InterDictCvt">
+ <return name="outputstring" type="string"/>
+ <argument>
+  <argv name="RuleFile" type="string"/>
+  <argv name="DictName" type="string"/>
+  <argv name="EntryName" type="string"/>
+ </argument>
+</function>
+
+<!-- win版外围接口:用户密码管理 -->
+<message src="L2919000" dst="L1190038">
+  <input format="!table">
+    <field src="F_OP_USER"           dst="F_OP_USER"          width="32"    default="8888"    remark="操作用户代码" />
+    <field src="F_OP_ROLE"           dst="F_OP_ROLE"          width="32"    default="2"       remark="操作用户角色" />
+    <field src="NET_ADDR1#-1=substr(NET_ADDR,0,30)"             dst=""        width="32"   default=""   remark="操作站点"/>
+    <field src="NET_ADDR2#-1=strcat('1:',NET_ADDR1)"            dst="F_OP_SITE" width="32" default=""   remark="操作站点"     />
+    <field src="F_OP_ORG "           dst="F_OP_ORG"           width="32"    default=""        remark="操作机构"     />
+    <field src="F_CHANNEL"           dst="F_CHANNEL"          width="32"    default=""        remark="操作渠道"     />
+    <field src=""                    dst="F_SESSION"          width="32"    default=""        remark="会话凭证"     />
+    <field src="@messagedst"         dst="F_FUNCTION"         width="32"    default=""        remark="功能代码"     />
+    <field src=""                    dst="F_RUNTIME"          width="32"    default=""        remark="调用时间"     />
+    
+    <field src=""                    dst="OPERATION_TYPE"     width="64"    default="1"       remark="操作类型"     /> <!-- 此处值应为1，原先为3，外得修改密码时，会变成重置密码，没有校验原密码 zhuk 20150715 -->
+    <field src="USER_CODE"           dst="USER_CODE"          width="64"    default=""        remark="用户代码"     />
+    <field src="USER_ROLE"           dst="USER_ROLE"          width="64"    default="1"       remark="用户角色"     />
+    <field src="USE_SCOPE"           dst="USE_SCOPE"          width="64"    default=""        remark="使用范围"     />
+    <field src="AUTH_TYPE"           dst="AUTH_TYPE"          width="64"    default=""        remark="认证类型"     />
+    <field src="OLD_AUTH_DATA"       dst="OLD_AUTH_DATA"      width="256"   default=""        remark="原认证信息"   />
+    <field src="NEW_AUTH_DATA"       dst="NEW_AUTH_DATA"      width="256"   default=""        remark="新认证信息"   />    
+    <field src=""                    dst="SUBSYS"             width="64"    default="16"      remark="同步系统编号" />
+    <field src=""                    dst="ENCRYPT_TYPE"       width="32"    default="1"       remark="加密方式"     />
+    <field src="ENCRYPT_KEY"         dst="ENCRYPT_KEY"        width="64"    default=""        remark="加密因子"     />
+    <field src="OP_REMARK"           dst="OP_REMARK"          width="128"   default=""        remark="操作备注"     />
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1"         dst="MSG_TEXT"           width="64"    default="业务运行成功" />
+  </output>
+</message>
+
+<!-- 配置模板 -->
+<message src="00000000" dst="00000000">
+  <input format="!table">
+    <field src="F_OP_USER"            dst="F_OP_USER"        width="32"     default=""        remark="操作用户代码" />
+    <field src="F_OP_ROLE"            dst="F_OP_ROLE"        width="32"     default="1"       remark="操作用户角色" />
+    <field src="NET_ADDR"             dst="F_OP_SITE"        width="32"     default=""        remark="操作站点"     />
+    <field src="F_OP_ORG "            dst="F_OP_ORG"         width="32"     default=""        remark="操作机构"     />
+    <field src="F_CHANNEL"            dst="F_CHANNEL"        width="32"     default=""        remark="操作渠道"     />
+    <field src=""                     dst="F_SESSION"        width="32"     default=""        remark="会话凭证"     />
+    <field src="@messagedst"          dst="F_FUNCTION"       width="32"     default=""        remark="功能代码"     />
+    <field src=""                     dst="F_RUNTIME"        width="32"     default=""        remark="调用时间"     />
+
+  </input>
+  <output format="!table">
+    <field src="MSG_TEXT#-1"         dst="MSG_TEXT"           width="64"    default="业务运行成功" />
+  </output>
+</message>
+
+</kdmid1pc>
