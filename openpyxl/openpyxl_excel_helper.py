@@ -20,7 +20,7 @@ class excel_helper(object):
 
     def read_sheet(self):
         print("___________________read_sheet___________________")
-        wb=openpyxl.load_workbook(self._file_name)
+        wb=openpyxl.load_workbook(self._file_name,read_only=True)
         first_sheet=wb.worksheets[0]
         for row in first_sheet:
             for cel in row:
@@ -30,7 +30,7 @@ class excel_helper(object):
 
     def read_sheet2(self):
         print("___________________read_sheet2___________________")
-        wb=openpyxl.load_workbook(self._file_name)
+        wb=openpyxl.load_workbook(self._file_name,read_only=True)
         second_sheet=wb.worksheets[1]
         for row_index in range(1,second_sheet.max_row+1):
             for cel in second_sheet[row_index]:
@@ -51,7 +51,7 @@ class excel_helper(object):
 
     def statistics_lbm(self):
         print("___________________statistics_lbm___________________")
-        wb=openpyxl.load_workbook(self._file_name)
+        wb=openpyxl.load_workbook(self._file_name,read_only=True)
         biz_map={}
         mid_map={}
         acct_map={}
@@ -132,11 +132,11 @@ class excel_helper(object):
 
 if __name__=="__main__":
     eh=excel_helper()
-    #eh.list_sheets()
-    #eh.read_sheet()
-    #eh.read_sheet2()
-    #eh.read_all_sheets()
+    eh.list_sheets()
+    eh.read_sheet()
+    eh.read_sheet2()
+    eh.read_all_sheets()
 
     eh.statistics_lbm()
-    #eh.write_cfkj()
-    #eh.write_cfkj2()
+    eh.write_cfkj()
+    eh.write_cfkj2()
