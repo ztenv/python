@@ -1,7 +1,9 @@
 # -*- coding=utf-8 -*-
 import openpyxl
 from openpyxl.styles import Font,Fill
-from openpyxl.chart import(AreaChart,Reference,series)
+from openpyxl.chart import(
+    AreaChart,LineChart,Reference,series
+    )
 
 class excel_helper(object):
     def __init__(self):
@@ -75,9 +77,9 @@ class excel_helper(object):
         _chart_file_name="lbm_called_chart.xlsx"
         wb=openpyxl.Workbook()
         wb.remove(wb.active)
-        self._build_chart(wb,biz_map,sheet_title="biz_lbm",chart_title="biz lbm")
-        self._build_chart(wb,mid_map,sheet_title="mid_lbm",chart_title="mid lbm")
-        self._build_chart(wb,acct_map,sheet_title="acct_lbm",chart_title="acct lbm")
+        self._build_chart(wb,biz_map,sheet_title="biz_lbm",chart_title="调用业务LBM关系图")
+        self._build_chart(wb,mid_map,sheet_title="mid_lbm",chart_title="调用中转LBM关系图")
+        self._build_chart(wb,acct_map,sheet_title="acct_lbm",chart_title="账户LBM关系图")
         print("save lbm call chart to {0}".format(_chart_file_name))
         wb.save(_chart_file_name)
         wb.close()
@@ -89,12 +91,14 @@ class excel_helper(object):
             sheet.append((item[0],item[1]))
         chart_data=Reference(sheet,min_col=2,min_row=2,max_row=len(data_map)+1)
         cats=Reference(sheet,min_col=1,min_row=2,max_row=len(data_map)+1)
-        chart=AreaChart()
+        chart=LineChart() #AreaChart()
         chart.title=chart_title
         chart.x_axis.title="lbm"
         chart.y_axis.title="called count"
+
         chart.add_data(chart_data)
         chart.set_categories(cats)
+
         sheet.add_chart(chart,anchor="D4")
 
     def write_cfkj(self):
