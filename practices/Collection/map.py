@@ -7,9 +7,9 @@ import sys
 if __name__=="__main__":
     map={}
 
-    for i in xrange(1,10,1):
+    for i in range(1,10,1):
         map[i]=i*2
 
-    print "keys={0}".format(map.keys())
-    print "values={0}".format(map.values())
-    print "itmes={0}".format(map.items())
+    print("keys={0}".format(map.keys()))
+    print("values={0}".format(map.values()))
+    print("itmes={0}".format(map.items()))

@@ -9,8 +9,8 @@ if __name__=="__main__":
         li.append(i*i)
 
     for item in li:
-        print item,
-    print
+        print(item,end=" ")
+    print()
 
     li.pop(1)
-    print li
+    print(li)
