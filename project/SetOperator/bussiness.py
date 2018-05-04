@@ -2,6 +2,8 @@
 import openpyxl
 import itertools
 import time
+import os
+import multiprocessing
 
 class business(object):
     def __init__(self):
@@ -11,6 +13,10 @@ class business(object):
         self._difference_set_result=[]
         self._start_value=1
         self._stop_value=100
+        self._all_set=set()
+        self._record_size=1
+        self._process_number=os.cpu_count()-1
+        #self._result_file=open("result.txt",mode="w")
 
     def load_data(self):
         wb=openpyxl.load_workbook(self._excel_file)
@@ -31,28 +37,77 @@ class business(object):
 
             for cel in r: # read set items
                 s=set(str(cel.value).split(","))
-                print(s)
-                self._data_list[index].append(cel.value)
+                #for item in str(cel.value).split(","):
+                #    s.add(int(item))
+                self._data_list[index].append(s)
                 index+=1
         wb.close()
 
-    def cal_union_set(self):
-        self._union_set_result=[]
-        print("并集")
-        for list in itertools.product(*self._data_list):
-            s=set()
-            for value in list:
-                for item in str(value).split(","):
-                    s.add(item)
-            self._union_set_result.append(s)
-
-    def cal_difference_set(self):
-        print("差集,数据范围[{0},{1}]".format(self._start_value,self._stop_value))
-        s=set()
         for index in range(self._start_value,self._stop_value+1):
-            s.add(str(index))
+            self._all_set.add(str(index))
+
+        for item in self._data_list:
+            self._record_size*=len(item)
+
+    def _cal_set(self,con):
+        process_count=0
+        start_time=time.time()
+        while(True):
+            list_data=con.recv()
+            if len(list_data)==1 and list_data[0]=="FIN":
+                break
+
+            for item in list_data:
+                tmp=[]
+                for t in item:
+                    for s in t:
+                        tmp.append(s)
+                union_set=set(tmp)
+                diff_set=self._all_set.difference(union_set)
+                process_count+=1
+                #if(process_count%10000000==0):
+                print("pid={0},process_count={1},time={2},union_set={3},diff_set={4}"
+                          .format(os.getpid(),process_count,(time.time()-start_time),union_set,diff_set))
+                    #start_time=time.time()
+                #f.write(str(union_set)+"\n")
+
+    def descartes(self):
+        self._union_set_result=[]
+        print("start...")
+        count=0
+        p=multiprocessing.Pool(self._process_number)
+        queue_length=int(self._record_size*1.0/self._process_number)
+        queue_length=queue_length if queue_length<100000 else 100000
+        con_set=[]
+        for index in range(1,self._process_number+1):
+            con1,con2=multiprocessing.Pipe()
+            p.apply_async(func=self._cal_set,args=(con1,))
+            con_set.append(con2)
+
+        data=[]
+        index=0
+        for li in itertools.product(*self._data_list):
+            data.append(li)
+            if len(data)>=queue_length:
+                con_set[index%self._process_number].send(data)
+                index+=1
+                data=[]
+            count+=1
+            if count%100000000==0:
+                print(count,li)
+
+        if len(data)>0:
+            con_set[index%self._process_number].send(data)
+        for con in con_set:
+            con.send(["FIN"])
+        p.close()
+        p.join()
+        print("stop")
+
+    def _cal_difference_set(self):
+        print("差集,数据范围[{0},{1}]".format(self._start_value,self._stop_value))
         for item in self._union_set_result:
-            diff=s.difference(item)
+            diff=self._all_set.difference(item)
             self._difference_set_result.append(diff)
             print(diff)
 
@@ -78,14 +133,10 @@ class business(object):
             f.write(set_value)
         f.close()
 
-
-
 if __name__=="__main__":
     start_time=time.time()
     b=business()
     b.load_data()
-    b.cal_union_set()
-    b.cal_difference_set()
-    b.write_result()
+    b.descartes()
     stop_time=time.time()
     print("use time:{0}".format(stop_time-start_time))
