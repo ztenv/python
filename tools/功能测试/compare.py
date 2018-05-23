@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# @File  : compare.py
-# @Author: shlian
-# @Date  : 2018/5/22
-# @Desc  :
+# @file  : compare.py
+# @author: shlian
+# @date  : 2018/5/22
+# @desc  :
 import json
 import sys
 
@@ -15,13 +15,25 @@ class data_list(object):
         self._oclist=[]
         self._nclist=[]
 
+    def _build_sort_key(self,id=""):
+        _ok=self.config.get(id).get("key") # read sort column index
+        key_set=""
+        first=True
+        for item in _ok.split(","):
+            if first:
+                key_set+="ele["+item+"]"
+                first=False
+            else:
+                key_set+="+ele["+item+"]"
+        return key_set
     def _old_key(self,ele):
-        _old_key=self.config.get("old").get("key") # read sort column index
-        return ele[int(_old_key)]
+        key_set=self._build_sort_key(id="old")
+        return eval(key_set)
 
     def _new_key(self,ele):
-        _new_key=self.config.get("new").get("key") # read sort column index
-        return ele[int(_new_key)]
+        #_nk=self.config.get("new").get("key") # read sort column index
+        key_set=self._build_sort_key(id="new")
+        return eval(key_set)
 
     def sort(self):
         self.old_data.sort(key=self._old_key)
