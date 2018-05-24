@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# @file  : compare.py
-# @author: shlian
-# @date  : 2018/5/22
-# @desc  :
+# @file   : compare.py
+# @author : shlian
+# @date   : 2018/5/22
+# @version: 1.1
+# @desc   :
 import json
 import sys
 
@@ -16,22 +17,17 @@ class data_list(object):
         self._nclist=[]
 
     def _build_sort_key(self,id=""):
-        _ok=self.config.get(id).get("key") # read sort column index
+        _ok=self.config.get(id).get("key") # read sort column index,multi key index splited by ","
         key_set=""
-        first=True
         for item in _ok.split(","):
-            if first:
-                key_set+="ele["+item+"]"
-                first=False
-            else:
-                key_set+="+ele["+item+"]"
-        return key_set
+            key_set+="ele["+item+"]+"
+        return key_set.rstrip("+")
+
     def _old_key(self,ele):
         key_set=self._build_sort_key(id="old")
         return eval(key_set)
 
     def _new_key(self,ele):
-        #_nk=self.config.get("new").get("key") # read sort column index
         key_set=self._build_sort_key(id="new")
         return eval(key_set)
 
@@ -88,6 +84,8 @@ class compare(object):
             li.pop(0)
             self._data.old_data.append(li)
         f.close()
+
+    def dump(self):
         self._data.sort()
         self._data.dump()
 
@@ -104,6 +102,14 @@ class compare(object):
         self._load_data()
 
 if __name__=="__main__":
-    lbm_id=sys.argv[1]
-    co=compare()
-    co.load(lbm_id)
+    for index in range(1,len(sys.argv)):
+        lbm_id=sys.argv[index]
+        co=compare()
+        try:
+            print("\n{0} processing lbm:{1}".format(index,lbm_id))
+            co.load(lbm_id)
+            co.dump()
+            print("    processed.")
+        except Exception as ee:
+            print("    ",end="")
+            print(ee)

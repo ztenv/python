@@ -1,0 +1,10 @@
+{
+	"old": {
+		"key": "0,1,2,3",
+		"column":"TRD_DATE,ITF_CFG_SN,REC_SN,HGZQZH,HGQSRQ,HGFSRQ,HGLBBS,HGBYBZ"
+	},
+	"new": {
+		"key": "0,1,2,3",
+		"column":"TRD_DATE,ITF_CFG_SN,REC_SN,HGZQZH,HGQSRQ,HGFSRQ,HGLBBS,HGBYBZ"
+	}
+}

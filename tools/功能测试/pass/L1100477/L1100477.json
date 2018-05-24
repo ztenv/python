@@ -1,0 +1,10 @@
+{
+	"old": {
+		"key": "0",
+		"column":"ANNEX_LIST_ID, USER_TYPE, ANNEX_LIST_NAME, ORIGINAL_KIND, SUBMIT_KIND"
+	},
+	"new": {
+		"key": "0",
+		"column":"ANNEX_LIST_ID, USER_TYPE, ANNEX_LIST_NAME, ORIGINAL_KIND, SUBMIT_KIND"
+	}
+}
