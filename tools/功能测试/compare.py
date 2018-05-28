@@ -59,8 +59,8 @@ class data_list(object):
             for col in item:
                 index+=1
                 data_template[self._nclist[index].strip()]=col.strip()
-            for item in self._oclist:
-                f.write(data_template.get(item.strip())+"|")
+            for item2 in self._oclist:
+                f.write(data_template.get(item2.strip())+"|")
             f.write("\n")
 
 class compare(object):
