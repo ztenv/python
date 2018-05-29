@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # @File  : test.py
 # @Author: shlian
@@ -89,4 +90,9 @@ if __name__=="__main__":
     two_d_list_sort2("1")
     two_d_list_sort2("2")
     two_d_list_sort2("1,0")
+    #list_sort_string()
+    #list_sort_number()
+    #sort_by_attribute()
+    #list_sort_by_length()
+    #two_d_list_sort()
 
