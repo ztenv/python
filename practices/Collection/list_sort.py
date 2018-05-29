@@ -69,6 +69,8 @@ def two_d_list_sort():
     print(list)
     list.sort(key=lambda ele:ele[1]+ele[0]) #先根据第2个元素排序，再根据第1个元素排序
     print(list)
+    list.sort(key=lambda ele:(ele[1],ele[0])) #先根据第2个元素排序，再根据第1个元素排序，这种写法相比于上面的:支持不同的类型
+    print(list)
 
 def two_d_list_sort2(sort_index="0,1,2"):#动态的根据传入的元素索引进行排序
     list=[ ["1","c++","demo"],
@@ -82,6 +84,14 @@ def two_d_list_sort2(sort_index="0,1,2"):#动态的根据传入的元素索引�
     for item in sort_index.split(","):
         key_set+="ele["+item+"]+"
     key_set=key_set.rstrip("+")
+    list.sort(key=lambda ele:eval(key_set))
+    print("排序索引:",sort_index,list)
+
+    key_set="("
+    for item in sort_index.split(","):
+        key_set+=item+","
+    key_set=key_set.rstrip(",")
+    key_set+=")"
     list.sort(key=lambda ele:eval(key_set))
     print("排序索引:",sort_index,list)
 
