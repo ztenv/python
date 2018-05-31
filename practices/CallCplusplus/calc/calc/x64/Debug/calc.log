@@ -1,0 +1,4 @@
+﻿  calc.cpp
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(D:\Work\kingdom\project\python\practices\CallCplusplus\calc\x64\Debug\calc.dll) does not match the Linker's OutputFile property value (D:\Work\kingdom\project\python\practices\CallCplusplus\calc.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+  calc.vcxproj -> D:\Work\kingdom\project\python\practices\CallCplusplus\calc\x64\Debug\calc.dll
+  calc.vcxproj -> D:\Work\kingdom\project\python\practices\CallCplusplus\calc\x64\Debug\calc.pdb (Full PDB)
