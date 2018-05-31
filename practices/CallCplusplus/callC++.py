@@ -9,8 +9,11 @@ import ctypes
 
 class interface(object):
     def __init__(self):
-        self._dll_file="calc.dll"
-        self._calc=ctypes.cdll.LoadLibrary(self._dll_file)
+        self._dll_file="calc" # will be load calc.dll on windows and will be load calc.so on linux
+        try:
+            self._calc=ctypes.cdll.LoadLibrary(self._dll_file)
+        except OSError as ee:
+            print(ee)
 
     def sum(self,a,b):
         self._calc.sum.restype=ctypes.c_double
