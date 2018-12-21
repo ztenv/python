@@ -1,0 +1,4 @@
+{
+	"path": ["pics","pics2"],
+	"ext": [".jpg",".jpeg",".bmp",".tif",".png"]
+}
