@@ -1,4 +1,5 @@
 {
-	"path": ["pics","pics2"],
-	"ext": [".jpg",".jpeg",".bmp",".tif",".png"]
+	"path": ["pics"],
+	"ext": [".jpg",".jpeg",".bmp",".tif",".png"],
+	"save_old":false
 }

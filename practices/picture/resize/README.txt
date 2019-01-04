@@ -1,0 +1,1 @@
+pyinstaller resize_picture.py log.py
