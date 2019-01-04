@@ -55,7 +55,7 @@ class image_resizer(object):
                     new_file_name=file_name
                 logger.info("save to:{0},resolution({1},{2})".format(new_file_name,w,h))
                 new_image.save(new_file_name)
-                self._process_file_count=self._scan_file_count+1
+                self._process_file_count=self._process_file_count+1
                 new_image.close()
             else:
                 logger.info("ignore picture:{0},resolution{1},{2}".format(file_name,image.size[0],image.size[1]))
