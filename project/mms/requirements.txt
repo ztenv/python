@@ -1,0 +1,4 @@
+Django==2.1.4
+mysqlclient==1.3.14
+PyMySQL==0.9.3
+uWSGI==2.0.17.1
