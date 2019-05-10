@@ -3,10 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 import logging
 import traceback
+from django.http import HttpResponse,HttpRequest
 from kline.error_code import error_code
 from kline.result import result
-from django.http import HttpResponse,HttpRequest
 from kline.biz.base_item import base_item
+
 query_service=base_item()
 
 logger=logging.getLogger("django")
