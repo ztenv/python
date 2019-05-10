@@ -4,5 +4,6 @@ dist
 .idea
 *.pyc
 *.pyo
-logs
+*.log
+*.log.*
 *.spec
