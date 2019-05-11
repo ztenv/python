@@ -28,10 +28,10 @@ class kline(models.Model):
         abstract=True
         unique_together=('contract_id','timestamp','kline_type')
 
-########################################################################################################################
-class huobi_one_min_kline(one_min_kline):
-    class Meta(one_min_kline.Meta):
-        db_table='huobi_1m_kline'
-class huobi_kline(kline):
-    class Meta(kline.Meta):
-        db_table='huobi_kline'
+
+
+
+
+
+
+

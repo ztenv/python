@@ -4,7 +4,7 @@
 # @date   : 2019/5/10
 # @version: 1.0
 # @desc   :
-from kline.models import *
+from kline.biz.sub_models import huobi_kline,huobi_one_min_kline
 
 class table_factory(object):
     def __init__(self):
@@ -13,4 +13,4 @@ class table_factory(object):
         }
 
     def get(self,exchange_id):
-        return self._table.get(exchange_id,(None,None))
+        return self._table.get(exchange_id,None)

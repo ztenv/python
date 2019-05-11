@@ -19,11 +19,17 @@ class base_item(object):
 
     def query_1m_kline(self,exchange_id,time_from,time_to):
         res=result()
+        kline_tables=self._table_factory.get(exchange_id)
+        if kline_tables is None:
+            res.code=error_code.kline_table_not_exist
+            res.msg="{0} kline table not exists".format(exchange_id)
+            return res
+
         con=Q()
         con.connector="and"
         con.children.append(Q(timestamp__gte=time_from))
         con.children.append(Q(timestamp__lte=time_to))
-        record_set=self._table_factory.get(exchange_id)[0].objects.filter(con).order_by("timestamp")
+        record_set=kline_tables[0].objects.filter(con).order_by("timestamp")
         data=[]
         for item in record_set:
             data.append([item.timestamp,item.contract_id,common.format_number(item.high),common.format_number(item.open),
@@ -36,12 +42,18 @@ class base_item(object):
 
     def query_kline(self,exchange_id,time_from,time_to,kline_type):
         res=result()
+        kline_tables=self._table_factory.get(exchange_id)
+        if kline_tables is None:
+            res.code=error_code.kline_table_not_exist
+            res.msg="{0} kline table not exists".format(exchange_id)
+            return res
+
         con=Q()
         con.connector="and"
         con.children.append(Q(kline_type=kline_type))
         con.children.append(Q(timestamp__gte=time_from))
         con.children.append(Q(timestamp__lte=time_to))
-        record_set=self._table_factory.get(exchange_id)[1].objects.filter(con).order_by("timestamp")
+        record_set=kline_tables[1].objects.filter(con).order_by("timestamp")
         data=[]
         for item in record_set:
             data.append([item.timestamp,item.contract_id,common.format_number(item.high),common.format_number(item.open),
