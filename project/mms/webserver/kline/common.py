@@ -11,7 +11,6 @@ from enum import Enum,unique
 
 logger=logging.getLogger("django")
 
-
 @unique
 class kline_type(Enum):
     five_minute=0
