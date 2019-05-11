@@ -7,8 +7,21 @@
 import logging
 import decimal
 import traceback
+from enum import Enum,unique
 
 logger=logging.getLogger("django")
+
+
+@unique
+class kline_type(Enum):
+    five_minute=0
+    ten_minute=1
+    fifteen_minute=2
+    thirty_minute=3
+    one_hour=4
+    one_day=5
+    one_week=6
+
 
 def format_number(number,precision=8):
     '''按精度格式化数字'''

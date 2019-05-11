@@ -28,6 +28,6 @@ def get_urls_info(request):
 
 urlpatterns = [
     path('help', get_urls_info),
-    path('quote/kline/oneminute',mms_view.query_one_min_kline),
-    path('quote/kline',mms_view.query_kline)
+    path('quote/kline/oneminute',mms_view.one_min_kline),
+    path('quote/kline',mms_view.kline)
 ]

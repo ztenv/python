@@ -44,7 +44,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -79,7 +79,7 @@ DATABASES={ #数据库的配置
         'NAME':'zc_mms',                      #数据库的名称
         'USER':'zc_mms',                     #连接数据库的用户
         'PASSWORD':'cptbtptp',             #连接数据库的密码
-        'HOST':'192.168.80.130',           #数据库的ip
+        'HOST':'127.0.0.1',           #数据库的ip
         'PORT':'3306'                      #数据库的port
     },
     'slave':{ #从mysql数据库
@@ -87,7 +87,7 @@ DATABASES={ #数据库的配置
         'NAME':'zc_mms',
         'USER':'zc_mms',
         'PASSWORD':'cptbtptp',
-        'HOST':'192.168.80.130',
+        'HOST':'127.0.0.1',
         'PORT':'3306'
     }
 }

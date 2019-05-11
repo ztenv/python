@@ -12,3 +12,4 @@ class error_code(Enum):
     ok=0                    #成功
     invalid_exchange=1      #没有这个交易所
     kline_table_not_exist=2 #exchange对应的kline表不存在
+    db_error=3
