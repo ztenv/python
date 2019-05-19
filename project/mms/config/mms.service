@@ -1,0 +1,17 @@
+[Unit]
+Description=mms web
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/data/mms/webserver/uwsgi.pid
+ExecStartPre=/usr/bin/rm -f /data/mms/webserver/uwsgi.pid
+ExecStart=/usr/bin/bash -c 'cd /data/mms/webserver;source /root/env/bin/activate; uwsgi --ini uwsgi.ini'
+ExecReload=/bin/kill -s HUP $MAINPID
+KillSignal=SIGQUIT
+TimeoutStopSec=5
+KillMode=process
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
