@@ -5,10 +5,8 @@
 # @version: 1.0
 # @desc   :
 import ccxt
-import concurrent
 import asyncio
 import ccxt.async_support as async_ccxt
-
 
 if __name__=="__main__":
     print(ccxt.exchanges)
