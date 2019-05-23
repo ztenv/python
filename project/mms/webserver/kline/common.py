@@ -20,6 +20,7 @@ class kline_type(Enum):
     one_hour=4
     one_day=5
     one_week=6
+    one_month=7
 
 
 def format_number(number,precision=8):

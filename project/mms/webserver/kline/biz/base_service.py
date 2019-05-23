@@ -31,7 +31,7 @@ class base_service(object):
         record_set=kline_tables[0].objects.filter(con).order_by("timestamp")
         data=[]
         for item in record_set:
-            data.append([item.timestamp,item.contract_id,common.format_number(item.high),common.format_number(item.open),
+            data.append([item.timestamp,common.format_number(item.high),common.format_number(item.open),
                          common.format_number(item.low),common.format_number(item.close),common.format_number(item.volume)])
 
         res.code=error_code.ok if len(data)>0 else error_code.empty_result
@@ -55,9 +55,9 @@ class base_service(object):
         record_set=kline_tables[1].objects.filter(con).order_by("timestamp")
         data=[]
         for item in record_set:
-            data.append([item.timestamp,item.contract_id,common.format_number(item.high),common.format_number(item.open),
+            data.append([item.timestamp,common.format_number(item.high),common.format_number(item.open),
                          common.format_number(item.low),common.format_number(item.close),common.format_number(item.volume),
-                         item.kline_type])
+                         ])
 
         res.code=error_code.ok if len(data)>0 else error_code.empty_result
         res.msg="ok" if len(data)>0 else "查询结果为空"
