@@ -79,7 +79,7 @@ DATABASES={ #数据库的配置
         'NAME':'zc_mms',                      #数据库的名称
         'USER':'zc_mms',                     #连接数据库的用户
         'PASSWORD':'cptbtptp',             #连接数据库的密码
-        'HOST':'127.0.0.1',           #数据库的ip
+        'HOST':'192.168.80.130',           #数据库的ip
         'PORT':'3306'                      #数据库的port
     },
     'slave':{ #从mysql数据库
