@@ -92,6 +92,28 @@ DATABASES={ #数据库的配置
     }
 }
 
+# 是否启用集群模式，True为集群模式，False为主从模式
+USE_CLUSTER=False
+
+REDIS={ #redis的配置
+    'master':{ #主redis
+        'ip':'192.168.0.223',          #主redis的ip
+        'port':6379                     #主redis的port
+        },
+    'slave':{ #从redis
+        'ip':'192.168.0.223',          #从redis的ip
+        'port':6380                     #从redis的port
+        },
+}
+REDIS_CLUSTER=[
+    {"host": "192.168.0.111", "port": 6380}
+    # {"ip": "192.168.0.236", "port": 6381},
+    # {"ip": "192.168.0.236", "port": 6382},
+    # {"ip": "192.168.0.236", "port": 6383},
+    # {"ip": "192.168.0.236", "port": 6384},
+    # {"ip": "192.168.0.236", "port": 6385}
+]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
