@@ -8,6 +8,7 @@ import logging
 from django.db.models import Q
 from kline.biz.table_factory import table_factory
 from kline import common
+from kline.result import history_kline_result
 from kline.biz.exceptions import *
 
 logger=logging.getLogger("django")
@@ -18,7 +19,7 @@ class base_service(object):
 
     def query_1m_kline(self,exchange_id,contract_id,time_from,time_to):
         '''查询1分钟的k-line'''
-        res=result()
+        res=history_kline_result(contract_id=contract_id,time_interval="1",exchange_id=exchange_id)
         kline_tables=self._table_factory.get(exchange_id)
         if kline_tables is None:
             raise TableNotExistException("{0} one_min_kline table not exists.".format(exchange_id))
@@ -40,14 +41,16 @@ class base_service(object):
         return res
 
     def query_kline(self,exchange_id,contract_id,time_from,time_to,kline_type):
-        '''查询5、10、15、30、日K、周K'''
-        res=result()
+        '''查询5、10、15、30、60、日K、周K、月K'''
+        res=history_kline_result(contract_id=contract_id,time_interval=kline_type,exchange_id=exchange_id)
         kline_tables=self._table_factory.get(exchange_id)
         if kline_tables is None:
             raise TableNotExistException("{0} kline table not exists".format(exchange_id))
 
         con=Q()
         con.connector="and"
+        kline_type=common.kline_type_converter.get(kline_type,-1)
+
         con.children.append(Q(kline_type=kline_type))
         con.children.append(Q(timestamp__gte=time_from))
         con.children.append(Q(timestamp__lte=time_to))
@@ -86,7 +89,7 @@ class base_service(object):
             raise TableNotExistException("{0} kline table not exists".format(exchange_id))
 
         one_minute_kline_table=kline_tables[1]
-        kline_type=int(kline_type)
+        kline_type=common.kline_type_converter.get(kline_type,-1)
         record=one_minute_kline_table.objects.update_or_create(contract_id=contract_id,timestamp=timestamp,
                                                                kline_type=kline_type,high=high_price, open=open_price,
                                                                low=low_price,close=close_price,volume=volume)

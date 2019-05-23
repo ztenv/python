@@ -47,6 +47,34 @@ class result(object):
         return json.dumps({"code":self._code,"msg":self._msg,"data":self._data,"call_stack":self._call_stack},
                           ensure_ascii=False)
 
+class history_kline_result(result):
+    def __init__(self,contract_id,time_interval,exchange_id,code=error_code.system_error,msg="system error",data={},call_stack=""):
+        result.__init__(self,code=code,msg=msg,data=data,call_stack=call_stack)
+        self._contract_id=contract_id
+        self._time_interval=time_interval
+        self._exchange_id=exchange_id
+
+    @property
+    def contract_id(self):
+        return self._contract_id
+
+    @contract_id.setter
+    def contract_id(self,new_contract_id):
+        self._contract_id=new_contract_id
+
+    @property
+    def time_interval(self):
+        return self._time_interval
+
+    @time_interval.setter
+    def time_interval(self,new_time_interval):
+        self.time_interval=new_time_interval
+
+    def dumps(self):
+        return json.dumps({"code":self._code,"msg":self._msg,"message_type":"history","contract_id":self._contract_id,
+                          "time_interval":self._time_interval,"exchange_id":self._exchange_id,"data":self._data,
+                           "call_stack":self._call_stack}, ensure_ascii=False)
+
 if __name__=="__main__":
     r=result()
     r.call_stack="aa"
@@ -58,6 +86,9 @@ if __name__=="__main__":
     print(r.dumps())
 
     r=result(data=[{"name":"shlian","age":100},{"name":"test","age":20}])
+    print(r.dumps())
+
+    r=history_kline_result(contract_id="BTC/USDT",exchange_id="okEX",time_interval="1m")
     print(r.dumps())
 
     import time

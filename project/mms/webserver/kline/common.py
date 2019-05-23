@@ -22,6 +22,18 @@ class kline_type(Enum):
     one_week=6
     one_month=7
 
+kline_type_converter={
+    "1":-1,
+    "5":kline_type.five_minute.value,
+    "10":kline_type.ten_minute.value,
+    "15":kline_type.fifteen_minute.value,
+    "30":kline_type.thirty_minute.value,
+    "60":kline_type.one_hour.value,
+    "D":kline_type.one_day.value,
+    "W":kline_type.one_week.value,
+    "M":kline_type.one_month.value
+}
+
 
 def format_number(number,precision=8):
     '''按精度格式化数字'''
