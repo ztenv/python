@@ -6,10 +6,23 @@
 # @desc   :
 from kline.biz.sub_models import huobi_kline,huobi_one_min_kline
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 class table_factory(object):
     def __init__(self):
         self._table={
-            'huobi':(huobi_one_min_kline,huobi_kline)
+            '1':(huobi_one_min_kline,huobi_kline)
         }
 
     def get(self,exchange_id):

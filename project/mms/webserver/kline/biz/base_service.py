@@ -19,7 +19,8 @@ class base_service(object):
 
     def query_1m_kline(self,exchange_id,contract_id,time_from,time_to):
         '''查询1分钟的k-line'''
-        res=history_kline_result(contract_id=contract_id,time_interval="1",exchange_id=exchange_id)
+        res=history_kline_result(contract_id=common.contract_id_2_name.get(int(contract_id),"N/A"),time_interval="1",exchange_id=
+            common.exchange_number_2_name.get(int(exchange_id),""))
         kline_tables=self._table_factory.get(exchange_id)
         if kline_tables is None:
             raise TableNotExistException("{0} one_min_kline table not exists.".format(exchange_id))
@@ -28,7 +29,7 @@ class base_service(object):
         con.connector="and"
         con.children.append(Q(timestamp__gte=time_from))
         con.children.append(Q(timestamp__lte=time_to))
-        con.children.append(Q(contract_id=contract_id))
+        con.children.append(Q(contract_id=int(contract_id)))
         record_set=kline_tables[0].objects.filter(con).order_by("timestamp")
         data=[]
         for item in record_set:
@@ -42,7 +43,8 @@ class base_service(object):
 
     def query_kline(self,exchange_id,contract_id,time_from,time_to,kline_type):
         '''查询5、10、15、30、60、日K、周K、月K'''
-        res=history_kline_result(contract_id=contract_id,time_interval=kline_type,exchange_id=exchange_id)
+        res=history_kline_result(contract_id=common.contract_id_2_name.get(int(contract_id),"N/A"),time_interval=kline_type,exchange_id=
+            common.exchange_number_2_name.get(int(exchange_id),""))
         kline_tables=self._table_factory.get(exchange_id)
         if kline_tables is None:
             raise TableNotExistException("{0} kline table not exists".format(exchange_id))
@@ -54,7 +56,7 @@ class base_service(object):
         con.children.append(Q(kline_type=kline_type))
         con.children.append(Q(timestamp__gte=time_from))
         con.children.append(Q(timestamp__lte=time_to))
-        con.children.append(Q(contract_id=contract_id))
+        con.children.append(Q(contract_id=int(contract_id)))
         record_set=kline_tables[1].objects.filter(con).order_by("timestamp")
         data=[]
         for item in record_set:
@@ -75,7 +77,7 @@ class base_service(object):
             raise TableNotExistException("{0} one_min_kline table not exists.".format(exchange_id))
 
         one_minute_kline_table=kline_tables[0]
-        record=one_minute_kline_table.objects.update_or_create(contract_id=contract_id,timestamp=timestamp,high=high_price,
+        record=one_minute_kline_table.objects.update_or_create(contract_id=int(contract_id),timestamp=timestamp,high=high_price,
                                                         open=open_price,low=low_price,close=close_price,volume=volume)
         res.code=error_code.ok if record is not None else error_code.db_error
         res.msg="ok" if record is not None else "db error"
@@ -90,7 +92,7 @@ class base_service(object):
 
         one_minute_kline_table=kline_tables[1]
         kline_type=common.kline_type_converter.get(kline_type,-1)
-        record=one_minute_kline_table.objects.update_or_create(contract_id=contract_id,timestamp=timestamp,
+        record=one_minute_kline_table.objects.update_or_create(contract_id=int(contract_id),timestamp=timestamp,
                                                                kline_type=kline_type,high=high_price, open=open_price,
                                                                low=low_price,close=close_price,volume=volume)
         res.code=error_code.ok if record is not None else error_code.db_error

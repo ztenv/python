@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `huobi_1m_kline`;
 
 CREATE TABLE `huobi_1m_kline` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `contract_id` varchar(20) NOT NULL,
+  `contract_id` tinyint(10) NOT NULL,
   `timestamp` bigint(13) NOT NULL,
   `high_price` decimal(20,8) DEFAULT '-1.00000000',
   `open_price` decimal(20,8) DEFAULT '-1.00000000',
@@ -35,7 +35,7 @@ CREATE TABLE `huobi_1m_kline` (
 
 /*Data for the table `huobi_1m_kline` */
 
-insert  into `huobi_1m_kline`(`id`,`contract_id`,`timestamp`,`high_price`,`open_price`,`low_price`,`close_price`,`volume`) values (1,'BTC/USDT',1557450660000,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(6,'BTC/USDT',1557450660001,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(7,'BTC/USDT',1557450660002,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888');
+insert  into `huobi_1m_kline`(`id`,`contract_id`,`timestamp`,`high_price`,`open_price`,`low_price`,`close_price`,`volume`) values (1,1,1557450660000,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(6,1,1557450660001,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(7,1,1557450660002,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888');
 
 /*Table structure for table `huobi_kline` */
 
@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS `huobi_kline`;
 
 CREATE TABLE `huobi_kline` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `contract_id` varchar(20) NOT NULL,
+  `contract_id` tinyint(10) NOT NULL,
   `timestamp` bigint(13) NOT NULL,
   `kline_type` int(2) NOT NULL DEFAULT '0' COMMENT '0:5,1:10,2:15,3:30,4:60,5:日k',
   `high_price` decimal(20,8) DEFAULT '-1.00000000',
@@ -57,7 +57,7 @@ CREATE TABLE `huobi_kline` (
 
 /*Data for the table `huobi_kline` */
 
-insert  into `huobi_kline`(`id`,`contract_id`,`timestamp`,`kline_type`,`high_price`,`open_price`,`low_price`,`close_price`,`volume`) values (1,'BTC/USDT',1557450660000,0,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(3,'BTC/USDT',1557450660001,0,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(4,'BTC/USDT',1557450660001,1,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(5,'BTC/USDT',1557450660000,1,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(6,'BTC/USDT',1557450660002,0,'10.98000012','8.74000000','5.30000009','9.25000001','123.88888888'),(7,'BTC/USDT',1557450660003,0,'10.98000012','8.74000001','5.30000009','9.25000001','123.88888888');
+insert  into `huobi_kline`(`id`,`contract_id`,`timestamp`,`kline_type`,`high_price`,`open_price`,`low_price`,`close_price`,`volume`) values (1,1,1557450660000,0,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(3,1,1557450660001,0,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(4,1,1557450660001,1,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(5,1,1557450660000,1,'10.98000000','8.74000000','5.30000000','9.25000000','123.88888888'),(6,1,1557450660002,0,'10.98000012','8.74000000','5.30000009','9.25000001','123.88888888'),(7,1,1557450660003,0,'10.98000012','8.74000001','5.30000009','9.25000001','123.88888888');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

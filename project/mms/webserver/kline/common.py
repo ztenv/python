@@ -33,6 +33,65 @@ kline_type_converter={
     "W":kline_type.one_week.value,
     "M":kline_type.one_month.value
 }
+#############################
+#0	binance
+#1	huobi
+#2	poloniex
+#3	okex
+#4	bitfinex
+#5	gate.io
+#6	bibox
+#7	bittrex
+#8	bitstamp
+#9	bitMax
+#10	kraken
+exchange_number_2_name={
+    0:"binance",
+    1:"huobi",
+    2:"poloniex",
+    3:"okex",
+    4:"bitfinex",
+    5:"gate.io",
+    6:"bibox",
+    7:"bittrex",
+    8:"bitstamp",
+    9:"bitMax",
+    10:"kraken"
+}
+######################币对
+#1	BTC/USDT
+#2	ETH/USDT
+#3	BCH/USDT
+#4	LTC/USDT
+#5	EOS/USDT
+#6	BTC/USD
+#7	ETH/USD
+#8	BCH/USD
+#9	LTC/USD
+#10	EOS/USD
+#11	XRP/USDT
+#12	ETH/BTC
+#13	EOS/BTC
+#14	XRP/BTC
+#15	LTC/BTC
+contract_id_2_name={
+    1	:"BTC/USDT",
+    2	:"ETH/USDT",
+    3	:"BCH/USDT",
+    4	:"LTC/USDT",
+    5	:"EOS/USDT",
+    6	:"BTC/USD",
+    7	:"ETH/USD",
+    8	:"BCH/USD",
+    9	:"LTC/USD",
+    10	:"EOS/USD",
+    11	:"XRP/USDT",
+    12	:"ETH/BTC",
+    13	:"EOS/BTC",
+    14	:"XRP/BTC",
+    15	:"LTC/BTC",
+}
+
 
 
 def format_number(number,precision=8):
