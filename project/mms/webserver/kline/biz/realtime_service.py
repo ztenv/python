@@ -80,7 +80,7 @@ class realtime_service(object):
                 res.call_stack=traceback.format_exc()
                 logger.error(str(ee))
                 logger.error(res.call_stack)
-        res.code=error_code.ok if len(data)>0 else error_code.empty_result
-        res.msg="ok" if len(data)>0 else "查询结果为空"
+        res.code=(error_code.ok if len(data)==len(exchange_list) else error_code.pok) if len(data)>0 else error_code.empty_result
+        res.msg=("ok" if len(data)==len(exchange_list) else "pok") if len(data)>0 else "查询结果为空"
         res.data=data
         return res
