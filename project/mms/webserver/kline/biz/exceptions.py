@@ -18,4 +18,4 @@ class InvalidException(ResultException):
 
 class TableNotExistException(Exception):
     def __init__(self,msg):
-        ResultException.__init__(self,msg,code=error_code.kline_table_not_exist)
+        ResultException.__init__(self,code=error_code.kline_table_not_exist,msg=msg)

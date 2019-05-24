@@ -30,6 +30,8 @@ urlpatterns = [
     path('help', get_urls_info),
     path('quote/kline/oneminute',mms_view.one_min_kline),
     path('quote/kline',mms_view.kline),
+
     path('quote/kline/realtime',mms_view.realtime_kline),
-    path('quote/trade/history',mms_view.trade_history)
+    path('quote/trade/history',mms_view.trade_history),
+    path('quote/ticker/info',mms_view.ticker_info)
 ]

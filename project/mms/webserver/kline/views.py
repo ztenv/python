@@ -140,3 +140,28 @@ def trade_history(request):
         logger.error(call_stack)
         return HttpResponse(result(msg=str(ee),call_stack=call_stack,data=[]).dumps())
 
+def ticker_info(request):
+    try:
+        if request.method=="GET":
+            args={"exchange_id":None,"contract_id":None}
+            for key in args.keys():
+                value=request.GET.get(key)
+                if value is None or len(value)==0:
+                    raise InvalidException("Invalid argument:{0},the value is None or empty".format(key))
+                args[key]=value
+            res=rs.get_ticker_info(exchange_id=args.get("exchange_id"),contract_id=args.get("contract_id"))
+            return HttpResponse(res.dumps())
+        else:
+            res=result(code=error_code.invalid_request,msg="非法的请求")
+            return HttpResponse(res.dumps())
+    except ResultException as ee:
+        call_stack=traceback.format_exc()
+        logger.warning(call_stack)
+        ee.result.call_stack=call_stack
+        return HttpResponse(ee.result.dumps())
+    except Exception as ee:
+        call_stack=traceback.format_exc()
+        logger.error(call_stack)
+        return HttpResponse(result(msg=str(ee),call_stack=call_stack,data=[]).dumps())
+
+

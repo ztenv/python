@@ -7,6 +7,7 @@
 import logging
 import decimal
 import traceback
+import datetime
 from enum import Enum,unique
 
 logger=logging.getLogger("django")
@@ -105,7 +106,8 @@ contract_id_2_name={
     15	:"LTC/BTC",
 }
 
-
+def get_timestamp():
+    return int(datetime.datetime.now().timestamp()*1000)
 
 def format_number(number,precision=8):
     '''按精度格式化数字'''
