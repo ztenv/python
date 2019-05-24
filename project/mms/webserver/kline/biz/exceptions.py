@@ -9,13 +9,13 @@ from kline.result import result
 from kline.error_code import error_code
 
 class ResultException(Exception):
-    def __init__(self,msg):
-        self.result=result(code=error_code.invalid_args,msg=msg)
+    def __init__(self,code,msg):
+        self.result=result(code=code,msg=msg)
 
 class InvalidException(ResultException):
     def __init__(self,msg):
-        ResultException.__init__(self,msg)
+        ResultException.__init__(self,code=error_code.invalid_args,msg=msg)
 
 class TableNotExistException(Exception):
     def __init__(self,msg):
-        ResultException.__init__(self,msg)
+        ResultException.__init__(self,msg,code=error_code.kline_table_not_exist)

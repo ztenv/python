@@ -23,7 +23,7 @@ class kline_type(Enum):
     one_week=7
     one_month=8
 
-kline_type_converter={
+front_kline_2_db_kline={
     "1":kline_type.one_minute.value,
     "5":kline_type.five_minute.value,
     "15":kline_type.fifteen_minute.value,
@@ -33,6 +33,18 @@ kline_type_converter={
     "D":kline_type.one_day.value,
     "W":kline_type.one_week.value,
     "M":kline_type.one_month.value
+}
+
+db_kline_2_front_kline={
+    kline_type.one_minute.value:"1",
+    kline_type.five_minute.value:"5",
+    kline_type.fifteen_minute.value:"15",
+    kline_type.thirty_minute.value:"30",
+    kline_type.one_hour.value:"60",
+    kline_type.four_hour.value:"240",
+    kline_type.one_day.value:"D",
+    kline_type.one_week.value:"W",
+    kline_type.one_month.value:"M"
 }
 #############################
 #0	binance

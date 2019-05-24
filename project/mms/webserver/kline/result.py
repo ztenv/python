@@ -48,11 +48,13 @@ class result(object):
         return json.dumps({"code":self._code,"msg":self._msg,"data":self._data,"call_stack":self._call_stack},
                           ensure_ascii=False)
 
-class kline_result(result):
+class ec_result(result):
     def __init__(self,contract_id,exchange_id,message_type,code=error_code.system_error,msg="system error",data={},call_stack=""):
         result.__init__(self,code=code,msg=msg,data=data,call_stack=call_stack)
-        self._contract_id=contract_id_2_name.get(int(contract_id),"N/A")
-        self._exchange_id=exchange_number_2_name.get(int(exchange_id),"N/A")
+        #self._contract_id=contract_id_2_name.get(int(contract_id),"N/A")
+        #self._exchange_id=exchange_number_2_name.get(int(exchange_id),"N/A")
+        self._contract_id=contract_id
+        self._exchange_id=exchange_id
         self._message_type=message_type
 
     @property
@@ -60,14 +62,16 @@ class kline_result(result):
         return self._contract_id
     @contract_id.setter
     def contract_id(self,new_contract_id):
-        self._contract_id=contract_id_2_name.get(int(new_contract_id),"N/A")
+        self._contract_id=new_contract_id
+        #self._contract_id=contract_id_2_name.get(int(new_contract_id),"N/A")
 
     @property
     def exchange_id(self):
         return self._exchange_id
     @exchange_id.setter
     def exchange_id(self,new_exchange_id):
-        self._exchange_id=exchange_number_2_name.get(int(new_exchange_id),"N/A")
+        #self._exchange_id=exchange_number_2_name.get(int(new_exchange_id),"N/A")
+        self._exchange_id=new_exchange_id
 
     @property
     def message_type(self):
@@ -81,11 +85,11 @@ class kline_result(result):
                            "exchange_id":self._exchange_id,"data":self._data,
                            "call_stack":self._call_stack}, ensure_ascii=False)
 
-class history_kline_result(kline_result):
+class history_kline_result(ec_result):
     def __init__(self,contract_id,time_interval,exchange_id,code=error_code.system_error,msg="system error",data={},call_stack=""):
         result.__init__(self,code=code,msg=msg,data=data,call_stack=call_stack)
-        kline_result.__init__(self,contract_id=contract_id,exchange_id=exchange_id,message_type="history",code=code,
-                              msg=msg,data=data,call_stack=call_stack)
+        ec_result.__init__(self, contract_id=contract_id, exchange_id=exchange_id, message_type="history", code=code,
+                           msg=msg, data=data, call_stack=call_stack)
         self._time_interval=time_interval
 
     @property

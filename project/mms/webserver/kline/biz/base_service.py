@@ -49,7 +49,7 @@ class base_service(object):
 
         con=Q()
         con.connector="and"
-        kline_type=common.kline_type_converter.get(kline_type,-1)
+        kline_type=common.front_kline_2_db_kline.get(kline_type, -1)
 
         con.children.append(Q(kline_type=kline_type))
         con.children.append(Q(timestamp__gte=time_from))
@@ -89,7 +89,7 @@ class base_service(object):
             raise TableNotExistException("{0} kline table not exists".format(exchange_id))
 
         one_minute_kline_table=kline_tables[1]
-        kline_type=common.kline_type_converter.get(kline_type,-1)
+        kline_type=common.front_kline_2_db_kline.get(kline_type, -1)
         record=one_minute_kline_table.objects.update_or_create(contract_id=int(contract_id),timestamp=timestamp,
                                                                kline_type=kline_type,high=high_price, open=open_price,
                                                                low=low_price,close=close_price,volume=volume)
