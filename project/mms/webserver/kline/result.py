@@ -7,6 +7,7 @@
 import json
 from kline.error_code import error_code
 import datetime
+from kline.common import exchange_number_2_name,contract_id_2_name
 
 class result(object):
     def __init__(self,code=error_code.system_error,msg="system error",data={},call_stack=""):
@@ -47,20 +48,45 @@ class result(object):
         return json.dumps({"code":self._code,"msg":self._msg,"data":self._data,"call_stack":self._call_stack},
                           ensure_ascii=False)
 
-class history_kline_result(result):
-    def __init__(self,contract_id,time_interval,exchange_id,code=error_code.system_error,msg="system error",data={},call_stack=""):
+class kline_result(result):
+    def __init__(self,contract_id,exchange_id,message_type,code=error_code.system_error,msg="system error",data={},call_stack=""):
         result.__init__(self,code=code,msg=msg,data=data,call_stack=call_stack)
-        self._contract_id=contract_id
-        self._time_interval=time_interval
-        self._exchange_id=exchange_id
+        self._contract_id=contract_id_2_name.get(int(contract_id),"N/A")
+        self._exchange_id=exchange_number_2_name.get(int(exchange_id),"N/A")
+        self._message_type=message_type
 
     @property
     def contract_id(self):
         return self._contract_id
-
     @contract_id.setter
     def contract_id(self,new_contract_id):
-        self._contract_id=new_contract_id
+        self._contract_id=contract_id_2_name.get(int(new_contract_id),"N/A")
+
+    @property
+    def exchange_id(self):
+        return self._exchange_id
+    @exchange_id.setter
+    def exchange_id(self,new_exchange_id):
+        self._exchange_id=exchange_number_2_name.get(int(new_exchange_id),"N/A")
+
+    @property
+    def message_type(self):
+        return self._message_type
+    @message_type.setter
+    def message_type(self,new_message_type):
+        self._message_type=new_message_type
+
+    def dumps(self):
+        return json.dumps({"code":self._code,"msg":self._msg,"message_type":self._message_type,"contract_id":self._contract_id,
+                           "exchange_id":self._exchange_id,"data":self._data,
+                           "call_stack":self._call_stack}, ensure_ascii=False)
+
+class history_kline_result(kline_result):
+    def __init__(self,contract_id,time_interval,exchange_id,code=error_code.system_error,msg="system error",data={},call_stack=""):
+        result.__init__(self,code=code,msg=msg,data=data,call_stack=call_stack)
+        kline_result.__init__(self,contract_id=contract_id,exchange_id=exchange_id,message_type="history",code=code,
+                              msg=msg,data=data,call_stack=call_stack)
+        self._time_interval=time_interval
 
     @property
     def time_interval(self):
@@ -71,7 +97,7 @@ class history_kline_result(result):
         self.time_interval=new_time_interval
 
     def dumps(self):
-        return json.dumps({"code":self._code,"msg":self._msg,"message_type":"history","contract_id":self._contract_id,
+        return json.dumps({"code":self._code,"msg":self._msg,"message_type":self._message_type,"contract_id":self._contract_id,
                           "time_interval":self._time_interval,"exchange_id":self._exchange_id,"data":self._data,
                            "call_stack":self._call_stack}, ensure_ascii=False)
 

@@ -97,12 +97,12 @@ USE_CLUSTER=False
 
 REDIS={ #redis的配置
     'master':{ #主redis
-        'ip':'192.168.0.223',          #主redis的ip
+        'ip':'192.168.80.130',          #主redis的ip
         'port':6379                     #主redis的port
         },
     'slave':{ #从redis
-        'ip':'192.168.0.223',          #从redis的ip
-        'port':6380                     #从redis的port
+        'ip':'192.168.80.130',          #从redis的ip
+        'port':6379                     #从redis的port
         },
 }
 REDIS_CLUSTER=[

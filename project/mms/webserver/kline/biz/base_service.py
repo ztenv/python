@@ -19,8 +19,7 @@ class base_service(object):
 
     def query_1m_kline(self,exchange_id,contract_id,time_from,time_to):
         '''查询1分钟的k-line'''
-        res=history_kline_result(contract_id=common.contract_id_2_name.get(int(contract_id),"N/A"),time_interval="1",exchange_id=
-            common.exchange_number_2_name.get(int(exchange_id),""))
+        res=history_kline_result(contract_id=contract_id,time_interval="1",exchange_id=exchange_id)
         kline_tables=self._table_factory.get(exchange_id)
         if kline_tables is None:
             raise TableNotExistException("{0} one_min_kline table not exists.".format(exchange_id))
@@ -43,8 +42,7 @@ class base_service(object):
 
     def query_kline(self,exchange_id,contract_id,time_from,time_to,kline_type):
         '''查询5、10、15、30、60、日K、周K、月K'''
-        res=history_kline_result(contract_id=common.contract_id_2_name.get(int(contract_id),"N/A"),time_interval=kline_type,exchange_id=
-            common.exchange_number_2_name.get(int(exchange_id),""))
+        res=history_kline_result(contract_id=contract_id,time_interval=kline_type,exchange_id=exchange_id)
         kline_tables=self._table_factory.get(exchange_id)
         if kline_tables is None:
             raise TableNotExistException("{0} kline table not exists".format(exchange_id))

@@ -13,22 +13,23 @@ logger=logging.getLogger("django")
 
 @unique
 class kline_type(Enum):
-    five_minute=0
-    ten_minute=1
+    one_minute=0
+    five_minute=1
     fifteen_minute=2
     thirty_minute=3
     one_hour=4
-    one_day=5
-    one_week=6
-    one_month=7
+    four_hour=5
+    one_day=6
+    one_week=7
+    one_month=8
 
 kline_type_converter={
-    "1":-1,
+    "1":kline_type.one_minute.value,
     "5":kline_type.five_minute.value,
-    "10":kline_type.ten_minute.value,
     "15":kline_type.fifteen_minute.value,
     "30":kline_type.thirty_minute.value,
     "60":kline_type.one_hour.value,
+    "240":kline_type.four_hour.value,
     "D":kline_type.one_day.value,
     "W":kline_type.one_week.value,
     "M":kline_type.one_month.value

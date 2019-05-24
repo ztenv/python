@@ -26,7 +26,7 @@ class redis_helper(object):
         else:
             self._connections = [rediscluster.StrictRedisCluster(
                 startup_nodes=settings.REDIS_CLUSTER, skip_full_coverage_check=True, max_connections=10,
-                nodemanager_follow_cluster=True, readonly_mode=True
+                nodemanager_follow_cluster=True
                 # decode_responses=True
             )]
         logger.info('redis connected')
@@ -43,7 +43,7 @@ class redis_helper(object):
                         conn.set(key,value)
                 return result(code=error_code.ok,msg="ok",data=value)
             except Exception as ee:
-                if first:
+                if not settings.REDIS_CLUSTER and first:
                     first=False
                     logging.warning("master redis error:{0}".format(str(ee)))
                 else:
