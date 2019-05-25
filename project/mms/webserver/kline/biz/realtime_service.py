@@ -51,7 +51,7 @@ class realtime_service(object):
             res.data={}
         return res
 
-    def get_trade_history(self,contract_id,exchange_id_group):
+    def get_trade_history(self,contract_id,exchange_id_group,timestamp):
         res=ec_result(contract_id=contract_id,exchange_id=exchange_id_group,message_type="trade_history",data=[])
         #{
         #"exchange_id": 1, // 交易所编号
@@ -62,15 +62,26 @@ class realtime_service(object):
         #"taker_side": 1 // 主动成交方向
         #}
         exchange_list=exchange_id_group.split(",")
-        data=[]
+        timestamp=int(timestamp)
+        data={}
         for item in exchange_list:
             try:
-                self._redis.set("trade.{0}.{1}".format(item,contract_id),json.dumps({
-                    "exchange_id":item,"contract_id":contract_id,"time":get_timestamp(),
-                    "trade_price":73.0,"trade_volume":55,"taker_side":1},ensure_ascii=False),expirre_sec=3600)
-                trade_history=self._redis.get("trade.{0}.{1}".format(item,contract_id))
+                #for i in range(100):
+                #    jsonstr=json.dumps({
+                #        "exchange_id":item,"contract_id":contract_id,"time":get_timestamp(),
+                #        "trade_price":73.0,"trade_volume":55+i,"taker_side":1},ensure_ascii=False)
+                #    self._redis.hmset("trade.{0}.{1}".format(item,contract_id),{"courser":0,i:jsonstr})
+
+                trade_history=self._redis.hget_all("trade.{0}.{1}".format(item,contract_id))
                 if trade_history.data is not None:
-                    data.append(json.loads(trade_history.data))
+                    th_data=[]
+                    for k,v in trade_history.data.items():
+                        if k!=b"courser":
+                            value=json.loads(v.decode("utf-8"))
+                            if value.get("time")>=timestamp:
+                                th_data.append(value)
+                    th_data.sort(key=lambda ele:ele.get("time"),reverse=False)
+                    data[item]=th_data
                 else:
                     res.code=error_code.pok
             except Exception as ee:

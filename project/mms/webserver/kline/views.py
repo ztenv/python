@@ -119,13 +119,14 @@ def realtime_kline(request):
 def trade_history(request):
     try:
         if request.method=="GET":
-            args={"exchange_id_group":None,"contract_id":None}
+            args={"exchange_id_group":None,"contract_id":None,"timestamp":0}
             for key in args.keys():
                 value=request.GET.get(key)
                 if value is None or len(value)==0:
                     raise InvalidException("Invalid argument:{0},the value is None or empty".format(key))
                 args[key]=value
-            res=rs.get_trade_history(exchange_id_group=args.get("exchange_id_group"),contract_id=args.get("contract_id"))
+            res=rs.get_trade_history(exchange_id_group=args.get("exchange_id_group"),contract_id=args.get("contract_id"),
+                                     timestamp=args.get("timestamp"))
             return HttpResponse(res.dumps())
         else:
             res=result(code=error_code.invalid_request,msg="非法的请求")
