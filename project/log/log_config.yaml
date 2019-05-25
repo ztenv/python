@@ -1,0 +1,33 @@
+version: 1
+formatters:
+  brief:
+    format: "%(asctime)s - %(message)s"
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+handlers:
+  console:
+    class : logging.StreamHandler
+    formatter: simple
+    level   : DEBUG
+    stream  : ext://sys.stdout
+  file:
+    class: logging.handlers.RotatingFileHandler
+    formatter: simple
+    level: DEBUG
+    filename: /logs/transfer_service.log
+    maxBytes: 20971520
+    backupCount: 20
+    encoding: utf8
+  error:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: simple
+    filename: /logs/transfer_service_error.log
+    maxBytes: 20971520
+    backupCount: 20
+    encoding: utf8
+
+loggers:
+  transfer:
+    level: DEBUG
+    handlers: [console, file, error]

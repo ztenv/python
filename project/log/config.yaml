@@ -1,0 +1,10 @@
+mysql:
+    host : 192.168.142.129
+    port : 3306
+    user : root
+    password : root
+    db_name : shuimu
+redis:
+    host : 192.168.142.129
+    port : 6379
+    db_index : 0
