@@ -39,7 +39,7 @@ class realtime_service(object):
         #                json.dumps(data,ensure_ascii=False),expirre_sec=86400)
 
         kline_res=self._redis.get("rt_kline.{0}.{1}.{2}".format(exchange_id,contract_id,kline_type))
-        if kline_res.data is not None:
+        if kline_res.data is not None and len(kline_res.data)>0:
             data=json.loads(kline_res.data)
             data["kline_type"]=db_kline_2_front_kline.get(int(data.get("kline_type")))
             res.code=error_code.ok
@@ -74,7 +74,7 @@ class realtime_service(object):
                 #self._redis.hmset("trade.{0}.{1}".format(item,contract_id),{"courser":0},expire_sec=86400)
 
                 trade_history=self._redis.hget_all("trade.{0}.{1}".format(item,contract_id))
-                if trade_history.data is not None:
+                if trade_history.data is not None and len(trade_history.data)>0:
                     th_data=[]
                     for k,v in trade_history.data.items():
                         if k!=b"courser":
@@ -112,7 +112,7 @@ class realtime_service(object):
         #    "close":72.0,"high":73.0,"low":71.0,"volume":15.12345,"change":2.0
         #}),expirre_sec=86400)
         data=self._redis.get("ticker.{0}.{1}".format(exchange_id,contract_id))
-        if data.data is not None:
+        if data.data is not None and len(data.data)>0:
             res.code=error_code.ok
             res.msg="ok"
             res.data=json.loads(data.data)
