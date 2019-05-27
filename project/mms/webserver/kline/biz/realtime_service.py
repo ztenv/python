@@ -33,10 +33,10 @@ class realtime_service(object):
         #"volume": "15.12345", // 成交量
         #}
 
-        data={"exchange_id":int(exchange_id),"contract_id":int(contract_id),"time":get_timestamp(),
-              "kline_type":kline_type,"high_price":100.00,"open_price":10,"low_price":5,"close_price":50,"volume":15.123456}
-        self._redis.set("rt_kline.{0}.{1}.{2}".format(exchange_id,contract_id,kline_type),
-                        json.dumps(data,ensure_ascii=False),expirre_sec=86400)
+        #data={"exchange_id":int(exchange_id),"contract_id":int(contract_id),"time":get_timestamp(),
+        #      "kline_type":kline_type,"high_price":100.00,"open_price":10,"low_price":5,"close_price":50,"volume":15.123456}
+        #self._redis.set("rt_kline.{0}.{1}.{2}".format(exchange_id,contract_id,kline_type),
+        #                json.dumps(data,ensure_ascii=False),expirre_sec=86400)
 
         kline_res=self._redis.get("rt_kline.{0}.{1}.{2}".format(exchange_id,contract_id,kline_type))
         if kline_res.data is not None:
@@ -66,12 +66,12 @@ class realtime_service(object):
         data={}
         for item in exchange_list:
             try:
-                for i in range(100):
-                    jsonstr=json.dumps({
-                        "exchange_id":item,"contract_id":contract_id,"time":get_timestamp(),
-                        "trade_price":73.0,"trade_volume":55+i,"taker_side":1},ensure_ascii=False)
-                    self._redis.hmset("trade.{0}.{1}".format(item,contract_id),{i:jsonstr})
-                self._redis.hmset("trade.{0}.{1}".format(item,contract_id),{"courser":0},expire_sec=86400)
+                #for i in range(100):
+                #    jsonstr=json.dumps({
+                #        "exchange_id":item,"contract_id":contract_id,"time":get_timestamp(),
+                #        "trade_price":73.0,"trade_volume":55+i,"taker_side":1},ensure_ascii=False)
+                #    self._redis.hmset("trade.{0}.{1}".format(item,contract_id),{i:jsonstr})
+                #self._redis.hmset("trade.{0}.{1}".format(item,contract_id),{"courser":0},expire_sec=86400)
 
                 trade_history=self._redis.hget_all("trade.{0}.{1}".format(item,contract_id))
                 if trade_history.data is not None:
@@ -107,10 +107,10 @@ class realtime_service(object):
         #小时涨跌幅
         #}
         res=ec_result(exchange_id=exchange_id,contract_id=contract_id,message_type="tick_24h")
-        self._redis.set("ticker.{0}.{1}".format(exchange_id,contract_id),json.dumps({
-            "exchange_id":exchange_id,"contract_id":contract_id,"time":get_timestamp(),
-            "close":72.0,"high":73.0,"low":71.0,"volume":15.12345,"change":2.0
-        }),expirre_sec=86400)
+        #self._redis.set("ticker.{0}.{1}".format(exchange_id,contract_id),json.dumps({
+        #    "exchange_id":exchange_id,"contract_id":contract_id,"time":get_timestamp(),
+        #    "close":72.0,"high":73.0,"low":71.0,"volume":15.12345,"change":2.0
+        #}),expirre_sec=86400)
         data=self._redis.get("ticker.{0}.{1}".format(exchange_id,contract_id))
         if data.data is not None:
             res.code=error_code.ok
