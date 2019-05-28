@@ -77,7 +77,7 @@ class realtime_service(object):
                 if trade_history.data is not None and len(trade_history.data)>0:
                     th_data=[]
                     for k,v in trade_history.data.items():
-                        if k!=b"courser":
+                        if k!=b"cursor":
                             value=json.loads(v.decode("utf-8"))
                             if value.get("time")>=timestamp:
                                 th_data.append(value)
