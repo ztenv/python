@@ -8,7 +8,7 @@ import json
 import traceback
 import logging
 from kline.redis_helper import redis_helper
-from kline.common import front_kline_2_db_kline,db_kline_2_front_kline,get_timestamp
+from kline.common import front_kline_2_db_kline,db_kline_2_front_kline,exchange_number_2_name
 from kline.result import ec_result
 from kline.biz.exceptions import *
 
@@ -121,3 +121,18 @@ class realtime_service(object):
             res.msg="查询结果为空"
 
         return res
+    def get_all_ticker_info(self,contract_id):
+        res=ec_result(exchange_id="ALL",contract_id=contract_id,message_type="all_tick_24h",data=[])
+        #self._redis.set("ticker.{0}.{1}".format(exchange_id,contract_id),json.dumps({
+        #    "exchange_id":exchange_id,"contract_id":contract_id,"time":get_timestamp(),
+        #    "close":72.0,"high":73.0,"low":71.0,"volume":15.12345,"change":2.0
+        #}),expirre_sec=86400)
+        for item in exchange_number_2_name.keys():
+            data=self._redis.get("ticker.{0}.{1}".format(item,contract_id))
+            if data.data is not None and len(data.data)>0:
+                res.data.append(json.loads(data.data))
+
+        res.code=error_code.ok if len(res.data)>0 else error_code.empty_result
+        res.msg="ok" if len(res.data)>0 else "查询结果为空"
+        return res
+
