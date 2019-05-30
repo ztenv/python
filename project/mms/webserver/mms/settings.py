@@ -79,7 +79,7 @@ DATABASES={ #数据库的配置
         'NAME':'zc_mms',                      #数据库的名称
         'USER':'zc_mms',                     #连接数据库的用户
         'PASSWORD':'cptbtptp',             #连接数据库的密码
-        'HOST':'192.168.15.150',           #数据库的ip
+        'HOST':'127.0.0.1',           #数据库的ip
         'PORT':'3306'                      #数据库的port
     },
     'slave':{ #从mysql数据库
@@ -97,11 +97,11 @@ USE_CLUSTER=False
 
 REDIS={ #redis的配置
     'master':{ #主redis
-        'ip':'192.168.80.130',          #主redis的ip
+        'ip':'192.168.233.128',          #主redis的ip
         'port':6379                     #主redis的port
         },
     'slave':{ #从redis
-        'ip':'192.168.80.130',          #从redis的ip
+        'ip':'192.168.233.128',          #从redis的ip
         'port':6379                     #从redis的port
         },
 }
