@@ -121,6 +121,7 @@ class realtime_service(object):
             res.msg="查询结果为空"
 
         return res
+
     def get_all_ticker_info(self,contract_id):
         res=ec_result(exchange_id="ALL",contract_id=contract_id,message_type="all_tick_24h",data=[])
         #self._redis.set("ticker.{0}.{1}".format(exchange_id,contract_id),json.dumps({
