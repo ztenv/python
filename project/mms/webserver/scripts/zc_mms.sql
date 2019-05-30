@@ -33,8 +33,9 @@ CREATE TABLE `huobi_1m_kline` (
   UNIQUE KEY `unique_index` (`contract_id`,`timestamp`),
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
-  KEY `id_index` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `id_index` (`id`),
+  KEY `con_time` (`contract_id`,`timestamp`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `huobi_1m_kline` */
 
@@ -63,8 +64,9 @@ CREATE TABLE `huobi_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
-  KEY `kline_type_index` (`kline_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `kline_type_index` (`kline_type`),
+  KEY `con_tim_type` (`contract_id`,`timestamp`,`kline_type`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `huobi_kline` */
 

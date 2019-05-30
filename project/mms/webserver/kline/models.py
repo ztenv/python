@@ -14,6 +14,7 @@ class one_min_kline(models.Model):
     class Meta:
         abstract=True
         unique_together=('contract_id','timestamp')
+        index_together=('contract_id','timestamp')
 
 
 class kline(models.Model):
@@ -28,6 +29,7 @@ class kline(models.Model):
     class Meta:
         abstract=True
         unique_together=('contract_id','timestamp','kline_type')
+        index_together=('contract_id','timestamp','kline_type')
 
 
 
