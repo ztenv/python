@@ -7,6 +7,8 @@
 import json
 import traceback
 import logging
+import decimal
+from kline.common import format_number
 from kline.redis_helper import redis_helper
 from kline.common import front_kline_2_db_kline,db_kline_2_front_kline,exchange_number_2_name
 from kline.result import ec_result
@@ -137,26 +139,65 @@ class realtime_service(object):
         res.msg="ok" if len(res.data)>0 else "查询结果为空"
         return res
 
+    def _merge_orderbook(self,exchange_id,contract_id,side,orderbook,books,decimals):
+        for item in books:
+            price=format_number(item.get('price','0'),decimals,False)
+            quantity=format_number(item.get("quantity",'0'),8,False)
+            if price in orderbook.keys():
+                ob_item=orderbook.get(price)
+                ob_item["quantity"]=format_number(decimal.Decimal(ob_item.get("quantity"))+decimal.Decimal(quantity),
+                                                  decimals,False)
+                exchange_quantity=ob_item.get("exchange_quantity")
+                if exchange_id in exchange_quantity.keys():
+                    exchange_quantity[exchange_id]=format_number(decimal.Decimal(exchange_quantity.get(exchange_id))+
+                                                                 decimal.Decimal(quantity),decimals,False)
+                else:
+                    exchange_quantity[exchange_id]=quantity
+            else:
+                orderbook[price]={"contract_id":contract_id,"side":side,"price":price,"quantity":quantity,
+                                  "exchange_quantity":{exchange_id:quantity}}
+
     def get_orderbook(self,contract_id,exchange_id_group,decimals):
         res=ec_result(exchange_id=exchange_id_group,contract_id=contract_id,message_type="orderbook",data=[])
 
         isnapshot=self._redis.hget_all("isnapshot.{0}".format(contract_id))
         data={}
+        last_price=0
+        last_price_exchnage_id=0
+        timestamp=0
         if isnapshot.data is not None and len(isnapshot.data)>0:
             exchange_list=exchange_id_group.split(",")
             bid_book={}
             ask_book={}
             for item in exchange_list:
-                v=isnapshot.data.get(item.encode("utf-8"),None)
-                ob=json.loads(v.decode("utf-8"))
-                #按价格精度聚合
+                if item.encode("utf-8") in isnapshot.data.keys():
+                    v=isnapshot.data.get(item.encode("utf-8"),None)
+                    ob=json.loads(v.decode("utf-8"))
+                    if ob.get("timestamp")>timestamp:
+                        timestamp=ob.get("timestamp")
+                        last_price=format_number(ob.get("last_price"),decimals)
+                        last_price_exchnage_id=ob.get("exchange_id")
+                    bids=ob.get("bids",{})
+                    self._merge_orderbook(exchange_id=item,contract_id=ob.get("contract_id"),side=1,orderbook=bid_book,
+                                          books=bids,decimals=decimals)
 
-            bids=bid_book.items()
-            asks=ask_book.items()
+                    asks=ob.get("asks",{})
+                    self._merge_orderbook(exchange_id=item,contract_id=ob.get("contract_id"),side=-1,orderbook=ask_book,
+                                          books=asks,decimals=decimals)
+                    #按价格精度聚合
+
+            bids=list(bid_book.values())
+            bids.sort(key=lambda ele:ele.get("price"),reverse=True)
+            asks=list(ask_book.values())
+            asks.sort(key=lambda ele:ele.get("price"),reverse=False)
             #按价格和时间排序
+            data["last_price"]=last_price
+            data["last_price_exchange_id"]=last_price_exchnage_id
             data["bids"]=bids
             data["asks"]=asks
 
+        res.code=error_code.ok
+        res.msg="ok"
         res.data=data
         return res
 

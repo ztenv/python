@@ -109,12 +109,15 @@ contract_id_2_name={
 def get_timestamp():
     return int(datetime.datetime.now().timestamp()*1000)
 
-def format_number(number,precision=8):
+def format_number(number,precision=8,return_number=True):
     '''按精度格式化数字'''
     try:
         decimal.getcontext().rounding=decimal.ROUND_HALF_UP
         res=format(decimal.Decimal(str(number)),'.{0}f'.format(precision))
-        return float(res)
+        if return_number:
+            return float(res)
+        else:
+            return res
     except Exception as ee:
         logger.warning("{0},number={1}".format(str(ee),number))
         logger.warning(traceback.format_exc())
