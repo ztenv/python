@@ -146,11 +146,11 @@ class realtime_service(object):
             if price in orderbook.keys():
                 ob_item=orderbook.get(price)
                 ob_item["quantity"]=format_number(decimal.Decimal(ob_item.get("quantity"))+decimal.Decimal(quantity),
-                                                  decimals,False)
+                                                  8,False)
                 exchange_quantity=ob_item.get("exchange_quantity")
                 if exchange_id in exchange_quantity.keys():
                     exchange_quantity[exchange_id]=format_number(decimal.Decimal(exchange_quantity.get(exchange_id))+
-                                                                 decimal.Decimal(quantity),decimals,False)
+                                                                 decimal.Decimal(quantity),8,False)
                 else:
                     exchange_quantity[exchange_id]=quantity
             else:
