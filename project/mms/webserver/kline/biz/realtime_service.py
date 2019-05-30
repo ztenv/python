@@ -137,3 +137,26 @@ class realtime_service(object):
         res.msg="ok" if len(res.data)>0 else "查询结果为空"
         return res
 
+    def get_orderbook(self,contract_id,exchange_id_group,decimals):
+        res=ec_result(exchange_id=exchange_id_group,contract_id=contract_id,message_type="orderbook",data=[])
+
+        isnapshot=self._redis.hget_all("isnapshot.{0}".format(contract_id))
+        data={}
+        if isnapshot.data is not None and len(isnapshot.data)>0:
+            exchange_list=exchange_id_group.split(",")
+            bid_book={}
+            ask_book={}
+            for item in exchange_list:
+                v=isnapshot.data.get(item.encode("utf-8"),None)
+                ob=json.loads(v.decode("utf-8"))
+                #按价格精度聚合
+
+            bids=bid_book.items()
+            asks=ask_book.items()
+            #按价格和时间排序
+            data["bids"]=bids
+            data["asks"]=asks
+
+        res.data=data
+        return res
+
