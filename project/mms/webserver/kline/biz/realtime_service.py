@@ -175,7 +175,7 @@ class realtime_service(object):
                     ob=json.loads(v.decode("utf-8"))
                     if ob.get("timestamp")>timestamp:
                         timestamp=ob.get("timestamp")
-                        last_price=format_number(ob.get("last_price"),decimals)
+                        last_price=format_number(ob.get("last_price"),decimals,False)
                         last_price_exchnage_id=ob.get("exchange_id")
                     bids=ob.get("bids",{})
                     self._merge_orderbook(exchange_id=item,contract_id=ob.get("contract_id"),side=1,orderbook=bid_book,
