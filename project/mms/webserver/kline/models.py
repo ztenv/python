@@ -31,10 +31,3 @@ class kline(models.Model):
         unique_together=('contract_id','timestamp','kline_type')
         index_together=('contract_id','timestamp','kline_type')
 
-
-
-
-
-
-
-
