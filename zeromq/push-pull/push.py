@@ -21,8 +21,11 @@ async def start(name):
     push_socket.bind("tcp://*:46789")
     send_count=0
     interval=1
+    index=0
     while(run_flag):
+        index+=1
         data={"timestamp":int(datetime.datetime.now().timestamp()*1000),
+            "index":index,
             "date":datetime.datetime.now().strftime("%Y-%m-%d"),
             "time":datetime.datetime.now().strftime("%H:%M:%S"),
             "name":name}
@@ -30,6 +33,7 @@ async def start(name):
         push_socket.send_json(data_str)
         print("push:{0}".format(data_str))
         send_count+=1
+        await asyncio.sleep(interval)
         if send_count%10000==0:
             print("sleeping......{0} senconds".format(interval))
             send_count=0
