@@ -23,6 +23,7 @@ async def start():
 
     global run_flag
     index=0
+    interval=1
     while(run_flag):
         for event in await poller.poll():
             if event[1] & zmq.POLLIN:
@@ -37,9 +38,10 @@ async def start():
                 await event[0].send_json(data_str)
                 print("send:{0}".format(data_str))
                 index+=1
-                if index%10000==0:
+                if index%100==0:
                     index=0
-                    await asyncio.sleep(1)
+                    print("sleeping...{0} seconds".format(interval))
+                    await asyncio.sleep(interval)
             elif event[1] & zmq.POLLERR:
                 print("error:{0},{1}".format(event[0],event[1]))
 
