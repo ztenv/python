@@ -25,9 +25,9 @@ async def start(name):
     while(run_flag):
         msg={"time":datetime.datetime.now().timestamp(),"name":name}
         for event in await poller.poll():
-            if event[1]==zmq.POLLOUT:
+            if event[1] & zmq.POLLOUT:
                 await event[0].send_json(json.dumps(msg,ensure_ascii=False))
-            elif event[1] ==zmq.POLLIN:
+            elif event[1] & zmq.POLLIN:
                 print ("recv:{0}".format(await event[0].recv_json()))
         #await req_socket.send_json(json.dumps(msg,ensure_ascii=False))
         #print("recv:{}".format(await req_socket.recv_json()))

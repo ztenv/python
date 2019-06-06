@@ -22,7 +22,7 @@ async def start_sub():
 
     while(run_flag):
         for event in await poller.poll():
-            if event[1]==zmq.POLLIN:
+            if event[1] & zmq.POLLIN:
                 data=event[0].recv_json()
                 print("recv:{0}".format(data))
         #recv_data=await sub_socket.recv_json()

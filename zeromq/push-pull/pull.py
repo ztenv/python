@@ -21,7 +21,7 @@ async def start():
 
     while(run_flag):
         for event in await poller.poll():
-            if event[1]==zmq.POLLIN:
+            if event[1] & zmq.POLLIN:
                 data=await event[0].recv_json()
                 print("recv:{0}".format(data))
 
