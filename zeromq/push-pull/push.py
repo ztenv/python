@@ -14,7 +14,6 @@ import json
 
 run_flag=True
 
-
 async def start(name):
     context=zmq.asyncio.Context(io_threads=2)
     push_socket=context.socket(socket_type=zmq.PUSH)

@@ -16,7 +16,7 @@ run_flag=True
 async def start_pub(name):
     context=zmq.asyncio.Context(io_threads=1)
     pub_socket=context.socket(socket_type=zmq.PUB)
-    pub_socket.bind("tcp://127.0.0.1:56789")
+    pub_socket.bind("tcp://*:56789")
     interval=1
 
     send_count=0

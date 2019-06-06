@@ -16,9 +16,17 @@ async def start():
     pull_socket=context.socket(socket_type=zmq.PULL)
     pull_socket.connect("tcp://127.0.0.1:46789")
 
+    poller=zmq.asyncio.Poller()
+    poller.register(socket=pull_socket)
+
     while(run_flag):
-        data=await pull_socket.recv_json()
-        print("recv:{0}".format(data))
+        for event in await poller.poll():
+            if event[1]==zmq.POLLIN:
+                data=await event[0].recv_json()
+                print("recv:{0}".format(data))
+
+        #data=await pull_socket.recv_json()
+        #print("recv:{0}".format(data))
 
 
 def sig_handler(signum,frame):

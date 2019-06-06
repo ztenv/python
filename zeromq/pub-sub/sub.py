@@ -16,9 +16,17 @@ async def start_sub():
     sub_socket=context.socket(socket_type=zmq.SUB)
     sub_socket.connect("tcp://127.0.0.1:56789")
     sub_socket.setsockopt(zmq.SUBSCRIBE,b'')
+
+    poller=zmq.asyncio.Poller()
+    poller.register(sub_socket)
+
     while(run_flag):
-        recv_data=await sub_socket.recv_json()
-        print("recv:{0}".format(recv_data))
+        for event in await poller.poll():
+            if event[1]==zmq.POLLIN:
+                data=event[0].recv_json()
+                print("recv:{0}".format(data))
+        #recv_data=await sub_socket.recv_json()
+        #print("recv:{0}".format(recv_data))
 
 def sig_handler(signum,frame):
     global run_flag

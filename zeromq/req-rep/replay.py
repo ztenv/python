@@ -16,11 +16,19 @@ async def start():
     rep_socket=zmq.asyncio.Socket(context,zmq.REP)
     rep_socket.bind("tcp://*:5555")
 
+    poller=zmq.asyncio.Poller()
+    poller.register(rep_socket)
+
     global run_flag
     while(run_flag):
-        msg= await rep_socket.recv_json()
-        print(msg)
-        await rep_socket.send_json(msg)
+        for event in await poller.poll():
+            if event[1]==zmq.POLLIN:
+                msg=await event[0].recv_json()
+                print("recv:{0}".format(msg))
+                await event[0].send_json(msg)
+        #msg= await rep_socket.recv_json()
+        #print(msg)
+        #await rep_socket.send_json(msg)
 
 def sig_handler(signum,frame):
     global run_flag
