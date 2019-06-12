@@ -14,6 +14,17 @@ import signal
 import sys
 run_flag=True
 
+def calc(n1,operator,n2):
+    operators=["+","-","*","/"]
+    if operator=="+":
+        return n1+n2
+    elif operator=="-":
+        return n1-n2
+    elif operator=="*":
+        return n1*n2
+    elif operator=="/":
+        return n1/n2 if n2!=0 else "ERROR"
+
 async def start(name):
     context=zmq.asyncio.Context(io_threads=2)
     rep_socket=context.socket(socket_type=zmq.REP)
@@ -27,8 +38,16 @@ async def start(name):
             if event[1] & zmq.POLLIN:
                 data=json.loads(await event[0].recv_json())
                 print("recv:{0}".format(data))
+                data['name']=name
+                n1=int(data.get("number1"))
+                n2=int(data.get("number2"))
+                operator=data.get("operator")
+                data={"expression":"{0}{1}{2}={3}".format(n1,operator,n2,calc(n1,operator,n2)),
+                      "name":name,
+                      "time":datetime.datetime.now().timestamp()}
                 await event[0].send_json(json.dumps(data,ensure_ascii=False))
                 print("send:{0}".format(data))
+                await asyncio.sleep(1)
             elif event[1] & zmq.POLLOUT:
                 pass
             elif event[1] & zmq.POLLERR:
