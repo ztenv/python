@@ -25,7 +25,7 @@ async def start(name):
     operators=["+","-","*","/"]
     global run_flag
     while(run_flag):
-        for event in await poller.poll(timeout=-1):
+        for event in await poller.poll(timeout=1):
             if event[1] & zmq.POLLIN:
                 data=json.loads(await event[0].recv_json())
                 print("recv:{0}".format(data))
@@ -43,6 +43,12 @@ def sig_handler(signum,frame):
     global run_flag
     run_flag=False
     print(signum,run_flag)
+    asyncio.sleep(2)
+    try:
+        asyncio.get_event_loop().stop()
+        asyncio.get_event_loop().close()
+    except Exception as ee:
+        print(ee)
 
 if __name__=="__main__":
     signal.signal(signal.SIGINT,sig_handler)
