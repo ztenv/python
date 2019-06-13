@@ -8,7 +8,16 @@ import zmq
 import zmq.asyncio
 import asyncio
 import signal
+import threading
+#from zmq.backend.cffi import devices
+
 run_flag=True
+
+def start_proxy(fronted,backend):
+    try:
+        zmq.proxy(fronted,backend)
+    except Exception as ee:
+        print(ee)
 
 async def start():
     context=zmq.asyncio.Context(io_threads=2)
@@ -19,6 +28,10 @@ async def start():
     poller.register(backend_socket,flags=zmq.POLLIN)
     front_socket.bind("tcp://*:55558")
     backend_socket.bind("tcp://*:55559")
+
+    #t=threading.Thread(target=start_proxy,args=(front_socket,backend_socket))
+    #t.start()
+    #t.join()
 
     global run_flag
     while(run_flag):
@@ -33,6 +46,8 @@ async def start():
                     print("backend recv:{0}".format(msg))
                     await front_socket.send_multipart(msg)
 
+    front_socket.close()
+    backend_socket.close()
 
 def sig_handler(signum,frame):
     global run_flag
