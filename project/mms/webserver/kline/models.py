@@ -33,18 +33,28 @@ class kline(models.Model):
 
 
 class contract_info(models.Model):
-    NO=models.CharField(db_column="no",max_length=5,blank=False,db_index=True)
-    name=models.CharField(db_column="name",max_length=30,blank=False,db_index=True)
-    small_icon=models.CharField(db_column="small_icon",max_length=255,blank=False)
-    big_icon=models.CharField(db_column="big_icon",max_length=255,blank=False)
+    contract_id=models.IntegerField(db_column="contract_id",blank=False,db_index=True)
+    exchange_id=models.IntegerField(db_column="exchange_id",blank=False,db_index=True)
+    symbol_name=models.CharField(db_column="symbol_name",max_length=30,blank=True)
+    contract_name=models.CharField(db_column="contract_name",max_length=30,blank=True)
+    commodity_id=models.IntegerField(db_column="commodity_id",blank=True)
+    currency_id=models.IntegerField(db_column="currency_id",blank=True)
+    small_icon_url=models.CharField(db_column="small_icon_url",max_length=255)
+    big_icon_url=models.CharField(db_column="big_icon_url",max_length=255)
+    active=models.IntegerField(db_column="active",default=1)
     class Meta:
-        unique_together=('NO','name')
+        db_table='contract_info'
+        unique_together=('contract_id','exchange_id','contract_name')
 
 class exchange_info(models.Model):
-    NO=models.CharField(db_column="no",max_length=5,blank=False,db_index=True)
-    name=models.CharField(db_column="name",max_length=30,blank=False,db_index=True)
-    small_icon=models.CharField(db_column="small_icon",max_length=255,blank=False)
-    big_icon=models.CharField(db_column="big_icon",max_length=255,blank=False)
+    exchange_id=models.IntegerField(db_column="exchange_id",blank=False,db_index=True)
+    exchange_name=models.CharField(db_column="exchange_name",max_length=30,blank=False,db_index=True)
+    small_icon_url=models.CharField(db_column="small_icon_url",max_length=255)
+    big_icon_url=models.CharField(db_column="big_icon_url",max_length=255)
+    remote_url=models.CharField(db_column="remote_url",max_length=255)
+    local_url=models.CharField(db_column="local_url",max_length=255)
+    active=models.IntegerField(db_column="active",default=1)
     class Meta:
-        unique_together=('NO','name')
+        db_table='exchange_info'
+        unique_together=('exchange_id','exchange_name')
 
