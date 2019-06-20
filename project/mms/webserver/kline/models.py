@@ -31,3 +31,20 @@ class kline(models.Model):
         unique_together=('contract_id','timestamp','kline_type')
         index_together=('contract_id','timestamp','kline_type')
 
+
+class contract_info(models.Model):
+    NO=models.CharField(db_column="no",max_length=5,blank=False,db_index=True)
+    name=models.CharField(db_column="name",max_length=30,blank=False,db_index=True)
+    small_icon=models.CharField(db_column="small_icon",max_length=255,blank=False)
+    big_icon=models.CharField(db_column="big_icon",max_length=255,blank=False)
+    class Meta:
+        unique_together=('NO','name')
+
+class exchange_info(models.Model):
+    NO=models.CharField(db_column="no",max_length=5,blank=False,db_index=True)
+    name=models.CharField(db_column="name",max_length=30,blank=False,db_index=True)
+    small_icon=models.CharField(db_column="small_icon",max_length=255,blank=False)
+    big_icon=models.CharField(db_column="big_icon",max_length=255,blank=False)
+    class Meta:
+        unique_together=('NO','name')
+

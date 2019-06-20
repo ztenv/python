@@ -35,5 +35,7 @@ urlpatterns = [
     path('quote/trade/history',mms_view.trade_history),
     path('quote/ticker/info',mms_view.ticker_info),
     path('quote/ticker/all/info',mms_view.all_ticker_info),
-    path('quote/orderbook',mms_view.orderbook)
+    path('quote/orderbook',mms_view.orderbook),
+    path('quote/contract/info',mms_view.load_contract_info),
+    path('quote/exchange/info',mms_view.load_exchange_info)
 ]

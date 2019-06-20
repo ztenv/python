@@ -6,10 +6,12 @@ import traceback
 from django.http import HttpResponse,HttpRequest
 from kline.biz.base_service import base_service
 from kline.biz.realtime_service import realtime_service
+from kline.biz.basic_info_service import basic_info_service
 from kline.biz.exceptions import *
 
 bs=base_service()
 rs=realtime_service()
+bis=basic_info_service()
 
 logger=logging.getLogger("django")
 
@@ -199,6 +201,42 @@ def orderbook(request):
                     raise InvalidException("Invalid argument:{0},the value is None or empty".format(key))
                 args[key]=value
             res=rs.get_orderbook(args.get("contract_id"),args.get("exchange_id_group"),args.get("decimals"))
+            return HttpResponse(res.dumps())
+        else:
+            res=result(code=error_code.invalid_request,msg="非法的请求")
+            return HttpResponse(res.dumps())
+    except ResultException as ee:
+        call_stack=traceback.format_exc()
+        logger.warning(call_stack)
+        ee.result.call_stack=call_stack
+        return HttpResponse(ee.result.dumps())
+    except Exception as ee:
+        call_stack=traceback.format_exc()
+        logger.error(call_stack)
+        return HttpResponse(result(msg=str(ee),call_stack=call_stack,data=[]).dumps())
+
+def load_contract_info(request):
+    try:
+        if request.method=="GET":
+            res=bis.load_contract_info()
+            return HttpResponse(res.dumps())
+        else:
+            res=result(code=error_code.invalid_request,msg="非法的请求")
+            return HttpResponse(res.dumps())
+    except ResultException as ee:
+        call_stack=traceback.format_exc()
+        logger.warning(call_stack)
+        ee.result.call_stack=call_stack
+        return HttpResponse(ee.result.dumps())
+    except Exception as ee:
+        call_stack=traceback.format_exc()
+        logger.error(call_stack)
+        return HttpResponse(result(msg=str(ee),call_stack=call_stack,data=[]).dumps())
+
+def load_exchange_info(request):
+    try:
+        if request.method=="GET":
+            res=bis.load_exchange_info()
             return HttpResponse(res.dumps())
         else:
             res=result(code=error_code.invalid_request,msg="非法的请求")
