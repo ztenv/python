@@ -23,14 +23,14 @@ from kline.models import one_min_kline,kline
 #############################################交易所模型##################################################################
 class binance_one_min_kline(one_min_kline):
     class Meta(one_min_kline.Meta):
-        db_table='binance_1m_kline{0}'
+        db_table='binance_1m_kline'
 class binance_kline(kline):
     class Meta(kline.Meta):
         db_table='binance_kline'
 
 class huobi_one_min_kline(one_min_kline):
     class Meta(one_min_kline.Meta):
-        db_table='huobi_1m_kline{0}'
+        db_table='huobi_1m_kline'
 class huobi_kline(kline):
     class Meta(kline.Meta):
         db_table='huobi_kline'

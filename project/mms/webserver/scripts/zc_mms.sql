@@ -255,7 +255,7 @@ CREATE TABLE `contract_info` (
   `contract_id` bigint(10) NOT NULL COMMENT '币对ID',
   `exchange_id` bigint(10) NOT NULL COMMENT '交易所ID',
   `symbol_name` varchar(30) DEFAULT NULL COMMENT '内部名称',
-  `contract_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '外部名称',
+  `contract_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '外部名称',
   `commodity_id` int(11) DEFAULT NULL COMMENT '商品ID',
   `currency_id` int(11) DEFAULT NULL COMMENT '货币ID',
   `small_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '小图标URL',
