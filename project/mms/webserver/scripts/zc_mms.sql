@@ -12,7 +12,7 @@ MySQL - 8.0.16 : Database - zc_mms
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`zc_mms` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`zc_mms` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `zc_mms`;
 
@@ -34,7 +34,7 @@ CREATE TABLE `bibox_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bibox_1m_kline` */
 
@@ -58,7 +58,7 @@ CREATE TABLE `bibox_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bibox_kline` */
 
@@ -80,9 +80,12 @@ CREATE TABLE `binance_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `binance_1m_kline` */
+
+insert  into `binance_1m_kline`(`id`,`contract_id`,`timestamp`,`high_price`,`open_price`,`low_price`,`close_price`,`volume`) values 
+(9,1,1557450660003,1111.11111118,2222.22222228,3333.33333338,4444.44444449,2222.22222229);
 
 /*Table structure for table `binance_kline` */
 
@@ -104,7 +107,7 @@ CREATE TABLE `binance_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `binance_kline` */
 
@@ -126,7 +129,7 @@ CREATE TABLE `bitfinex_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bitfinex_1m_kline` */
 
@@ -150,7 +153,7 @@ CREATE TABLE `bitfinex_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bitfinex_kline` */
 
@@ -172,7 +175,7 @@ CREATE TABLE `bitstamp_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bitstamp_1m_kline` */
 
@@ -196,7 +199,7 @@ CREATE TABLE `bitstamp_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bitstamp_kline` */
 
@@ -218,7 +221,7 @@ CREATE TABLE `bittrex_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bittrex_1m_kline` */
 
@@ -242,7 +245,7 @@ CREATE TABLE `bittrex_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `bittrex_kline` */
 
@@ -254,19 +257,19 @@ CREATE TABLE `contract_info` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `contract_id` bigint(10) NOT NULL COMMENT '币对ID',
   `exchange_id` bigint(10) NOT NULL COMMENT '交易所ID',
-  `symbol_name` varchar(30) DEFAULT NULL COMMENT '内部名称',
-  `contract_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '外部名称',
+  `symbol_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '内部名称',
+  `contract_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '外部名称',
   `commodity_id` int(11) DEFAULT NULL COMMENT '商品ID',
   `currency_id` int(11) DEFAULT NULL COMMENT '货币ID',
-  `small_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '小图标URL',
-  `big_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '大图标URL',
+  `small_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '小图标URL',
+  `big_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '大图标URL',
   `active` tinyint(4) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_index` (`contract_id`,`contract_name`,`exchange_id`),
   KEY `no_index` (`contract_id`),
   KEY `name_index` (`contract_name`),
   KEY `active_index` (`active`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `contract_info` */
 
@@ -322,18 +325,18 @@ DROP TABLE IF EXISTS `exchange_info`;
 CREATE TABLE `exchange_info` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `exchange_id` bigint(10) NOT NULL COMMENT '交易所ID',
-  `exchange_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '交易所名称',
-  `small_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '小图标URL',
-  `big_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '大图标URL',
-  `remote_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '远程URL',
-  `local_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '本地URL',
+  `exchange_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易所名称',
+  `small_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '小图标URL',
+  `big_icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '大图标URL',
+  `remote_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '远程URL',
+  `local_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '本地URL',
   `active` tinyint(4) DEFAULT '1' COMMENT '是否启用',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_index` (`exchange_id`,`exchange_name`),
   KEY `no_index` (`exchange_id`),
   KEY `name_index` (`exchange_name`),
   KEY `active_index` (`active`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `exchange_info` */
 
@@ -370,7 +373,7 @@ CREATE TABLE `gateio_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `gateio_1m_kline` */
 
@@ -394,7 +397,7 @@ CREATE TABLE `gateio_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `gateio_kline` */
 
@@ -416,7 +419,7 @@ CREATE TABLE `huobi_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4341085 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4341085 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `huobi_1m_kline` */
 
@@ -440,7 +443,7 @@ CREATE TABLE `huobi_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=1491047 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1491047 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `huobi_kline` */
 
@@ -462,7 +465,7 @@ CREATE TABLE `kraken_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `kraken_1m_kline` */
 
@@ -486,7 +489,7 @@ CREATE TABLE `kraken_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `kraken_kline` */
 
@@ -508,7 +511,7 @@ CREATE TABLE `okex_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `okex_1m_kline` */
 
@@ -532,7 +535,7 @@ CREATE TABLE `okex_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `okex_kline` */
 
@@ -554,7 +557,7 @@ CREATE TABLE `poloniex_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `poloniex_1m_kline` */
 
@@ -578,7 +581,7 @@ CREATE TABLE `poloniex_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `poloniex_kline` */
 
@@ -600,7 +603,7 @@ CREATE TABLE `quantbroker_1m_kline` (
   KEY `contract_id_index` (`contract_id`),
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `quantbroker_1m_kline` */
 
@@ -624,7 +627,7 @@ CREATE TABLE `quantbroker_kline` (
   KEY `timestamp_index` (`timestamp`),
   KEY `id_index` (`id`),
   KEY `kline_type_index` (`kline_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `quantbroker_kline` */
 
