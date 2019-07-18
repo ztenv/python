@@ -8,20 +8,24 @@ import logging
 import yaml
 import logging.config
 import os
-def setup(config_file='config.yaml', default_level=logging.INFO,is_debug=False):
+logger=logging.getLogger("transfer")
+
+def setup_log(config_file='config.yaml', default_level=logging.INFO,is_debug=False):
     path =config_file
-    if os.path.exists(path):
-        with open(path, 'r', encoding='utf-8') as f:
-            config = yaml.load(f)
-            if is_debug:
-                try:
+    try:
+        if not os.path.exists("logs"):
+            os.mkdir("logs")
+        if os.path.exists(path):
+            with open(path, 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+                if is_debug:
                     file_name=config.get("handlers").get("file").get("filename")
                     config.get("handlers").get("file")["filename"]=".{0}".format(file_name)
                     file_name=config.get("handlers").get("error").get("filename")
                     config.get("handlers").get("error")["filename"]=".{0}".format(file_name)
-                except Exception as ee:
-                    print(ee)
             logging.config.dictConfig(config)
-    else:
-        logging.basicConfig(level=default_level)
-        logging.warning("{0} does not exist!".format(path))
+        else:
+            logging.basicConfig(level=default_level)
+            logging.warning("{0} does not exist!".format(path))
+    except Exception as ee:
+        print(ee)

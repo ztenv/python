@@ -3,31 +3,35 @@ formatters:
   brief:
     format: "%(asctime)s - %(message)s"
   simple:
-    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    format: "%(asctime)s - %(name)s - %(levelname)s: %(message)s"
+  classic:
+    format: "[%(asctime)s][%(name)s][%(levelname)s]: %(message)s"
+  new_style:
+    format: "[%(asctime)s][%(name)s][%(levelname)s]@%(message)s"
 handlers:
   console:
     class : logging.StreamHandler
-    formatter: simple
+    formatter: new_style
     level   : DEBUG
     stream  : ext://sys.stdout
   file:
     class: logging.handlers.RotatingFileHandler
-    formatter: simple
+    formatter: new_style
     level: DEBUG
-    filename: /logs/transfer_service.log
+    filename: ./logs/demo.log
     maxBytes: 20971520
     backupCount: 20
     encoding: utf8
   error:
     class: logging.handlers.RotatingFileHandler
     level: ERROR
-    formatter: simple
-    filename: /logs/transfer_service_error.log
+    formatter: classic
+    filename: ./logs/demo_error.log
     maxBytes: 20971520
     backupCount: 20
     encoding: utf8
 
 loggers:
-  transfer:
+  main:
     level: DEBUG
     handlers: [console, file, error]
