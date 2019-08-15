@@ -26,6 +26,7 @@ class dsg_consumer(base_kafka_consumer):
         with open("dsg_{0}_{1}.txt".format(os.getpid(),self._topic),mode="w") as f:
             kc=KafkaConsumer(self._topic,bootstrap_servers=self._kafka_servers)
             count=0
+            print("start consume msg...")
             for msg in kc:
                 try:
                     consume_time=datetime.datetime.now().timestamp()
@@ -37,10 +38,10 @@ class dsg_consumer(base_kafka_consumer):
                     vcs_time=data.get("vcs_timestamp")
                     vcs_time=datetime.datetime.strptime(vcs_time[:len(vcs_time)-3],"%Y-%m-%d %H:%M:%S.%f").timestamp()
                     f.write("{0},{1}\n".format(consume_time,record_timestamp-vcs_time))#,consume_time-vcs_time))
-                    count+=1
                     if count%10000==0:
                         print("vcs_time={0},record_timestamp={1},consume_time={2},t1={3},t2={4}".format(
                         vcs_time,record_timestamp,consume_time,record_timestamp-vcs_time,consume_time-vcs_time))
+                    count+=1
                 except Exception as ee:
                     traceback.format_exc()
 
@@ -52,20 +53,21 @@ class i2active_consumer(base_kafka_consumer):
         with open("i2active_{0}_{1}.txt".format(os.getpid(),self._topic),mode="w") as f:
             count=0
             kc=KafkaConsumer(self._topic,bootstrap_servers=self._kafka_servers)
+            print("start consume msg...")
             for msg in kc:
                 try:
                     consume_time=datetime.datetime.now().timestamp()
                     record_timestamp=int(msg.timestamp)/1000.0
                     data=json.loads(msg.value)
-                    scntime=int(data.get("scntime"))
+                    #scntime=int(data.get("scntime"))
                     data=data.get("after")
                     vcs_time=data.get("vcs_timestamp".upper())
                     vcs_time=datetime.datetime.strptime(vcs_time[:len(vcs_time)-3],"%Y-%m-%d %H:%M:%S.%f").timestamp()
                     f.write("{0},{1}\n".format(consume_time,record_timestamp-vcs_time))
-                    count+=1
                     if count%10000==0:
                         print("vcs_time={0},record_timestamp={1},consume_time={2},t1={3},t2={4}".format(
                         vcs_time,record_timestamp,consume_time,record_timestamp-vcs_time,consume_time-vcs_time))
+                    count+=1
                 except Exception as ee:
                     traceback.format_exc()
 
@@ -77,19 +79,21 @@ class ogg_consumer(base_kafka_consumer):
         with open("ogg_{0}_{1}.txt".format(os.getpid(),self._topic),mode="w") as f:
             count=0;
             kc=KafkaConsumer(self._topic,bootstrap_servers=self._kafka_servers)
+            print("start consume msg...")
             for msg in kc:
                 try:
                     consume_time=datetime.datetime.now().timestamp()
+                    record_timestamp=int(msg.timestamp)/1000.0
                     data=json.loads(msg.value)
-                    scntime=int(data.get("scntime"))
+                    #scntime=int(data.get("scntime"))
                     data=data.get("after")
                     vcs_time=data.get("vcs_timestamp".upper())
                     vcs_time=datetime.datetime.strptime(vcs_time[:len(vcs_time)-3],"%Y-%m-%d %H:%M:%S.%f").timestamp()
-                    f.write("{0},{1}\n".format(consume_time,consume_time-vcs_time))
-                    count+=1
+                    f.write("{0},{1}\n".format(consume_time,record_timestamp-vcs_time))
                     if count%10000==0:
-                        print("vcs_time={0},scntime={1},consume_time={2},t1={3},t2={4}".format(
-                            vcs_time,scntime,consume_time,scntime-vcs_time,consume_time-vcs_time))
+                        print("vcs_time={0},record_timestamp={1},consume_time={2},t1={3},t2={4}".format(
+                            vcs_time,record_timestamp,consume_time,record_timestamp-vcs_time,consume_time-vcs_time))
+                    count+=1
                 except Exception as ee:
                     traceback.format_exc()
 
@@ -102,7 +106,7 @@ if __name__=="__main__":
     bootstrap_servers=sys.argv[2]
     topic=sys.argv[3]
 
-    print(factory)
+    print("factory:{0};kafka servers:{1},topic:{2}".format(factory,bootstrap_servers,topic))
 
     if factory=="dsg":
         kc=dsg_consumer(topic,bootstrap_servers)

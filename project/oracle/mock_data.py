@@ -86,6 +86,8 @@ if __name__=="__main__":
         sub_process_number=1
     ci.record_count=int(sys.argv[5])
     ci.sleep_seconds=int(sys.argv[6])
+    print("user:{0} pwd:{1} host:{2} sub_process:{3} record_count:{4} sleep_seconds:{5}".format(
+        ci.user,ci.pwd,ci.host,sub_process_number,ci.record_count,ci.sleep_seconds))
 
     signal.signal(signal.SIGINT,sig_handler)
     signal.signal(signal.SIGTERM,sig_handler)
