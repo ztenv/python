@@ -6,16 +6,21 @@
 # @desc   :
 import traceback
 import datetime
-from oracle_base_task import oracle_base_task
+from base.oracle_base_task import oracle_base_task
+import pysnooper
 
-class trms_oracle_tasks(oracle_base_task):
+class cmf_script(oracle_base_task):
+
+    @pysnooper.snoop()
     def __init__(self,user,pwd,orcl_info,fund_id,old_date,new_date):
-        oracle_base_task.__init__(self,task_name="trms oracle tasks",user=user,pwd=pwd,orcl_info=orcl_info)
+        oracle_base_task.__init__(self,task_name="cmf script",user=user,pwd=pwd,orcl_info=orcl_info)
         self._fund_id=fund_id
         self._old_date=old_date
         self._new_date=new_date
 
+    @pysnooper.snoop()
     def run(self):
+        oracle_base_task.run(self)
         print("sub process {0}({1}) run at {2}".format(self.task_name,self.process_id,
                                                        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")))
         try:
@@ -45,12 +50,16 @@ class trms_oracle_tasks(oracle_base_task):
                                 format(self._new_date,self._old_date))
             self.cursor.commit()
         except Exception as ee:
-            traceback.format_exc()
+            print(traceback.format_exc())
         print("sub process {0}({1}) exit at {2}".format(self.task_name,self.process_id,
                                                        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")))
 
 if __name__=="__main__":
-    task=trms_oracle_tasks(user="trade",pwd="trade",orcl_info="47.111.134.208:1521/yewu",fund_id='5',old_date=20090109,
+    task=cmf_script(user="trade",pwd="trade",orcl_info="47.111.134.208:1521/yewu",fund_id='5',old_date=20090109,
                            new_date=20190816)
-    task.start()
-    task.join()
+    if task.init()== True:
+        task.start()
+        task.join()
+        task.de_init()
+    else:
+        print("task init error")

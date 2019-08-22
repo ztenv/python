@@ -6,7 +6,7 @@
 # @desc   :
 import abc
 import traceback
-from base_task import base_task
+from base.base_task import base_task
 import cx_Oracle
 
 class oracle_base_task(base_task):
@@ -23,9 +23,11 @@ class oracle_base_task(base_task):
             self._conn=cx_Oracle.connect(self._user,self._pwd,self._orcl_info) #'47.111.134.208:1521/yewu')
             print("oracle version:{0}".format(self._conn.version))
             self._cursor=self._conn.cursor()
+            return True
         except Exception as ee:
             print(str(ee))
-            traceback.format_exc()
+            print(traceback.format_exc())
+            return False
 
     @abc.abstractmethod
     def run(self):
@@ -37,9 +39,11 @@ class oracle_base_task(base_task):
                 self._cursor.close()
             if self._conn is not None:
                 self._conn.close()
+            return True
         except Exception as ee:
             print(str(ee))
-            traceback.format_exc()
+            print(traceback.format_exc())
+            return False
 
     @property
     def connection(self):
