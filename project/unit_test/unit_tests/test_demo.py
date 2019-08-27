@@ -22,6 +22,9 @@ class test_demo(unittest.TestCase):
     @pysnooper.snoop()
     def test_AlmostEqual(self):
         self.assertAlmostEqual(first=1.25678,second=1.25789,places=2)
+    @pysnooper.snoop()
+    def test_NotAlmostEqual(self):
+        self.assertNotAlmostEqual(first=1.25897,second=1.35979,places=1)
 ########################################################################################################################
     @pysnooper.snoop()
     def test_false(self):
@@ -74,12 +77,57 @@ class test_demo(unittest.TestCase):
     @pysnooper.snoop()
     def test_notIsInstance(self):
         self.assertNotIsInstance(obj=[0,1],cls=tuple)
-
-
-
+########################################################################################################################
+    @pysnooper.snoop()
+    def test_Raise(self):
+        with self.assertRaises(Exception):
+            raise Exception("raise","exception","abnormal")
+########################################################################################################################
+    @pysnooper.snoop()
+    def test_greater(self):
+        self.assertGreater(a=1024,b=1023)
+    @pysnooper.snoop()
+    def test_greaterEqual(self):
+        self.assertGreaterEqual(a=1024,b=1023)
+        self.assertGreaterEqual(a=1024,b=1024)
+########################################################################################################################
+    @pysnooper.snoop()
+    def test_less(self):
+        self.assertLess(a=1023,b=1024)
+    @pysnooper.snoop()
+    def test_lessEqual(self):
+        self.assertLessEqual(a=1024,b=1024)
+########################################################################################################################
+    @pysnooper.snoop()
+    def test_regex(self):
+        self.assertRegex(text="i shlian adfasdfasdf",expected_regex="shlian")
+    @pysnooper.snoop()
+    def test_notRegex(self):
+        self.assertNotRegex(text="i shlian asdfasfs",unexpected_regex="aa")
+########################################################################################################################
+    @pysnooper.snoop()
+    def test_countEqual(self):
+        self.assertCountEqual(first=[1,2,3,4,5,6,7,8,9,0],second=[0,9,8,7,6,5,4,3,2,1])
+########################################################################################################################
+    @pysnooper.snoop()
+    def test_multiLineEqual(self):
+        self.assertMultiLineEqual(first="i love china",second="i love china")
+    @pysnooper.snoop()
+    def test_sequenceEqual(self):
+        self.assertSequenceEqual(seq1=(1,2,3,4,5),seq2=[1,2,3,4,5])
+    @pysnooper.snoop()
+    def test_listEqual(self):
+        self.assertListEqual(list1=[1,2,3,4,5,6,7,8,9,0],list2=[1,2,3,4,5,6,7,8,9,0])
+    @pysnooper.snoop()
+    def test_tupleEqual(self):
+        self.assertTupleEqual(tuple1=(1,2,3,4,5,6),tuple2=(1,2,3,4,5,6))
+    @pysnooper.snoop()
+    def test_setEqual(self):
+        self.assertSetEqual(set1={1,2,3,4,5,6},set2={6,2,3,4,1,5})
     @pysnooper.snoop()
     def test_DictEqual(self):
         self.assertDictEqual(d1={"name":"shlian","age":25},d2={"age":25,"name":"shlian"})
+########################################################################################################################
 
 if __name__=="__main__":
     unittest.main()
