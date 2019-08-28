@@ -9,13 +9,14 @@ import pysnooper
 
 class test_demo(unittest.TestCase):
     def setUp(self):
-        print("--------------------------------------init--------------------------------------------")
+        print("-------------------------------------init---------------------------------------------")
     def tearDown(self):
         print("-------------------------------------done---------------------------------------------\n")
 
     @pysnooper.snoop()
     def test_equal(self):
         self.assertEqual(first=1,second=1)
+
     @pysnooper.snoop()
     def test_notEqual(self):
         self.assertNotEqual(first=5+3,second=5*3)
@@ -127,6 +128,15 @@ class test_demo(unittest.TestCase):
     @pysnooper.snoop()
     def test_DictEqual(self):
         self.assertDictEqual(d1={"name":"shlian","age":25},d2={"age":25,"name":"shlian"})
+########################################################################################################################
+    @pysnooper.snoop()
+    @unittest.skip("skip test_equal2")
+    def test_skip_equal(self):
+        self.assertEqual(first=1,second=2)
+    @pysnooper.snoop()
+    @unittest.skipIf(1<2,"skip if 1<2")
+    def test_skipif_equal(self):
+        self.assertListEqual(list1=[1,2,3],list2=[1,2,3])
 ########################################################################################################################
 
 if __name__=="__main__":
