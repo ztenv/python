@@ -6,10 +6,18 @@
 # @desc   :
 import unittest
 import pysnooper
+import logging
 
 class test_demo(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        print("##################################global init#########################################\n")
+    @classmethod
+    def tearDownClass(cls):
+        print("##################################global done#########################################\n")
+
     def setUp(self):
-        print("-------------------------------------init---------------------------------------------")
+        print("---------------------init:{0}----------------------------".format(self.id()))
     def tearDown(self):
         print("-------------------------------------done---------------------------------------------\n")
 
@@ -81,8 +89,10 @@ class test_demo(unittest.TestCase):
 ########################################################################################################################
     @pysnooper.snoop()
     def test_Raise(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception) as cm:
             raise Exception("raise","exception","abnormal")
+        ex=cm.exception
+        print(ex)
 ########################################################################################################################
     @pysnooper.snoop()
     def test_greater(self):
@@ -105,6 +115,14 @@ class test_demo(unittest.TestCase):
     @pysnooper.snoop()
     def test_notRegex(self):
         self.assertNotRegex(text="i shlian asdfasfs",unexpected_regex="aa")
+    @pysnooper.snoop()
+    def test_logs(self):
+        log=logging.getLogger("test")
+        with self.assertLogs(logger=log,level='INFO') as cm:
+            log.warning("test assertLogs")
+            log.info("test assertLogs")
+        self.assertEqual(cm.output,["WARNING:test:test assertLogs","INFO:test:test assertLogs"])
+
 ########################################################################################################################
     @pysnooper.snoop()
     def test_countEqual(self):
@@ -128,6 +146,12 @@ class test_demo(unittest.TestCase):
     @pysnooper.snoop()
     def test_DictEqual(self):
         self.assertDictEqual(d1={"name":"shlian","age":25},d2={"age":25,"name":"shlian"})
+########################################################################################################################
+    @pysnooper.snoop()
+    def test_sub_test(self):
+        for i in range(1,10):
+            with self.subTest(i=i):
+                self.assertGreaterEqual(i,2)
 ########################################################################################################################
     @pysnooper.snoop()
     @unittest.skip("skip test_equal2")
