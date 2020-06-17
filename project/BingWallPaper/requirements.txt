@@ -1,0 +1,5 @@
+PIL£¨pip install -i https://pypi.douban.com/simple pillow£©
+pywin32
+selenium
+requests
+matplotlib
